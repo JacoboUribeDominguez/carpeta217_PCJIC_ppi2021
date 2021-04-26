@@ -2,17 +2,16 @@ package com.saferide.saferide.controllers;
 
 import com.saferide.saferide.models.UserModel;
 import com.saferide.saferide.services.UserService;
-import com.saferide.saferide.servicesImplements.UserImplements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
     @Autowired
-    UserImplements userService;
+    UserService userService;
 
     @GetMapping("/users")
     public List<UserModel> getUsers(){
