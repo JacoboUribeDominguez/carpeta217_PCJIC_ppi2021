@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <h1>TITULO EJEMPLO</h1>
-    <ComponenteEjemplo msg="Welcome to Your Vue.js App" />
+    <!--Abajo de aquí va todo el código de la página principal-->
+
+    <!--Arriba de aquí va todo el código de la página principal-->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import ComponenteEjemplo from "@/components/ComponenteEjemplo.vue";
+// Aquí esta el css
+import "../styles/home.css"
 
 export default {
   name: "Home",
   components: {
-    ComponenteEjemplo,
   },
+  data() {
+    return {
+    }
+  },
+  methods : {
+  }
+
 };
+
 </script>
+
+<style scoped>
+
+
+</style>
