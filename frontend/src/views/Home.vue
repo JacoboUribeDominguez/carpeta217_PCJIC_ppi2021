@@ -1,8 +1,7 @@
 <template>
   <div class="home">
-    <!--Abajo de aquí va todo el código de la página principal-->
+    <!--El código irá abajo de este comentario-->
 
-    <!--Arriba de aquí va todo el código de la página principal-->
   </div>
 </template>
 
