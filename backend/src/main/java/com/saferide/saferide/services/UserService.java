@@ -7,4 +7,9 @@ import java.util.List;
 public interface UserService {
 
     //List<UserModel>getUsers(); //no se utilizará esta función.
+<<<<<<< HEAD
+=======
+    void saveUsers(UserModel userLog);//Se define la función vacia para trabajarla desde la implementación
+
+>>>>>>> 8f6c776a8afac4e5b343b4fb2d16ec01e683e4df
 }

@@ -1,14 +1,17 @@
 package com.saferide.saferide.controllers;
 
 //importamos diferentes anotaciones y funciones a usar
+
 import com.saferide.saferide.models.UserModel;
 import com.saferide.saferide.services.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController //indica que será una apirest
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 /*
     CrossOrigin es nuestro mejor amigo, las restapi por temas de seguridad han recurrido
     a prohibir peticiones desde paginas http, esto se debe a que era la forma de hacer
@@ -59,7 +62,10 @@ public class UserController {
         Función para el registro de usuarios.
     */
 
-
+    @PostMapping("/saveUser")
+    public void saveUsers(@RequestBody UserModel userLog) {
+        userService.saveUsers(userLog);
+    }
 
 
 }
