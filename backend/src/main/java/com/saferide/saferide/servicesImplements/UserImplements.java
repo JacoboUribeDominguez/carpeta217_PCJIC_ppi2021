@@ -31,9 +31,28 @@ public class UserImplements implements UserService {
     //register service
     @Override
     public void saveUsers(UserModel userLog) {
+
+        /**
+         *
+         *  TEAREA IMPORTANTE:
+         *  HAY QUE CAMBIAR ESTE SERVICIO.
+         *  EN VEZ DE UN METODO VACÍO HAY QUE AGREGAR UN MENSAJE QUE VERIFIQUE SI SE PUDO REGISTRAR CORRECTAMENTE.
+         *
+         *  UN EJEMPLO DE ESTA TAREA ES EL SERVICIO LOGIN, DONDE NOSOTROS ENVIAMOS UN
+         *  MENSAJE DE ERROR, PARA VERIFICAR SI HUBO UN ERROR EN EL LOGEO.
+         *
+         *  INDICACIONES:
+         *  - CREAR UN HELPER QUE PERMITA ALMACENAR UN MENSAJE DE VERIFICACIÓN DEL SERVICIO.
+         *  - RETORNAR EL MENSAJE EN CASO DE:
+         *      - HAY UN USUARIO CON EL MISMO USUARIO Ó CORREO
+         *      - SE REGISTRO CORRECTAMENTE
+         *
+         * */
+
+        //verificamos si el usuario ya esta registrado para evitar usuarios repetidos.
         if (userRepository.findByCorreo(userLog.getCorreo()) == null && userRepository.findByUsuario(userLog.getUsuario()) == null) {
-            makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico
-            userRepository.save(userLog);
+            makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico (agrega id)
+            userRepository.save(userLog); //Guarda en la base de datos
         }
     }
 
