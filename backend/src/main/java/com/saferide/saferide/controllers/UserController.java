@@ -5,6 +5,7 @@ import com.saferide.saferide.models.UserModel;
 import com.saferide.saferide.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.saferide.saferide.helpers.Error;
 import java.util.List;
 
 @RestController //indica que será una apirest
@@ -53,7 +54,10 @@ public class UserController {
         Asignación: Juan David Velasquez Toro
     */
 
-    // Copie el código aquí
+    @PostMapping("/login")
+    public Error login(@RequestBody UserModel user){
+        return (userService.login(user));
+    }
 
     /*
         Función para el registro de usuarios.
