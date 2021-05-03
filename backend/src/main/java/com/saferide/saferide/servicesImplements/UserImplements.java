@@ -31,8 +31,10 @@ public class UserImplements implements UserService {
     //register service
     @Override
     public void saveUsers(UserModel userLog) {
-        makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico
-        //userRepository.save(userLog);
+        if (userRepository.findByCorreo(userLog.getCorreo()) == null && userRepository.findByUsuario(userLog.getUsuario()) == null) {
+            makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico
+            userRepository.save(userLog);
+        }
     }
 
 
