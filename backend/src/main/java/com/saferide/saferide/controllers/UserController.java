@@ -4,15 +4,9 @@ package com.saferide.saferide.controllers;
 
 import com.saferide.saferide.models.UserModel;
 import com.saferide.saferide.services.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
 import com.saferide.saferide.helpers.Error;
-=======
-
->>>>>>> 8f6c776a8afac4e5b343b4fb2d16ec01e683e4df
-import java.util.List;
 
 @RestController //indica que será una apirest
 @CrossOrigin(origins = "*")
