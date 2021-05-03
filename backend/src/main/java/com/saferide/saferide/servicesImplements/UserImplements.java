@@ -26,7 +26,7 @@ public class UserImplements implements UserService {
     @Override
     public void saveUsers(UserModel userLog) {
         makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico
-        userRepository.save(userLog);
+        //userRepository.save(userLog);
     }
 
     //Funciones
@@ -42,6 +42,7 @@ public class UserImplements implements UserService {
         id = id.replace(":", "");
         id = id.replace(".", "");
         userLog.setId_usuario(id);//Se coloca el id para el usuario en especifico
+        System.out.println(userLog.getId_usuario());
     }
 
 }
