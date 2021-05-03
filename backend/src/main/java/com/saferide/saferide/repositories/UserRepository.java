@@ -7,4 +7,9 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<UserModel, Integer> {
     @Query(value = "DELETE FROM usuario WHERE nombre = ?1", nativeQuery = true)
     void deleteUserByName(String nombre);
+    @Query(value = "SELECT * FROM usuario WHERE correo = ?1", nativeQuery = true)
+    UserModel findByCorreo(String correo);
+
+    @Query(value = "SELECT * FROM usuario WHERE usuario = ?1", nativeQuery = true)
+    UserModel findByUsuario(String usuario);
 }
