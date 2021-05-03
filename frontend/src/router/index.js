@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Ruta2Ejemplo from "../views/Ruta2Ejemplo";
+import Register from "../views/Register";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes = [
     name: "Ruta2Ejemplo",
     component: Ruta2Ejemplo
   },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register
+  }
 ];
 
 const router = new VueRouter({
