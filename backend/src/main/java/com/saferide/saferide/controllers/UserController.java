@@ -56,9 +56,10 @@ public class UserController {
     // Copie el código aquí
 
     /*
-        TAREA: Registro de usuario.
-        Asignación: Luis Alejandro Calvo Alvarez
+        Función para el registro de usuarios.
     */
+
+
 
 
 }

@@ -3,24 +3,20 @@ package com.saferide.saferide.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 public class UserModel {
 
     @Id
     @Column(unique = true, nullable = false)
-    private int codigo;
+    private int id_usuario;
+    @Column
     private String nombre;
+    @Column
+    private String usuario;
+    @Column
     private String correo;
+    @Column
     private String contrasena;
-
-
-    public int getCodigo(){
-        return this.codigo;
-    }
-
-    public void setCodigo(int codigo){
-        this.codigo = codigo;
-    }
 
     public String getNombre(){
         return this.nombre;
@@ -44,5 +40,21 @@ public class UserModel {
 
     public void setContrasena(String contrasena){
         this.contrasena = contrasena;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 }

@@ -14,13 +14,9 @@ public class UserImplements implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
+    /*@Override
     public List<UserModel> getUsers(){
         return (List<UserModel>) userRepository.findAll();
-    }
-
-    @Override
-    public UserModel saveUser(UserModel user){
-        return userRepository.save(user);
-    }
+    }*/
+    //No se utilizará esta función
 }

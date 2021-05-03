@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface UserService {
 
-    List<UserModel>getUsers();
-    UserModel saveUser(UserModel user);
+    //List<UserModel>getUsers(); //no se utilizará esta función.
 }
