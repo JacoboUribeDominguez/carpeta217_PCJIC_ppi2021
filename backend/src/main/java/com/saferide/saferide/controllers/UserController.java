@@ -63,7 +63,7 @@ public class UserController {
     */
 
     @PostMapping("/saveUser")
-    public void saveUsers(@RequestParam UserModel userLog) {
+    public void saveUsers(@RequestBody UserModel userLog) {
         userService.saveUsers(userLog);
     }
 

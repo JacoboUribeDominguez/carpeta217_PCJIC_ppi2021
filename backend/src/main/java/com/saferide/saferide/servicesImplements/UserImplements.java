@@ -16,6 +16,7 @@ public class UserImplements implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     /*@Override
     public List<UserModel> getUsers(){
         return (List<UserModel>) userRepository.findAll();
@@ -28,6 +29,7 @@ public class UserImplements implements UserService {
         makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico
         //userRepository.save(userLog);
     }
+
 
     //Funciones
     public void makeId(UserModel userLog) {//Crea la id del modelo usuario
@@ -42,7 +44,6 @@ public class UserImplements implements UserService {
         id = id.replace(":", "");
         id = id.replace(".", "");
         userLog.setId_usuario(id);//Se coloca el id para el usuario en especifico
-        System.out.println(userLog.getId_usuario());
+        //System.out.println(userLog.getId_usuario());
     }
-
 }
