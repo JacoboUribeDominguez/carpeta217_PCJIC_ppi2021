@@ -17,6 +17,7 @@
           placeholder="Contraseña"
           autocomplete="off"
         />
+        <button class="submit" type="submit">Registarse</button>
       </form>
     </div>
   </div>
