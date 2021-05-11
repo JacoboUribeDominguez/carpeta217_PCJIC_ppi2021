@@ -2,9 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Ruta2Ejemplo from "../views/Ruta2Ejemplo";
-import Login from "../views/Login";
+import Register from "../views/Register";
 import Peatones from "../views/Peatones";
-
+import Login from "../views/Login";
+import Metricas from "../views/Metricas";
+import Hurtos from "../views/Hurtos"
 
 Vue.use(VueRouter);
 
@@ -20,14 +22,29 @@ const routes = [
     component: Ruta2Ejemplo
   },
   {
-    path: "/Login",
-    name: "Login",
-    component: Login
+    path: "/register",
+    name: "Register",
+    component: Register
   },
   {
     path: "/Peatones",
     name: "Peatones",
     component: Peatones
+  },
+  {
+    path: "/Login",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: "/Metricas",
+    name: "Metricas",
+    component: Metricas
+  },
+  {
+    path: "/Hurtos",
+    name: "Hurtos",
+    component: Hurtos
   }
 ];
 

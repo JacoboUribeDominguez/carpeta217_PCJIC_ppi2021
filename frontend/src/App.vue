@@ -1,10 +1,11 @@
 <template>
   <div id="app">
+    <!--
     <div id="nav">
       <router-link to="/">
         <img src="./assets/textWhiteLogo.png" class="logoNavbar"/>
       </router-link>
-    </div>
+    </div>-->
     <router-view />
   </div>
 </template>
