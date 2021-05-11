@@ -8,7 +8,7 @@ public class UserModel {
 
     @Id
     @Column(unique = true, nullable = false)
-    private int id_usuario;
+    private String id_usuario;
     @Column
     private String nombre;
     @Column
@@ -42,11 +42,11 @@ public class UserModel {
         this.contraseña = contraseña;
     }
 
-    public int getId_usuario() {
+    public String getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
+    public void setId_usuario(String id_usuario) {
         this.id_usuario = id_usuario;
     }
 
