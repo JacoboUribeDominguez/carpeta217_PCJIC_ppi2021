@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Ruta2Ejemplo from "../views/Ruta2Ejemplo";
+import Register from "../views/Register";
 import Peatones from "../views/Peatones";
 import Login from "../views/Login";
 import Metricas from "../views/Metricas";
@@ -20,6 +21,10 @@ const routes = [
     component: Ruta2Ejemplo
   },
   {
+    path: "/register",
+    name: "Register",
+    component: Register
+  },
     path: "/Peatones",
     name: "Peatones",
     component: Peatones
