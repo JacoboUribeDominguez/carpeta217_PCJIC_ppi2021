@@ -6,6 +6,7 @@ import Register from "../views/Register";
 import Peatones from "../views/Peatones";
 import Login from "../views/Login";
 import Metricas from "../views/Metricas";
+import Hurtos from "../views/Hurtos"
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,7 @@ const routes = [
     name: "Register",
     component: Register
   },
+  {
     path: "/Peatones",
     name: "Peatones",
     component: Peatones
@@ -39,6 +41,11 @@ const routes = [
     name: "Metricas",
     component: Metricas
   },
+  {
+    path: "/Hurtos",
+    name: "Hurtos",
+    component: Hurtos
+  }
 ];
 
 const router = new VueRouter({
