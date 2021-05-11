@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Ruta2Ejemplo from "../views/Ruta2Ejemplo";
 import Peatones from "../views/Peatones";
 import Login from "../views/Login";
+import Metricas from "../views/Metricas";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/Login",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/Metricas",
+    name: "Metricas",
+    component: Metricas
   },
 ];
 

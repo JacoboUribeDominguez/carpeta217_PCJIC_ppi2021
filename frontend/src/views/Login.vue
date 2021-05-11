@@ -3,9 +3,9 @@
     <div class="col-md-6 col-sm-11">
       <h1>Inicia sesión</h1>
       <form class="mr-3 ml-3">
-        <input class="sesion" type="text" placeholder="Usuario o Correo">
+        <input class="sesion" type="text" placeholder="Usuario o Correo" v-on:keyup="typing">
         <br>
-        <input type="password" placeholder="Contraseña">
+        <input type="password" placeholder="Contraseña" v-on:keyup="typing">
         <br>
         <button type="submit">Iniciar sesión</button>
       </form>
@@ -15,23 +15,33 @@
 
 <script>
 export default {
-  name: "Login"
+  name: "Login",
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    typing(event){
+      console.log(event.target.value)
+    },
+  }
 };
 </script>
 
 <style scoped>
   *{
-    color:white;
+    color:#FFFFFF;
     font-family: Avenir, Helvetica, Arial, sans-serif;
   }
   h1{
-    background-color: #4ac8f7;
+    background: linear-gradient(225deg, #11a6de 0%, #4ac8f7 100%);
     padding: 13px 0px 13px;
     border-radius: 15px;
-    margin: 22px 4vw;
+    margin: 22px 7vw;
   }
   form{
-    background: #4ac8f7;
+    background: linear-gradient(225deg, #11a6de 0%, #4ac8f7 100%);
     border-radius: 35px;
     text-align: center;
     margin:auto;
@@ -40,14 +50,13 @@ export default {
     margin-top: 95px;
   }
   input{
-    background: #4ac8f7;
+    background: rgba(0, 0, 0, 0);
     border-top-style: none;
     border-left-style: none ;
     border-right-style: none;
     border-bottom-color: white;
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
-    border-color: white;
     width: 90%;
     padding: 0px 0px 15px;
     margin: 20px 0px 20px;
@@ -56,11 +65,11 @@ export default {
     outline: none;
   }
   ::placeholder {
-    color: white;
+    color: #FFFFFF;
   }
   button{
-    background-color: #4ac8f7;
-    border-color: white;
+    background-color: #11a6de;
+    border-color: #FFFFFF;
     border-radius: 7px;
     margin: 30px 0px 95px;
     padding: 15px 35px 15px 35px;
