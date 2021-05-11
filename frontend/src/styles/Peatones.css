@@ -1,0 +1,82 @@
+#Peatones {
+    background-color: #212121;
+
+}
+
+h1 {
+    color: white;
+    margin: 60px 0px 0px;
+}
+
+img{
+    width: 100%;
+    height: 50vh;
+}
+
+.publicacion{
+    background: #312E2E;
+    margin: 40px;
+    border-radius: 10px;
+}
+
+.publicacionDestacada {
+    background-color: #312E2E;
+    margin: 40px;
+    border-style: ridge;
+    border-color: yellow;
+    border-radius: 10px;
+}
+
+.autor {
+    text-align: start;
+    padding: 10px 10px 0px;
+    color: white;
+}
+
+.descripcion {
+    text-align: start;
+    color: white;
+    padding: 0px 10px 0px;
+}
+
+.meGusta {
+    width: 100%;
+    background: dodgerblue;
+    border-color: dodgerblue;
+    color: white;
+    border-radius: 10px;
+}
+
+.descripcionMeGusta {
+    padding: 10px 10px 10px;
+    margin: 0px 0px;
+    text-align: start;
+    color: white;
+}
+
+.btnNavegacion1 {
+    background-color: #ad9f1c;
+    width: 35%;
+    height: 1.5rem;
+    margin-right: 20px;
+}
+
+.btnNavegacion2 {
+    background-color: #fff279;
+    width: 35%;
+    height: 1.3rem;
+    border: none;
+
+}
+.botones{
+    margin-top: 50px;
+}
+.iconoMg{
+    width: 25px;
+    height: auto;
+}
+.iconUser{
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}

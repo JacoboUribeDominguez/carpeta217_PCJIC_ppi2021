@@ -2,9 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Ruta2Ejemplo from "../views/Ruta2Ejemplo";
-import Peatones from "../views/Peatones";
 import Login from "../views/Login";
-import Metricas from "../views/Metricas";
+import Peatones from "../views/Peatones";
+
 
 Vue.use(VueRouter);
 
@@ -20,20 +20,15 @@ const routes = [
     component: Ruta2Ejemplo
   },
   {
-    path: "/Peatones",
-    name: "Peatones",
-    component: Peatones
-  },
-  {
     path: "/Login",
     name: "Login",
     component: Login
   },
   {
-    path: "/Metricas",
-    name: "Metricas",
-    component: Metricas
-  },
+    path: "/Peatones",
+    name: "Peatones",
+    component: Peatones
+  }
 ];
 
 const router = new VueRouter({
