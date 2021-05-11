@@ -16,7 +16,7 @@ public class UserModel {
     @Column
     private String correo;
     @Column
-    private String contrasena;
+    private String contraseña;
 
     public String getNombre(){
         return this.nombre;
@@ -34,12 +34,12 @@ public class UserModel {
         this.correo = correo;
     }
 
-    public String getContrasena(){
-        return this.contrasena;
+    public String getContraseña(){
+        return this.contraseña;
     }
 
-    public void setContrasena(String contrasena){
-        this.contrasena = contrasena;
+    public void setContraseña(String contraseña){
+        this.contraseña = contraseña;
     }
 
     public String getId_usuario() {

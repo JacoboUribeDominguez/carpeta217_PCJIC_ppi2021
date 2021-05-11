@@ -1,37 +1,63 @@
 package com.saferide.saferide.servicesImplements;
 
+import com.saferide.saferide.helpers.Error;
 import com.saferide.saferide.models.UserModel;
 import com.saferide.saferide.repositories.UserRepository;
 import com.saferide.saferide.services.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
-import java.util.List;
 
 @Service
 public class UserImplements implements UserService {
-
     @Autowired
     private UserRepository userRepository;
 
+    //login service
+    @Override
+    public Error login(UserModel user){
+        if (user.getCorreo().length() > 0 ){
+            //Si el usuario envía un correo y lo encuentra va a verificar la contraseña y le mandará un mensaje sobre la verficación de esta (Error)
+            UserModel foundUser = userRepository.findByCorreo(user.getCorreo());
+            return checkUser(foundUser, user);
+        } else {
+            //En caso de que el usuario envíe un usuario y lo encuentra va a verificar la contraseña y le mandará un mensaje sobre la verficación de esta (Error)
+            UserModel foundUser = userRepository.findByUsuario(user.getUsuario());
+            return checkUser(foundUser, user);
+        }
+    }
 
-    /*@Override
-    public List<UserModel> getUsers(){
-        return (List<UserModel>) userRepository.findAll();
-    }*///No se utilizará esta función
-
-
-    //Se define la función del servicio
+    //register service
     @Override
     public void saveUsers(UserModel userLog) {
-        makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico
-        //userRepository.save(userLog);
+
+        /**
+         *
+         *  TEAREA IMPORTANTE:
+         *  HAY QUE CAMBIAR ESTE SERVICIO.
+         *  EN VEZ DE UN METODO VACÍO HAY QUE AGREGAR UN MENSAJE QUE VERIFIQUE SI SE PUDO REGISTRAR CORRECTAMENTE.
+         *
+         *  UN EJEMPLO DE ESTA TAREA ES EL SERVICIO LOGIN, DONDE NOSOTROS ENVIAMOS UN
+         *  MENSAJE DE ERROR, PARA VERIFICAR SI HUBO UN ERROR EN EL LOGEO.
+         *
+         *  INDICACIONES:
+         *  - CREAR UN HELPER QUE PERMITA ALMACENAR UN MENSAJE DE VERIFICACIÓN DEL SERVICIO.
+         *  - RETORNAR EL MENSAJE EN CASO DE:
+         *      - HAY UN USUARIO CON EL MISMO USUARIO Ó CORREO
+         *      - SE REGISTRO CORRECTAMENTE
+         *
+         * */
+
+        //verificamos si el usuario ya esta registrado para evitar usuarios repetidos.
+        if (userRepository.findByCorreo(userLog.getCorreo()) == null && userRepository.findByUsuario(userLog.getUsuario()) == null) {
+            makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico (agrega id)
+            userRepository.save(userLog); //Guarda en la base de datos
+        }
     }
 
 
-    //Funciones
+    //Funciones de optimización
     public void makeId(UserModel userLog) {//Crea la id del modelo usuario
         String id;//Se inicializa la variable id
         LocalDate date = LocalDate.now();//Se llaman clases que generan una fecha (Year, Month, Day)
@@ -46,4 +72,18 @@ public class UserImplements implements UserService {
         userLog.setId_usuario(id);//Se coloca el id para el usuario en especifico
         //System.out.println(userLog.getId_usuario());
     }
+
+    public Error checkUser(UserModel foundUser, UserModel user){
+        if(foundUser != null){
+            if (foundUser.getContraseña().equals(user.getContraseña())){
+                return  new Error("Contraseña encontrada", 0);
+            } else {
+                return new Error("Contraseña o correo/usuario inválido", 1);
+            }
+        } else {
+            return new Error("Contraseña o correo/usuario inválido", 1);
+        }
+    }
 }
+
+
