@@ -1,0 +1,117 @@
+.header {
+    display:flex;
+    background-color: #111111;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-saferide {
+    width:10rem;
+    height:auto;
+}
+
+.logo-saferide:hover {
+    cursor:pointer;
+}
+
+.btns {
+    display:flex;
+}
+
+.iniciar {
+    background: #37f185;
+    color:white;
+}
+
+.iniciar:hover {
+    background: #24ca69;
+    color:white;
+}
+
+.registrar {
+    background: #ffffff;
+    color:rgb(0, 0, 0);
+}
+
+.registrar:hover {
+    background: #d8d8d8;
+}
+
+.img-hurto {
+    border-radius:10px;
+    height:auto;
+    width:100%;
+}
+
+.hurto {
+    margin: 2rem 0px;
+}
+
+.space {
+    border-bottom:1px solid rgb(194, 194, 194);
+    margin:3rem 0px;
+}
+
+.btn-hurtos {
+    width:70%;
+}
+
+.btn-reportar {
+    background: none;
+    border: none;
+    border-radius:8px;
+    padding:1rem 1rem;
+}
+
+.btn-reportar h4 {
+    margin: 0;
+}
+
+.btn-reportar:hover {
+    background: #f5f5f5;
+}
+
+.optionSelected {
+    color:#24ca69;
+}
+
+.btnUnirmeLeftbar {
+    background: #37f185;
+    border:none;
+    border-radius:10px;
+    color:white;
+    padding:.5rem;
+    width:67%;
+}
+
+.btnUnirmeLeftbar:hover {
+    background: #25d66f;
+    color:rgb(238, 238, 238);
+}
+
+@media (max-width:900px){
+    .containerSidebar{
+        display:none;
+    }
+}
+
+@media (max-width:425px) {
+    .header{
+        flex-direction: column;
+    }
+
+    .imgContainer {
+        display:flex;
+        justify-content: center;
+        width:100%;
+    }
+
+    .btns {
+        width:100%;
+    }
+
+    .btn {
+        width:50%;
+        margin: .25rem .5rem;
+    }
+}
