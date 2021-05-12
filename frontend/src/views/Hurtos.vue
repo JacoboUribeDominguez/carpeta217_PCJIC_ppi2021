@@ -2,7 +2,11 @@
   <div>
     <header class="header">
       <div class="m-3 imgContainer">
-        <img src="../assets/textLogoWhite.png" class="logo-saferide" alt="logo saferide"/>
+        <img
+            src="../assets/textLogoWhite.png"
+            @click="() => this.$router.push('/peatones')"
+            class="logo-saferide"
+            alt="logo saferide"/>
       </div>
       <div class="m-3 btns">
         <button class="btn iniciar mx-2">Ingresa</button>
@@ -102,5 +106,94 @@ export default {
 </script>
 
 <style scoped>
+  .header {
+    display:flex;
+    background-color: #111111;
+    justify-content: space-between;
+    align-items: center;
+  }
 
+  .logo-saferide {
+    width:10rem;
+    height:auto;
+  }
+
+  .logo-saferide:hover {
+    cursor:pointer;
+  }
+
+  .btns {
+    display:flex;
+  }
+
+  .iniciar {
+    background: #37f185;
+    color:white;
+  }
+
+  .iniciar:hover {
+    background: #24ca69;
+    color:white;
+  }
+
+  .registrar {
+    background: #ffffff;
+    color:rgb(0, 0, 0);
+  }
+
+  .registrar:hover {
+    background: #d8d8d8;
+  }
+
+  .img-hurto {
+    border-radius:10px;
+    height:auto;
+    width:100%;
+  }
+
+  .hurto {
+    margin: 2rem 0px;
+  }
+
+  .space {
+    border-bottom:1px solid rgb(194, 194, 194);
+    margin:3rem 0px;
+  }
+
+  .btn-hurtos {
+    width:70%;
+  }
+
+  .btn-reportar {
+    background: none;
+    border: none;
+    border-radius:8px;
+    padding:1rem 1rem;
+  }
+
+  .btn-reportar h4 {
+    margin: 0;
+  }
+
+  .btn-reportar:hover {
+    background: #f5f5f5;
+  }
+
+  .optionSelected {
+    color:#24ca69;
+  }
+
+  .btnUnirmeLeftbar {
+    background: #37f185;
+    border:none;
+    border-radius:10px;
+    color:white;
+    padding:.5rem;
+    width:67%;
+  }
+
+  .btnUnirmeLeftbar:hover {
+    background: #25d66f;
+    color:rgb(238, 238, 238);
+  }
 </style>
