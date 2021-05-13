@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="peatonesContainer">
     <header class="header">
       <div class="m-3 imgContainer">
         <img src="../assets/textLogo.png" class="logo-saferide" alt="logo saferide"/>
@@ -14,7 +14,7 @@
         <div class="row justify-content-center" style="width:100%; margin:0px;">
           <div class="col-md-6 col-sm-8" style="padding:0">
             <div class="botones d-flex justify-content-between">
-              <button class="btnNavegacion btnNavegacion1"></button>
+              <button @click="$router.push('/')" class="btnNavegacion btnNavegacion1"></button>
               <button class="btnNavegacion btnNavegacion2"></button>
             </div>
             <div>
@@ -129,6 +129,7 @@ export default {
 </script>
 
 <style scoped>
+
   .header {
     background: white;
     display:flex;
