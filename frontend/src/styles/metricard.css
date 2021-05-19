@@ -1,0 +1,33 @@
+@media (max-width: 575px) {
+    .containerMetrica {
+        margin: 1rem 0;
+    }
+
+    .elementsRight {
+        text-align: start!important;
+    }
+
+
+}
+
+@media (max-width: 425px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .imgContainer {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .btns {
+        width: 100%;
+    }
+
+    .btn {
+        width: 50%;
+        margin: .25rem .5rem;
+    }
+
+}
