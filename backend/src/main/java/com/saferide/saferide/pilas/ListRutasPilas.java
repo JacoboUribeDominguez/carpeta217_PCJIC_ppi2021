@@ -46,6 +46,29 @@ public class ListRutasPilas {
         }
     }
 
+        //llenar pila con otra pila y un limite de ingreso
+    public void fillList(ListRutasPilas rutas, int lim){
+        Nodo arrayTemp[] = new Nodo[lim];
+        Nodo temp = rutas.getFirst();
+        int count = 0;
+        //llenamos un arreglo
+        while(temp != null && count < lim){
+            arrayTemp[count] = new Nodo(
+                    temp.getId_ruta(),
+                    temp.getMultimedia(),
+                    temp.getId_usuario(),
+                    temp.getMe_gusta(),
+                    temp.getUbicacion()
+            );
+            temp = temp.getNext();
+            count = count + 1;
+        }
+        //lo guardamos con el arreglo inverso
+        for (int i = lim-1; i > -1;i--){
+            this.addElement(arrayTemp[i]);
+        }
+    }
+
     /***
      *
      * Otros métodos
@@ -55,6 +78,7 @@ public class ListRutasPilas {
         //Agregar a la pila
     public void addElement(Nodo nodo){
         if(this.first == null){
+            nodo.setNext(null);
             this.first = this.last = nodo;
         } else {
             nodo.setNext(this.first);
@@ -148,26 +172,34 @@ public class ListRutasPilas {
                             temp3 = aux;
                         }
                     }
-                    //imprimo el residuo
-                    System.out.print("Residuo: ");
-                    for (int i = 0; i < (count + 2); i++){
-                        System.out.print("["+ResidueArrayTemp[i].getMe_gusta()+"]");
-                    }
-                    System.out.println("");
                     //agrego el residuo
-                    System.out.print("Agregar: ");
                     for (int i = (count+1); i > -1; i--){
-                        System.out.print("["+ResidueArrayTemp[i].getMe_gusta()+"]");
                         this.addElement(ResidueArrayTemp[i]);
                     }
-                    System.out.println("");
-                    this.showList();
                     temp = ResidueArrayTemp[ResidueArrayTemp.length-2];
                 }
             }
             count++;
             temp = temp.getNext();
         }
+    }
+
+    public Nodo[] getPila(int lim){
+        Nodo temp[] = new Nodo[lim];
+        Nodo NodoTemp = this.first;
+        int i = 0;
+        while(NodoTemp != null){
+            temp[i] = new Nodo(
+                    NodoTemp.getId_ruta(),
+                    NodoTemp.getMultimedia(),
+                    NodoTemp.getId_usuario(),
+                    NodoTemp.getMe_gusta(),
+                    NodoTemp.getUbicacion()
+            );
+            i++;
+            NodoTemp = NodoTemp.getNext();
+        }
+        return temp;
     }
 
     //getters y setters

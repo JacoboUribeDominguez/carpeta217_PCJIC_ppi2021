@@ -3,12 +3,12 @@ package com.saferide.saferide.servicesImplements;
 import com.saferide.saferide.functions.Functions;
 import com.saferide.saferide.models.RutaModel;
 import com.saferide.saferide.pilas.ListRutasPilas;
+import com.saferide.saferide.pilas.Nodo;
 import com.saferide.saferide.repositories.RutaRepository;
 import com.saferide.saferide.services.RutaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,18 +31,18 @@ public class RutaImplements implements RutaService {
     }
 
     @Override
-    public List<RutaModel> getRutas() {
-
-        List<RutaModel> rutas = (List<RutaModel>) rutaRepository.findAll();
-        rutas.get(rutas.size()-1).setMe_gusta(3);
-        rutas.get(rutas.size()-2).setMe_gusta(7);
-
-        ListRutasPilas pila = new ListRutasPilas();
-        pila.fillList(rutas);
-        pila.showList();
-        pila.sortingBestScored();
-        pila.showList();
-        return rutas;
+    public Nodo[] getRutas() {
+        List<RutaModel> rutas = (List<RutaModel>) rutaRepository.findAll();//buscamos rutas
+        ListRutasPilas pila = new ListRutasPilas();//instanciamos pila contenedora
+        ListRutasPilas pilaOrdenada = new ListRutasPilas();//instanciamos pila ordenada
+        ListRutasPilas pilaRecientes = new ListRutasPilas();//instanciamos pila recientes
+        pilaRecientes.fillList(rutas);//llenamos pila recientes
+        pilaOrdenada.fillList(rutas);//llenar pila ordenada
+        pilaOrdenada.sortingBestScored();//ordenar pila ordenada
+        pila.fillList(pilaRecientes, 10);//llenamos pila con pila recientes
+        pila.fillList(pilaOrdenada, 3);//llenamos pila con pila ordenada
+        pila.showList();//mostramos la pila
+        return pila.getPila(13);
     }
 
     @Override
