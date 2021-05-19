@@ -1,5 +1,6 @@
 package com.saferide.saferide.servicesImplements;
 
+import com.saferide.saferide.functions.Functions;
 import com.saferide.saferide.helpers.Error;
 import com.saferide.saferide.models.UserModel;
 import com.saferide.saferide.repositories.UserRepository;
@@ -11,6 +12,8 @@ import java.time.*;
 
 @Service
 public class UserImplements implements UserService {
+
+    //repositorio
     @Autowired
     private UserRepository userRepository;
 
@@ -51,26 +54,10 @@ public class UserImplements implements UserService {
 
         //verificamos si el usuario ya esta registrado para evitar usuarios repetidos.
         if (userRepository.findByCorreo(userLog.getCorreo()) == null && userRepository.findByUsuario(userLog.getUsuario()) == null) {
-            makeId(userLog);//Llamo la función para hacer la modificación de un usuario en especifico (agrega id)
+            Functions functions = new Functions();
+            userLog.setId_usuario(functions.makeId());//Llamo la función para hacer la modificación de un usuario en especifico (agrega id)
             userRepository.save(userLog); //Guarda en la base de datos
         }
-    }
-
-
-    //Funciones de optimización
-    public void makeId(UserModel userLog) {//Crea la id del modelo usuario
-        String id;//Se inicializa la variable id
-        LocalDate date = LocalDate.now();//Se llaman clases que generan una fecha (Year, Month, Day)
-        String sDate = String.valueOf(date);//Se almacena la variable fecha en cadena
-        LocalTime time = LocalTime.now();//Se llaman clases que generan una hora, minuto, segundo, milisegundo
-        String sTime = String.valueOf(time);//Se almacena la variable tiempo en cadeana
-        id = sDate + sTime;//Se concatenan las cadenas
-        //Se eliminan caracteres innecesarios
-        id = id.replace("-", "");
-        id = id.replace(":", "");
-        id = id.replace(".", "");
-        userLog.setId_usuario(id);//Se coloca el id para el usuario en especifico
-        //System.out.println(userLog.getId_usuario());
     }
 
     public Error checkUser(UserModel foundUser, UserModel user){
