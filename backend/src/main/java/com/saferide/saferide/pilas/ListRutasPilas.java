@@ -99,7 +99,7 @@ public class ListRutasPilas {
         while(temp != null){
             if(temp.getNext() != null && temp.getNext().getMe_gusta() > temp.getMe_gusta() ){
                 //recorremos por segunda vez
-                Nodo ResidueArrayTemp[] = new Nodo[count + 1];
+                Nodo ResidueArrayTemp[] = new Nodo[count + 2];
                 if(count == 0){
                     residue = new Nodo(
                             temp.getId_ruta(),
@@ -122,46 +122,45 @@ public class ListRutasPilas {
                     temp = selected;
                 } else {
                     Nodo temp3 = this.first;
+                    boolean bSelected = false;
                     //elimina el residuo y el seleccionado
                     for (int i = 0; i < (count + 2); i++){
-                        if(i == (count + 1)){
-                            selected = new Nodo(
+                        if(!bSelected && temp.getNext().getMe_gusta() > temp3.getMe_gusta()){
+                            ResidueArrayTemp[i] = new Nodo(
+                                    temp.getNext().getId_ruta(),
+                                    temp.getNext().getMultimedia(),
+                                    temp.getNext().getId_usuario(),
+                                    temp.getNext().getMe_gusta(),
+                                    temp.getNext().getUbicacion()
+                            );
+                            bSelected = true;
+                            this.deleteElement(temp.getNext());
+                        } else {
+                            ResidueArrayTemp[i] = new Nodo(
                                     temp3.getId_ruta(),
                                     temp3.getMultimedia(),
                                     temp3.getId_usuario(),
                                     temp3.getMe_gusta(),
                                     temp3.getUbicacion()
                             );
+                            Nodo aux = temp3.getNext();
                             this.deleteElement(temp3);
-                            break;
+                            temp3 = aux;
                         }
-                        ResidueArrayTemp[i] = new Nodo(
-                                temp3.getId_ruta(),
-                                temp3.getMultimedia(),
-                                temp3.getId_usuario(),
-                                temp3.getMe_gusta(),
-                                temp3.getUbicacion()
-                        );
-                        Nodo aux = temp3.getNext();
-                        this.deleteElement(temp3);
-                        temp3 = aux;
                     }
                     //imprimo el residuo
                     System.out.print("Residuo: ");
-                    for (int i = 0; i < (count + 1); i++){
+                    for (int i = 0; i < (count + 2); i++){
                         System.out.print("["+ResidueArrayTemp[i].getMe_gusta()+"]");
                     }
                     System.out.println("");
                     //agrego el residuo
                     System.out.print("Agregar: ");
-                    for (int i = (count); i > -1; i--){
+                    for (int i = (count+1); i > -1; i--){
                         System.out.print("["+ResidueArrayTemp[i].getMe_gusta()+"]");
                         this.addElement(ResidueArrayTemp[i]);
                     }
                     System.out.println("");
-                    System.out.print("Original: ");
-                    //agrego el seleccionado
-                    this.addElement(selected);
                     this.showList();
                     temp = ResidueArrayTemp[ResidueArrayTemp.length-2];
                 }

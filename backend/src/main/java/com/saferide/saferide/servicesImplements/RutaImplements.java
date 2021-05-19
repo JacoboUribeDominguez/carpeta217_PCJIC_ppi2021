@@ -39,7 +39,7 @@ public class RutaImplements implements RutaService {
 
         ListRutasPilas pila = new ListRutasPilas();
         pila.fillList(rutas);
-//        pila.showList();
+        pila.showList();
         pila.sortingBestScored();
         pila.showList();
         return rutas;
