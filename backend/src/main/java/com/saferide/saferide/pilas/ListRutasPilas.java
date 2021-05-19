@@ -37,6 +37,21 @@ public class ListRutasPilas {
         }
     }
 
+    //llenar pila con una lista y un límite
+    public void fillList(List<RutaModel> rutas, int lim){
+        for (int i = lim-1; i > 0; i--){
+            this.addElement(
+                    new Nodo(
+                            rutas.get(i).getId_ruta(),
+                            rutas.get(i).getMultimedia(),
+                            rutas.get(i).getId_usuario(),
+                            rutas.get(i).getMe_gusta(),
+                            rutas.get(i).getUbicacion()
+                    )
+            );
+        }
+    }
+
         //llenar pila con otra pila
     public void fillList(ListRutasPilas rutas){
         Nodo temp = rutas.getFirst();
