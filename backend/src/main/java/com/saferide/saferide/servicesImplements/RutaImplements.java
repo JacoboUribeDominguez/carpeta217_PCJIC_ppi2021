@@ -1,13 +1,14 @@
 package com.saferide.saferide.servicesImplements;
 
 import com.saferide.saferide.functions.Functions;
-import com.saferide.saferide.listas.RutaList;
 import com.saferide.saferide.models.RutaModel;
+import com.saferide.saferide.pilas.ListRutasPilas;
 import com.saferide.saferide.repositories.RutaRepository;
 import com.saferide.saferide.services.RutaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,14 +32,17 @@ public class RutaImplements implements RutaService {
 
     @Override
     public List<RutaModel> getRutas() {
-//        List<RutaModel> rutas = (List<RutaModel>) rutaRepository.findAll();
-//        for (int i = 0; i < rutas.size(); i++){
-//            System.out.println(rutas.get(i));
-//        }
-        RutaList rl = new RutaList();
-        rl.fillList((List<RutaModel>) rutaRepository.findAll());
-        rl.showList();
-        return (List<RutaModel>) rutaRepository.findAll();
+
+        List<RutaModel> rutas = (List<RutaModel>) rutaRepository.findAll();
+        rutas.get(rutas.size()-1).setMe_gusta(3);
+        rutas.get(rutas.size()-2).setMe_gusta(7);
+
+        ListRutasPilas pila = new ListRutasPilas();
+        pila.fillList(rutas);
+//        pila.showList();
+        pila.sortingBestScored();
+        pila.showList();
+        return rutas;
     }
 
     @Override
