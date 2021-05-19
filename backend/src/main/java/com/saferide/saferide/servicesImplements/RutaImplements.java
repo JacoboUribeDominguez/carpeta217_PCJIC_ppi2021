@@ -41,8 +41,7 @@ public class RutaImplements implements RutaService {
         pilaOrdenada.sortingBestScored();//ordenar pila ordenada
         pila.fillList(pilaRecientes, 10);//llenamos pila con pila recientes
         pila.fillList(pilaOrdenada, 3);//llenamos pila con pila ordenada
-        pila.showList();//mostramos la pila
-        System.out.println("Ultima ruta: "+rutas.get(rutas.size()-1).getMe_gusta());
+//        pila.showList();//mostramos la pila
         return pila.getPila(13);
     }
 
