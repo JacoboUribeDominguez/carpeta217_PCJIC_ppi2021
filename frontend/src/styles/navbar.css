@@ -1,0 +1,21 @@
+@media (max-width: 430px) {
+
+
+    .elementsHeader.buttons {
+        width: 36vw;
+        padding-right: 130px;
+    }
+
+    .elementsHeader .button {
+        margin-right: 0 !important;
+    }
+
+    .contenedorTopSection{
+        margin-top: 150px!important;
+    }
+
+    .navegation{
+        width: 100%!important;
+    }
+
+}
