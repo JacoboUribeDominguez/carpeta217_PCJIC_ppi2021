@@ -102,20 +102,31 @@ public class ListRutasPilas {
     }
 
         //Eliminar de la pila
-    public void deleteElement(Nodo nodo){
-        Nodo temp = this.first;
-        if(temp == nodo){
-            this.first = temp.getNext();
-        }
-        while(temp != null){
-            if(temp.getNext() != null){
-                if(temp.getNext() == nodo){
-                    temp.setNext(temp.getNext().getNext());
-                    return;
-                }
-            }
+//    public void deleteElement(Nodo nodo){
+//        Nodo temp = this.first;
+//        if(temp == nodo){
+//            this.first = temp.getNext();
+//        }
+//        while(temp != null){
+//            if(temp.getNext() != null){
+//                if(temp.getNext() == nodo){
+//                    temp.setNext(temp.getNext().getNext());
+//                    return;
+//                }
+//            }
+//
+//            temp = temp.getNext();
+//        }
+//    }
 
-            temp = temp.getNext();
+        //Eliminar de la pila
+    public void deleteElement(){
+        if(this.first != null){
+            if(this.first.getNext() != null){
+                this.first = this.first.getNext();
+            } else {
+                this.first = this.last = null;
+            }
         }
     }
 
@@ -154,8 +165,8 @@ public class ListRutasPilas {
                             temp.getNext().getMe_gusta(),
                             temp.getNext().getUbicacion()
                     );
-                    this.deleteElement(temp);
-                    this.deleteElement(temp.getNext());
+                    this.deleteElement();
+                    this.deleteElement();
                     this.addElement(residue);
                     this.addElement(selected);
                     temp = selected;
@@ -173,7 +184,7 @@ public class ListRutasPilas {
                                     temp.getNext().getUbicacion()
                             );
                             bSelected = true;
-                            this.deleteElement(temp.getNext());
+                            this.deleteElement();
                         } else {
                             ResidueArrayTemp[i] = new Nodo(
                                     temp3.getId_ruta(),
@@ -183,7 +194,7 @@ public class ListRutasPilas {
                                     temp3.getUbicacion()
                             );
                             Nodo aux = temp3.getNext();
-                            this.deleteElement(temp3);
+                            this.deleteElement();
                             temp3 = aux;
                         }
                     }

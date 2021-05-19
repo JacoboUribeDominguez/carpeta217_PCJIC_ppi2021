@@ -56,6 +56,4 @@ public class RutaImplements implements RutaService {
         rutaRepository.deleteById(id_ruta);
     }
 
-    //métodos
-
 }
