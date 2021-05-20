@@ -25,30 +25,14 @@ public class ListRutasPilas {
         //llenar pila con una lista
     public void fillList(List<RutaModel> rutas){
         for (int i = 0; i < rutas.size(); i++){
-            this.addElement(
-                    new Nodo(
-                            rutas.get(i).getId_ruta(),
-                            rutas.get(i).getMultimedia(),
-                            rutas.get(i).getId_usuario(),
-                            rutas.get(i).getMe_gusta(),
-                            rutas.get(i).getUbicacion()
-                    )
-            );
+            this.addElement(this.createNodo(rutas.get(i)));
         }
     }
 
     //llenar pila con una lista y un límite
     public void fillList(List<RutaModel> rutas, int lim){
         for (int i = lim-1; i > 0; i--){
-            this.addElement(
-                    new Nodo(
-                            rutas.get(i).getId_ruta(),
-                            rutas.get(i).getMultimedia(),
-                            rutas.get(i).getId_usuario(),
-                            rutas.get(i).getMe_gusta(),
-                            rutas.get(i).getUbicacion()
-                    )
-            );
+            this.addElement( this.createNodo(rutas.get(i)));
         }
     }
 
@@ -68,13 +52,7 @@ public class ListRutasPilas {
         int count = 0;
         //llenamos un arreglo
         while(temp != null && count < lim){
-            arrayTemp[count] = new Nodo(
-                    temp.getId_ruta(),
-                    temp.getMultimedia(),
-                    temp.getId_usuario(),
-                    temp.getMe_gusta(),
-                    temp.getUbicacion()
-            );
+            arrayTemp[count] = this.createNodo(temp);
             temp = temp.getNext();
             count = count + 1;
         }
@@ -100,24 +78,6 @@ public class ListRutasPilas {
             this.first = nodo;
         }
     }
-
-        //Eliminar de la pila
-//    public void deleteElement(Nodo nodo){
-//        Nodo temp = this.first;
-//        if(temp == nodo){
-//            this.first = temp.getNext();
-//        }
-//        while(temp != null){
-//            if(temp.getNext() != null){
-//                if(temp.getNext() == nodo){
-//                    temp.setNext(temp.getNext().getNext());
-//                    return;
-//                }
-//            }
-//
-//            temp = temp.getNext();
-//        }
-//    }
 
         //Eliminar de la pila
     public void deleteElement(){
@@ -151,20 +111,8 @@ public class ListRutasPilas {
                 //recorremos por segunda vez
                 Nodo ResidueArrayTemp[] = new Nodo[count + 2];
                 if(count == 0){
-                    residue = new Nodo(
-                            temp.getId_ruta(),
-                            temp.getMultimedia(),
-                            temp.getId_usuario(),
-                            temp.getMe_gusta(),
-                            temp.getUbicacion()
-                    );
-                    selected = new Nodo(
-                            temp.getNext().getId_ruta(),
-                            temp.getNext().getMultimedia(),
-                            temp.getNext().getId_usuario(),
-                            temp.getNext().getMe_gusta(),
-                            temp.getNext().getUbicacion()
-                    );
+                    residue = this.createNodo(temp);
+                    selected = this.createNodo(temp.getNext());
                     this.deleteElement();
                     this.deleteElement();
                     this.addElement(residue);
@@ -176,23 +124,11 @@ public class ListRutasPilas {
                     //elimina el residuo y el seleccionado
                     for (int i = 0; i < (count + 2); i++){
                         if(!bSelected && temp.getNext().getMe_gusta() > temp3.getMe_gusta()){
-                            ResidueArrayTemp[i] = new Nodo(
-                                    temp.getNext().getId_ruta(),
-                                    temp.getNext().getMultimedia(),
-                                    temp.getNext().getId_usuario(),
-                                    temp.getNext().getMe_gusta(),
-                                    temp.getNext().getUbicacion()
-                            );
+                            ResidueArrayTemp[i] = this.createNodo(temp.getNext());
                             bSelected = true;
                             this.deleteElement();
                         } else {
-                            ResidueArrayTemp[i] = new Nodo(
-                                    temp3.getId_ruta(),
-                                    temp3.getMultimedia(),
-                                    temp3.getId_usuario(),
-                                    temp3.getMe_gusta(),
-                                    temp3.getUbicacion()
-                            );
+                            ResidueArrayTemp[i] = this.createNodo(temp3);
                             Nodo aux = temp3.getNext();
                             this.deleteElement();
                             temp3 = aux;
@@ -215,17 +151,32 @@ public class ListRutasPilas {
         Nodo NodoTemp = this.first;
         int i = 0;
         while(NodoTemp != null){
-            temp[i] = new Nodo(
-                    NodoTemp.getId_ruta(),
-                    NodoTemp.getMultimedia(),
-                    NodoTemp.getId_usuario(),
-                    NodoTemp.getMe_gusta(),
-                    NodoTemp.getUbicacion()
-            );
+            temp[i] = this.createNodo(NodoTemp);
             i++;
             NodoTemp = NodoTemp.getNext();
         }
         return temp;
+    }
+
+    // otros métodos
+    public Nodo createNodo(RutaModel temp){
+        return new Nodo(
+                temp.getId_ruta(),
+                temp.getMultimedia(),
+                temp.getId_usuario(),
+                temp.getMe_gusta(),
+                temp.getUbicacion()
+        );
+    }
+
+    public Nodo createNodo(Nodo temp){
+        return new Nodo(
+                temp.getId_ruta(),
+                temp.getMultimedia(),
+                temp.getId_usuario(),
+                temp.getMe_gusta(),
+                temp.getUbicacion()
+        );
     }
 
     //getters y setters
