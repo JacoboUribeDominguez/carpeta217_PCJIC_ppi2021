@@ -1,11 +1,10 @@
 package com.saferide.saferide.controllers;
 
 import com.saferide.saferide.models.RutaModel;
+import com.saferide.saferide.pilas.Nodo;
 import com.saferide.saferide.services.RutaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -21,7 +20,7 @@ public class RutaController {
     }
 
     @GetMapping
-    public List<RutaModel> getRutas(){
+    public Nodo[] getRutas(){
         return rutaService.getRutas();
     }
 
