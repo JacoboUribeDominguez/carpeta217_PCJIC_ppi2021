@@ -80,24 +80,6 @@ public class ListRutasPilas {
     }
 
         //Eliminar de la pila
-//    public void deleteElement(Nodo nodo){
-//        Nodo temp = this.first;
-//        if(temp == nodo){
-//            this.first = temp.getNext();
-//        }
-//        while(temp != null){
-//            if(temp.getNext() != null){
-//                if(temp.getNext() == nodo){
-//                    temp.setNext(temp.getNext().getNext());
-//                    return;
-//                }
-//            }
-//
-//            temp = temp.getNext();
-//        }
-//    }
-
-        //Eliminar de la pila
     public void deleteElement(){
         if(this.first != null){
             if(this.first.getNext() != null){
