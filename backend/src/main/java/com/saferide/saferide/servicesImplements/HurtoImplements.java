@@ -28,7 +28,10 @@ public class HurtoImplements implements HurtoService {
         hurtoRepository.save(hurto);
     }
 
-    //Bueno, acá tambien estoy perdido por que no se como hacer una lista :")
+    @Override
+    public List<HurtoModel> readHurtos() {
+        return (List<HurtoModel>) hurtoRepository.findAll();
+    }
 
     @Override
     public void updateHurto(HurtoModel hurto) {
@@ -39,5 +42,6 @@ public class HurtoImplements implements HurtoService {
     public void deleteHurto(String id_hurto) {
         hurtoRepository.deleteById(id_hurto);
     }
+
 
 }

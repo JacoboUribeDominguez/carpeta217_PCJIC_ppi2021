@@ -17,18 +17,23 @@ public class HurtoController {
     private HurtoService hurtoService;
 
     @PostMapping
-    public void createHurto(@RequestBody HurtoModel hurto){
+    public void createHurto(@RequestBody HurtoModel hurto) {
         hurtoService.saveHurto(hurto);
     }
 
+    @GetMapping
+    public List<HurtoModel> readHurtos() {
+        return hurtoService.readHurtos();
+    }
+
     @PutMapping
-    public void updateHurto(@RequestBody HurtoModel hurto){
+    public void updateHurto(@RequestBody HurtoModel hurto) {
         hurtoService.updateHurto(hurto);
     }
 
     @DeleteMapping
-    public void deleteHurto(@RequestParam String id_usuario){
-        hurtoService.deleteHurto(id_usuario);
+    public void deleteHurto(@RequestParam String id_hurto) {
+        hurtoService.deleteHurto(id_hurto);
     }
 
 }

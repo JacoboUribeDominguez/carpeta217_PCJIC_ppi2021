@@ -14,7 +14,7 @@ public class HurtoModel {
     @Column
     private String ubicacion;
     @Column
-    private String modalidad_hurto;
+    private String modalidad;
     @Column
     private String id_usuario;
 
@@ -42,12 +42,12 @@ public class HurtoModel {
         this.ubicacion = ubicacion;
     }
 
-    public String getModalidad_hurto() {
-        return modalidad_hurto;
+    public String getModalidad() {
+        return modalidad;
     }
 
-    public void setModalidad_hurto(String modalidad_hurto) {
-        this.modalidad_hurto = modalidad_hurto;
+    public void setModalidad(String modalidad) {
+        this.modalidad = modalidad;
     }
 
     public String getId_usuario() {
