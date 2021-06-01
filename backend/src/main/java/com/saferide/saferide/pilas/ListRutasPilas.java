@@ -63,6 +63,21 @@ public class ListRutasPilas {
             }
         }
     }
+        //llenar al contrario
+    public void fillBackwardsList(ListRutasPilas rutas){
+        int size = rutas.size();
+        Nodo []NodoArrayTemp = new Nodo[size];
+        Nodo temp = rutas.getFirst();
+        int i = 0;
+        while(temp != null){
+            NodoArrayTemp[i] = temp;
+            i++;
+            temp=temp.getNext();
+        }
+        for (int j = size-1; j > -1; j--){
+            this.addElement(createNodo(NodoArrayTemp[j]));
+        }
+    }
 
     /***
      *
@@ -183,6 +198,16 @@ public class ListRutasPilas {
                 temp.getMe_gusta(),
                 temp.getUbicacion()
         );
+    }
+
+    public int size(){
+        int size = 0;
+        Nodo temp = this.first;
+        while(temp != null){
+            temp = temp.getNext();
+            size++;
+        }
+        return size;
     }
 
     //getters y setters
