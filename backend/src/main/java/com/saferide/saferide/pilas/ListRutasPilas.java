@@ -40,7 +40,7 @@ public class ListRutasPilas {
     public void fillList(ListRutasPilas rutas){
         Nodo temp = rutas.getFirst();
         while(temp != null){
-            this.addElement(temp);
+            this.addElement(this.createNodo(temp));
             temp = temp.getNext();
         }
     }
@@ -58,7 +58,9 @@ public class ListRutasPilas {
         }
         //lo guardamos con el arreglo inverso
         for (int i = lim-1; i > -1;i--){
-            this.addElement(arrayTemp[i]);
+            if(arrayTemp[i] != null ){
+                this.addElement(arrayTemp[i]);
+            }
         }
     }
 
@@ -69,6 +71,10 @@ public class ListRutasPilas {
      */
 
         //Agregar a la pila
+    public void addElement(RutaModel ruta){
+        this.addElement(new Nodo(ruta.getId_ruta(), ruta.getMultimedia(), ruta.getId_usuario(), ruta.getMe_gusta(), ruta.getUbicacion()));
+    }
+
     public void addElement(Nodo nodo){
         if(this.first == null){
             nodo.setNext(null);
@@ -94,7 +100,7 @@ public class ListRutasPilas {
     public void showList(){
         Nodo temp = this.first;
         while(temp != null){
-            System.out.print("["+temp.getMe_gusta()+"]");
+            System.out.print("["+temp.getId_ruta()+"]");
             temp = temp.getNext();
         }
         System.out.println("");
