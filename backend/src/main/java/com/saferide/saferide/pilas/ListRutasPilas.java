@@ -115,7 +115,7 @@ public class ListRutasPilas {
     public void showList(){
         Nodo temp = this.first;
         while(temp != null){
-            System.out.print("["+temp.getId_ruta()+"]");
+            System.out.print("["+temp.getId_usuario()+"]");
             temp = temp.getNext();
         }
         System.out.println("");

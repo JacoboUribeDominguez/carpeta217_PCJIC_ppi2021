@@ -34,7 +34,7 @@ public class RutaImplements implements RutaService {
     public Nodo[] getRutas() {
         ListRutasPilas rutas = new ListRutasPilas();
         //acá pasamos el resultado de la busqueda a una pila
-        for(RutaModel ruta : rutaRepository.findAll() ){
+        for(RutaModel ruta : rutaRepository.findAllRutes() ){
             rutas.addElement(ruta);
         }
         ListRutasPilas pila = new ListRutasPilas();//instanciamos pila contenedora
