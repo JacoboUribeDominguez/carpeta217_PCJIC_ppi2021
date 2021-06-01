@@ -41,10 +41,6 @@ public class RutaImplements implements RutaService {
         ListRutasPilas pilaOrdenada = new ListRutasPilas();//instanciamos pila ordenada
         ListRutasPilas pilaRecientes = new ListRutasPilas();//instanciamos pila recientes
         pilaRecientes.fillBackwardsList(rutas);//llenamos pila recientes
-        System.out.print("rutas");
-        rutas.showList();
-        System.out.println("Recientes");
-        pilaRecientes.showList();
         pilaOrdenada.fillList(rutas);//llenar pila ordenada
         pilaOrdenada.sortingBestScored();//ordenar pila ordenada
         pila.fillList(pilaRecientes, 10);//llenamos pila con pila recientes
