@@ -5,11 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    rutas : []
+    rutas : [],
+    showImgs : false
   },
   mutations: {
     mountRutas(state, rutas){
       state.rutas = rutas
+    },
+    changeShowImgs(state){
+      state.showImgs = !state.showImgs
     }
   },
   actions: {
@@ -29,6 +33,9 @@ export default new Vuex.Store({
           const refImg = refStorage.child(array[index].multimedia)
           const url = await refImg.getDownloadURL()
           array[index].multimedia = url 
+          if(index === array.length - 1){
+            commit('changeShowImgs');
+          }
         }
 
         let index = 0
@@ -38,6 +45,9 @@ export default new Vuex.Store({
         }
         commit('mountRutas', array)
       })
+    },
+    changeShowImgsAction( { commit } ) {
+      commit('changeShowImgs')
     }
   },
   modules: {},
