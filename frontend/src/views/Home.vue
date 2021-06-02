@@ -20,7 +20,10 @@
                 </svg>
               </h1>
             </div>
-            <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index">
+            <div class="m-4 d-flex justify-content-center align-items-center" v-if="rutas.length === 0" style="height:250px;">
+              <h1 class="text-muted" style="font-size:20px;">Algo esta mal, intentenlo mas tarde</h1>
+            </div>
+            <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index" v-else>
               <div class="publicacionDestacada" v-if="index < 3">
                 <p class="autor d-flex align-items-center">
                   <svg
@@ -73,13 +76,13 @@
                   </svg>
                   {{ruta.id_usuario}}
                 </p>
-                <p class="descripcion">Descripción</p>
+                <p class="descripcion">{{ruta.me_gusta}}</p>
                 <img
                   class="imagenes"
-                  src="../assets/img800x800.jpg"
+                  :src="ruta.multimedia"
                   alt="800x800"
                 />
-                <p class="descripcionMeGusta">Cantidad de me gustas</p>
+                <p class="descripcionMeGusta">{{ruta.id_usuario}}</p>
                 <div class="ml-2 d-flex">
                   <button class="meGusta">
                     <font-awesome-icon

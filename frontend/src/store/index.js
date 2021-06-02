@@ -17,13 +17,26 @@ export default new Vuex.Store({
       fetch('http://localhost:8081/rutas')
       .then(res => res.json())
       .then(result => {
-        let array = result
-        result.map(async (ruta, index) => {
-          const refImg = refStorage.child(ruta.multimedia)
+        let array = []
+        for(let i = 0; i < result.length; i++){
+          if(result[i] == null){
+            break;
+          }
+          array.push(result[i])
+        }
+
+        const getUrl = async(index) => {
+          const refImg = refStorage.child(array[index].multimedia)
           const url = await refImg.getDownloadURL()
           array[index].multimedia = url 
-        })
-        commit('mountRutas', result)
+        }
+
+        let index = 0
+        while(index < array.length){
+          getUrl(index)
+          index = index + 1;
+        }
+        commit('mountRutas', array)
       })
     }
   },
