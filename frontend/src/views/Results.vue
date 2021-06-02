@@ -1,20 +1,16 @@
 <template>
     <div id="Peatones">
+        <div class="d-flex py-3 pl-3" style="color:white;width:100%;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+            </svg>
+        </div>
         <div class="">
             <div
                 class="row justify-content-center"
                 style="width: 100%; margin: 0px"
             >
-                <div class="col-md-5 col-sm-8" style="padding: 0">
-                    <div>
-                        <h1 style="font-family: 'Raleway', sans-serif;">
-                            Reporta y ayuda 
-                            <!-- <svg @click="alternateShowAddRoute" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus-circle iconAdd" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                            </svg> -->
-                        </h1>
-                    </div>
+                <div class="col-md-5 col-sm-8" style="padding: 0; min-height:88.7vh">
                     <div class="m-4 d-flex justify-content-center align-items-center" v-if="results.length === 0" style="height:250px;">
                         <h1 class="text-muted" style="font-size:20px;">Algo esta mal, intentenlo mas tarde</h1>
                     </div>
