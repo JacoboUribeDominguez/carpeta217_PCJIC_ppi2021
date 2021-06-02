@@ -2,7 +2,7 @@
   <div id="Peatones">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-11">
           <div class="botones">
             <button class="btnNavegacion1"></button>
             <button class="btnNavegacion2"></button>
