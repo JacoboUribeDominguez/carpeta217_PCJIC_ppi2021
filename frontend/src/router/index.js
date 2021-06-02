@@ -8,6 +8,7 @@ import Login from "../views/Login";
 import Metricas from "../views/Metricas";
 import Hurtos from "../views/Hurtos"
 import Ruta from "../views/ruta"
+import Results from "../views/Results"
 
 Vue.use(VueRouter);
 
@@ -51,6 +52,11 @@ const routes = [
     path: "/ruta/:id",
     name: "Ruta",
     component: Ruta
+  },
+  {
+    path: "/results",
+    name: "Results",
+    component: Results
   }
 ];
 

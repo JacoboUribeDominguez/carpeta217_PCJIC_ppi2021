@@ -84,7 +84,7 @@
                   </svg>
                   {{ruta.id_usuario}}
                 </p>
-                <p class="descripcion">{{ruta.me_gusta}}</p>
+                <p class="descripcion">{{ruta.ubicacion}}</p>
                 <div class="d-flex align-items-center justify-content-center" style="background:black;min-height:auto;max-height:500px;overflow:hidden;width:100%;">
                   <div class="my-5" v-if="!showImgs">
                     <div class="spinner-border text-success" role="status">

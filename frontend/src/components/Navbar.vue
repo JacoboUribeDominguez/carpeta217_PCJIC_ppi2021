@@ -20,10 +20,11 @@
                   class="inputBuscar"
                   type="text"
                   placeholder="Busca con una ubicación"
+                  v-model="searchPlace"
                 />
               </div>
               <div class="col-md-4 mt-4 col-xs-12">
-                <button class="btnBuscar">Buscar</button>
+                <button class="btnBuscar" @click="search">Buscar</button>
               </div>
             </div>
             <div class="navegation d-flex justify-content-between">
@@ -47,6 +48,17 @@
 <script>
 export default {
   name: "Navbar",
+  data(){
+    return {
+      searchPlace : ''
+    }
+  },
+  methods : {
+    search(){
+      this.$store.dispatch('searchResultAction', this.searchPlace)
+      this.$router.push("/results")
+    }
+  }
 };
 import "../styles/navbar.css";
 </script>
