@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     rutas : [],
+    results : [],
     showImgs : false
   },
   mutations: {
@@ -14,6 +15,17 @@ export default new Vuex.Store({
     },
     changeShowImgs(state){
       state.showImgs = !state.showImgs
+    },
+    searchResult(state, word){
+      let results = []
+      state.rutas.map((ruta, index) => {
+        if(index >= 2){
+          if(ruta.ubicacion.toLowerCase().includes(word.toLowerCase())){
+            results.push(ruta)
+          }
+        }
+      })
+      state.results = results
     }
   },
   actions: {
@@ -48,6 +60,9 @@ export default new Vuex.Store({
     },
     changeShowImgsAction( { commit } ) {
       commit('changeShowImgs')
+    },
+    searchResultAction( { commit }, word){
+      commit('searchResult', word)
     }
   },
   modules: {},
