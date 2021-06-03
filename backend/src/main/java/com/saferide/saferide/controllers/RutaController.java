@@ -6,6 +6,8 @@ import com.saferide.saferide.services.RutaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/rutas")
@@ -23,6 +25,10 @@ public class RutaController {
     public Nodo[] getRutas(){
         return rutaService.getRutas();
     }
+
+    @GetMapping("/results")
+    public List<RutaModel> getResults(@RequestParam String palabra) {
+        return rutaService.getResults(palabra); }
 
     @PutMapping
     public void updateRuta(@RequestBody RutaModel ruta){
