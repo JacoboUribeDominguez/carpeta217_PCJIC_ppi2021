@@ -32,17 +32,26 @@ public class RutaImplements implements RutaService {
 
     @Override
     public Nodo[] getRutas() {
-        List<RutaModel> rutas = (List<RutaModel>) rutaRepository.findAll();//buscamos rutas
+        ListRutasPilas rutas = new ListRutasPilas();
+        //acá pasamos el resultado de la busqueda a una pila
+        for(RutaModel ruta : rutaRepository.findAllRutes() ){
+            rutas.addElement(ruta);
+        }
         ListRutasPilas pila = new ListRutasPilas();//instanciamos pila contenedora
         ListRutasPilas pilaOrdenada = new ListRutasPilas();//instanciamos pila ordenada
         ListRutasPilas pilaRecientes = new ListRutasPilas();//instanciamos pila recientes
-        pilaRecientes.fillList(rutas);//llenamos pila recientes
+        pilaRecientes.fillBackwardsList(rutas);//llenamos pila recientes
         pilaOrdenada.fillList(rutas);//llenar pila ordenada
         pilaOrdenada.sortingBestScored();//ordenar pila ordenada
         pila.fillList(pilaRecientes, 10);//llenamos pila con pila recientes
         pila.fillList(pilaOrdenada, 3);//llenamos pila con pila ordenada
 //        pila.showList();//mostramos la pila
         return pila.getPila(13);
+    }
+
+    @Override
+    public List<RutaModel> getResults( String palabra ){
+        return (List<RutaModel>) rutaRepository.findResults(palabra);
     }
 
     @Override

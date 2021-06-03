@@ -1,6 +1,8 @@
 <template>
   <div class="home">
     <!--Abajo de aquí va todo el código de la página principal-->
+    <AddRoute @alternateShowAddRoute="alternateShowAddRoute" v-if="showAddRoute" />
+    <AddRouteResponsive @alternateShowAddRoute="alternateShowAddRoute" v-if="showAddRoute"/>
     <Navbar />
     <div id="Peatones">
       <div class="">
@@ -8,12 +10,21 @@
           class="row justify-content-center"
           style="width: 100%; margin: 0px"
         >
-          <div class="col-md-6 col-sm-8" style="padding: 0">
+          <div class="col-md-5 col-sm-8" style="padding: 0">
             <div>
-              <h1>Reporta y ayuda</h1>
+              <h1 style="font-family: 'Raleway', sans-serif;">
+                Reporta y ayuda 
+                <svg @click="alternateShowAddRoute" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus-circle iconAdd" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+              </h1>
             </div>
-            <div class="publicaciones">
-              <div class="publicacionDestacada">
+            <div class="m-4 d-flex justify-content-center align-items-center" v-if="rutas.length === 0" style="height:250px;">
+              <h1 class="text-muted" style="font-size:20px;">Algo esta mal, intentenlo mas tarde</h1>
+            </div>
+            <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index" v-else>
+              <div class="publicacionDestacada" v-if="index < 3" @click="$router.push(`/ruta/${(index+1)}`)">
                 <p class="autor d-flex align-items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -29,15 +40,23 @@
                       d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
                     />
                   </svg>
-                  Autor
+                  {{ruta.id_usuario}}
                 </p>
-                <p class="descripcion">Descripción</p>
-                <img
-                  class="imagenes"
-                  src="../assets/img800x800.jpg"
-                  alt="800x800"
-                />
-                <p class="descripcionMeGusta">Cantidad de me gustas</p>
+                <p class="descripcion">{{ruta.ubicacion}}</p>
+                <div class="d-flex align-items-center justify-content-center" style="background:black;min-height:auto;max-height:500px;overflow:hidden;width:100%;">
+                  <div class="my-5" v-if="!showImgs">
+                    <div class="spinner-border text-success" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <img
+                    class="imagenes"
+                    :src="ruta.multimedia"
+                    alt="800x800"
+                    v-else
+                  />
+                </div>
+                <p class="descripcionMeGusta">{{ruta.me_gusta}}</p>
                 <div class="ml-2 d-flex">
                   <button class="meGusta">
                     <font-awesome-icon
@@ -47,7 +66,7 @@
                   </button>
                 </div>
               </div>
-              <div class="publicacionDestacada">
+              <div class="publicacion" @click="$router.push(`/ruta/${(index+1)}`)" v-else>
                 <p class="autor d-flex align-items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -63,151 +82,23 @@
                       d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
                     />
                   </svg>
-                  Autor
+                  {{ruta.id_usuario}}
                 </p>
-                <p class="descripcion">Descripción</p>
-                <img
-                  class="imagenes"
-                  src="../assets/img800x800.jpg"
-                  alt="800x800"
-                />
-                <p class="descripcionMeGusta">Cantidad de me gustas</p>
-                <div class="ml-2 d-flex">
-                  <button class="meGusta">
-                    <font-awesome-icon
-                      icon="thumbs-up"
-                      style="font-size: 1.5rem"
-                    />
-                  </button>
+                <p class="descripcion">{{ruta.ubicacion}}</p>
+                <div class="d-flex align-items-center justify-content-center" style="background:black;min-height:auto;max-height:500px;overflow:hidden;width:100%;">
+                  <div class="my-5" v-if="!showImgs">
+                    <div class="spinner-border text-success" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <img
+                    class="imagenes"
+                    :src="ruta.multimedia"
+                    alt="800x800"
+                    v-else
+                  />
                 </div>
-              </div>
-              <div class="publicacionDestacada">
-                <p class="autor d-flex align-items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="25"
-                    fill="currentColor"
-                    class="bi bi-person-circle mr-2"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                    <path
-                      fill-rule="evenodd"
-                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                    />
-                  </svg>
-                  Autor
-                </p>
-                <p class="descripcion">Descripción</p>
-                <img
-                  class="imagenes"
-                  src="../assets/img800x800.jpg"
-                  alt="800x800"
-                />
-                <p class="descripcionMeGusta">Cantidad de me gustas</p>
-                <div class="ml-2 d-flex">
-                  <button class="meGusta">
-                    <font-awesome-icon
-                      icon="thumbs-up"
-                      style="font-size: 1.5rem"
-                    />
-                  </button>
-                </div>
-              </div>
-              <div class="publicacion">
-                <p class="autor d-flex align-items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="25"
-                    fill="currentColor"
-                    class="bi bi-person-circle mr-2"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                    <path
-                      fill-rule="evenodd"
-                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                    />
-                  </svg>
-                  Autor
-                </p>
-                <p class="descripcion">Descripción</p>
-                <img
-                  class="imagenes"
-                  src="../assets/img800x800.jpg"
-                  alt="800x800"
-                />
-                <p class="descripcionMeGusta">Cantidad de me gustas</p>
-                <div class="ml-2 d-flex">
-                  <button class="meGusta">
-                    <font-awesome-icon
-                      icon="thumbs-up"
-                      style="font-size: 1.5rem"
-                    />
-                  </button>
-                </div>
-              </div>
-              <div class="publicacion">
-                <p class="autor d-flex align-items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="25"
-                    fill="currentColor"
-                    class="bi bi-person-circle mr-2"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                    <path
-                      fill-rule="evenodd"
-                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                    />
-                  </svg>
-                  Autor
-                </p>
-                <p class="descripcion">Descripción</p>
-                <img
-                  class="imagenes"
-                  src="../assets/img800x800.jpg"
-                  alt="800x800"
-                />
-                <p class="descripcionMeGusta">Cantidad de me gustas</p>
-                <div class="ml-2 d-flex">
-                  <button class="meGusta">
-                    <font-awesome-icon
-                      icon="thumbs-up"
-                      style="font-size: 1.5rem"
-                    />
-                  </button>
-                </div>
-              </div>
-              <div class="publicacion">
-                <p class="autor d-flex align-items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="25"
-                    fill="currentColor"
-                    class="bi bi-person-circle mr-2"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                    <path
-                      fill-rule="evenodd"
-                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                    />
-                  </svg>
-                  Autor
-                </p>
-                <p class="descripcion">Descripción</p>
-                <img
-                  class="imagenes"
-                  src="../assets/img800x800.jpg"
-                  alt="800x800"
-                />
-                <p class="descripcionMeGusta">Cantidad de me gustas</p>
+                <p class="descripcionMeGusta">{{ruta.id_usuario}}</p>
                 <div class="ml-2 d-flex">
                   <button class="meGusta">
                     <font-awesome-icon
@@ -231,19 +122,49 @@
 // Aquí esta el css
 import "../styles/home.css";
 import Navbar from "../components/Navbar.vue";
+import AddRoute from "../components/AddRoute.vue";
+import AddRouteResponsive from "../components/AddRouteResponsive.vue";
+import { storage } from '../utils/firebase'
+const refStorage = storage.ref()
+// import Publicacion from "../components/Publicacion"
+
+import { mapState } from 'vuex'
 
 export default {
   name: "Home",
-  components: { Navbar },
+  components: { 
+    Navbar,
+    AddRoute,
+    AddRouteResponsive,
+    // Publicacion
+  },
   data() {
-    return {};
+    return {
+      showAddRoute: false
+    };
   },
   methods: {
+    alternateShowAddRoute(){
+      this.showAddRoute = !this.showAddRoute;
+    },
   },
+  mounted(){
+    this.$store.dispatch('mountRutasAction', { refStorage })
+  },
+  computed : {
+    ...mapState({
+      rutas : 'rutas',
+      showImgs : 'showImgs'
+    })
+  },
+  destroyed(){
+    this.$store.dispatch('changeShowImgsAction')
+  }
 };
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
 
 #Peatones {
   background-color: #212121;
@@ -271,9 +192,16 @@ img {
   margin: 4rem 0px;
 }
 
+.publicacionDestacada:hover, .publicacion:hover {
+  border:1px solid #575151;
+  cursor:pointer;
+  transform: scale(1.1);
+}
+
 .autor {
+  border-bottom:2px solid #535353;
   text-align: start;
-  padding: 10px 10px 0px;
+  padding: 10px;
   color: white;
 }
 
@@ -317,4 +245,14 @@ img {
 .botones {
   margin-top: 50px;
 }
+
+.iconAdd {
+  color:#37f185;
+}
+
+.iconAdd:hover {
+  cursor:pointer;
+  color:rgb(27, 141, 74);
+}
+
 </style>
