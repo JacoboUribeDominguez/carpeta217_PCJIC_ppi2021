@@ -50,6 +50,11 @@ public class RutaImplements implements RutaService {
     }
 
     @Override
+    public List<RutaModel> getResults( String palabra ){
+        return (List<RutaModel>) rutaRepository.findResults(palabra);
+    }
+
+    @Override
     public void updateRuta(RutaModel ruta){
         rutaRepository.save(ruta);
     }
