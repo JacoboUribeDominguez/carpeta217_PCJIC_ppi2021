@@ -199,8 +199,9 @@ img {
 }
 
 .autor {
+  border-bottom:2px solid #535353;
   text-align: start;
-  padding: 10px 10px 0px;
+  padding: 10px;
   color: white;
 }
 
