@@ -63,7 +63,7 @@ public class UserImplements implements UserService {
     public Error checkUser(UserModel foundUser, UserModel user){
         if(foundUser != null){
             if (foundUser.getContraseña().equals(user.getContraseña())){
-                return  new Error("Contraseña encontrada", 0);
+                return new Error(foundUser.getId_usuario(), 0);
             } else {
                 return new Error("Contraseña o correo/usuario inválido", 1);
             }

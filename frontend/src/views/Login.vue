@@ -1,6 +1,9 @@
 <template>
   <div class="contenedorPrincipal justify-content-center align-items-center">
-    <form class="d-flex flex-column justify-content-center align-items-center">
+    <form
+      class="d-flex flex-column justify-content-center align-items-center"
+      @submit.prevent="login"
+    >
       <div
         class="contenedorContenidoForm d-flex flex-column justify-content-center align-items-center"
       >
@@ -15,8 +18,8 @@
           class="user"
           type="text"
           placeholder="Usuario o Correo Electronico"
-          v-on:keyup="typing"
           autocomplete="off"
+          v-model="username"
           required
         />
         <br />
@@ -24,15 +27,23 @@
           class="password"
           type="password"
           placeholder="Contraseña"
-          v-on:keyup="typing"
           autocomplete="off"
+          v-model="password"
           required
         />
         <br />
+        <div v-if="error" class="error">
+          <p style="margin: 0; color: #661e1e">
+            Contraseña o correo/usuario inválido
+          </p>
+        </div>
         <button class="btnInicioSesion mb-4" type="submit">
           Iniciar Sesión
         </button>
-        <p>¿No tienes una cuenta? <a class="register">Registrate!</a></p>
+        <p>
+          ¿No tienes una cuenta?
+          <a @click="$router.push('/register')" class="register">Registrate!</a>
+        </p>
       </div>
     </form>
   </div>
@@ -44,11 +55,56 @@ import "../styles/login.css";
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+      error: false,
+      username: "",
+      password: "",
+    };
+  },
+  mounted() {
+    if (this.$cookies.get("token")) {
+      this.$router.push("/");
+    }
   },
   methods: {
-    typing(event) {
-      console.log(event.target.value);
+    login() {
+      let obj = {
+        id_usuario: "",
+        nombre: "",
+        usuario: "",
+        correo: "",
+        contraseña: "",
+      };
+      if (this.username.includes("@")) {
+        obj = {
+          ...obj,
+          correo: this.username,
+          contraseña: this.password,
+        };
+      } else {
+        obj = {
+          ...obj,
+          usuario: this.username,
+          contraseña: this.password,
+        };
+      }
+      fetch("http://localhost:8081/login", {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.error === 1) {
+            this.error = true;
+          } else {
+            this.error = false;
+            this.$router.push("/");
+            this.$cookies.set("token", result.message);
+          }
+        });
     },
   },
 };
@@ -146,5 +202,13 @@ input:focus {
 .btnInicioSesion:hover {
   border: 1px solid #93d973;
   background: #93d973;
+}
+
+.error {
+  background-color: #ff8383;
+  padding: 1rem;
+  border-radius: 7px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #661e1e;
 }
 </style>
