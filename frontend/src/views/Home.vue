@@ -149,6 +149,9 @@ export default {
     },
   },
   mounted(){
+    if(this.showImgs){
+      this.$store.dispatch('changeShowImgsAction')
+    }
     this.$store.dispatch('mountRutasAction', { refStorage })
   },
   computed : {
@@ -156,9 +159,6 @@ export default {
       rutas : 'rutas',
       showImgs : 'showImgs'
     })
-  },
-  beforeDestroyed(){
-    this.$store.dispatch('changeShowImgsAction')
   }
 };
 </script>

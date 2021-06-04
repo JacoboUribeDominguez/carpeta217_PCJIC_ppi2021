@@ -62,6 +62,22 @@ export default {
     methods : {
         goTo(id){
             this.id = id
+        },
+        change(){
+            if(!this.cambiado){
+                if(this.$refs.imgRef){
+                    const img = new Image();
+                    img.src = this.rutas[this.id].multimedia
+                    if(img.width > img.height){
+                        this.$refs.imgRef.classList="widthHigher"
+                    } else if(img.width < img.height) {
+                        this.$refs.imgRef.classList="heightHigher"
+                    } else {
+                        this.$refs.imgRef.classList="widthIqualHeight"
+                    }
+                    this.cambiado = true
+                }
+            }
         }
     },
     computed : {
@@ -74,27 +90,11 @@ export default {
         if(this.rutas.length === 0){
             this.$store.dispatch('mountRutasAction', { refStorage })
         } else {
-            this.$store.dispatch('changeShowImgsAction')
+            this.change()
         }
     },
     updated(){
-        if(!this.cambiado){
-            if(this.$refs.imgRef){
-                const img = new Image();
-                img.src = this.rutas[this.id].multimedia
-                if(img.width > img.height){
-                    this.$refs.imgRef.classList="widthHigher"
-                } else if(img.width < img.height) {
-                    this.$refs.imgRef.classList="heightHigher"
-                } else {
-                    this.$refs.imgRef.classList="widthIqualHeight"
-                }
-                this.cambiado = true
-            }
-        }
-    },
-    destroyed(){
-        this.$store.dispatch('changeShowImgsAction')
+        this.change()
     }
 }
 </script>
