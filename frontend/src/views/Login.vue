@@ -1,20 +1,20 @@
 <template>
-  <div class="login row justify-content-center align-items-center">
-    <div class="col-md-6 col-sm-6">
-      <form
-        class="mr-3 ml-3 d-flex flex-column justify-content-center align-items-center"
+  <div class="contenedorPrincipal justify-content-center align-items-center">
+    <form class="d-flex flex-column justify-content-center align-items-center">
+      <div
+        class="contenedorContenidoForm d-flex flex-column justify-content-center align-items-center"
       >
         <img
           src="../assets/textLogoWhite.png"
           alt="logo2 saferide"
           class="logoSaferide"
         />
-        <h1 style="width: 100%">¡Bienvenido! Inicie Sesión</h1>
+        <h1 style="width: 100%"><strong>¡Bienvenido! </strong>Inicie Sesión</h1>
         <input
           style="margin-top: 20px"
           class="user"
           type="text"
-          placeholder="Nombre usuario"
+          placeholder="Usuario o Correo Electronico"
           v-on:keyup="typing"
           autocomplete="off"
           required
@@ -29,16 +29,18 @@
           required
         />
         <br />
-        <button class="btnInicioSesion ml-4" type="submit">
+        <button class="btnInicioSesion mb-4" type="submit">
           Iniciar Sesión
         </button>
         <p>¿No tienes una cuenta? <a class="register">Registrate!</a></p>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
+import "../styles/login.css";
+
 export default {
   name: "Login",
   data() {
@@ -58,15 +60,23 @@ export default {
   font-family: "Raleway", sans-serif;
 }
 
-.login {
-  height: 98vh !important;
+.contenedorPrincipal {
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+.contenedorContenidoForm {
+  width: 50%;
 }
 
 h1 {
   margin-top: 15px;
-  background: #25d66f;
   padding: 5px;
   text-shadow: 3px 3px 20px black;
+}
+
+strong {
+  color: #25d66f;
 }
 
 h4 {
@@ -83,11 +93,10 @@ h4 {
 }
 
 form {
-  margin: 30px;
   background: #242323;
-  border-radius: 25px;
   text-align: center;
-  height: 50vh !important;
+  height: 100%;
+  width: 100%;
 }
 
 .register {
@@ -99,15 +108,24 @@ form {
 }
 
 input {
+  display: flex;
   background: rgba(0, 0, 0, 0);
   border-right-style: none;
   border-bottom-color: white;
-  width: 85%;
+  width: 70%;
   padding: 0 0 15px;
   margin: 17px 0 17px;
   text-align: center;
   font-size: 15px;
   outline: none;
+}
+
+input:hover {
+  border-bottom-color: #93d973;
+}
+
+input:focus {
+  border-bottom-color: #93d973;
 }
 
 ::placeholder {
@@ -118,7 +136,7 @@ input {
   background-color: #25d66f;
   border-color: #25d66f;
   border-radius: 7px;
-  margin: 10px 0 15px;
+  margin: 10px 0;
   padding: 15px 35px 15px;
   border-style: double;
   font-size: 17px;
