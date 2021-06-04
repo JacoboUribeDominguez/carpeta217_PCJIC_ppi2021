@@ -12,7 +12,7 @@
           alt="logo2 saferide"
           class="logoSaferide"
         />
-        <h1 style="width: 100%"><strong>¡Bienvenido! </strong>Inicie Sesión</h1>
+        <h1 style="width: 100%"><strong>¡Bienvenido!</strong>Inicie Sesión</h1>
         <input
           style="margin-top: 20px"
           class="user"
