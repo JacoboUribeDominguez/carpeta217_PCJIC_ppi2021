@@ -8,8 +8,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     rutas : [],
-    results : [],
-    showImgs : false
+    results : null,
+    showImgs : false,
+    searchedWord : ''
   },
   mutations: {
     mountRutas(state, rutas){
@@ -20,6 +21,13 @@ export default new Vuex.Store({
     },
     searchResult(state, results){
       state.results = results
+    },
+    changeSearchedWord(state, word){
+      if(word){
+        state.searchedWord = word
+      } else {
+        state.searchedWord = ""
+      }
     }
   },
   actions: {
@@ -84,7 +92,11 @@ export default new Vuex.Store({
         }
         //***********************************//
         commit('searchResult', array)
+        commit('changeSearchedWord', word)
       })
+    },
+    changeSearchedWordAction( { commit } ) {
+      commit('changeSearchedWord')
     }
   },
   modules: {},

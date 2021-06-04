@@ -157,7 +157,7 @@ export default {
       showImgs : 'showImgs'
     })
   },
-  destroyed(){
+  beforeDestroyed(){
     this.$store.dispatch('changeShowImgsAction')
   }
 };
