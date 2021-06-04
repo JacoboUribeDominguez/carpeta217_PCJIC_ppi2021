@@ -12,7 +12,7 @@
           alt="logo2 saferide"
           class="logoSaferide"
         />
-        <h1 style="width: 100%"><strong>¡Bienvenido!</strong>Inicie Sesión</h1>
+        <h1 style="width: 100%"><strong>¡Bienvenido! </strong>Inicie Sesión</h1>
         <input
           style="margin-top: 20px"
           class="user"
@@ -32,10 +32,18 @@
           required
         />
         <br />
+        <div v-if="error" class="error">
+          <p style="margin: 0; color: #661e1e">
+            Contraseña o correo/usuario inválido
+          </p>
+        </div>
         <button class="btnInicioSesion mb-4" type="submit">
           Iniciar Sesión
         </button>
-        <p>¿No tienes una cuenta? <a class="register">Registrate!</a></p>
+        <p>
+          ¿No tienes una cuenta?
+          <a @click="$router.push('/register')" class="register">Registrate!</a>
+        </p>
       </div>
     </form>
   </div>
@@ -48,9 +56,15 @@ export default {
   name: "Login",
   data() {
     return {
+      error: false,
       username: "",
       password: "",
     };
+  },
+  mounted() {
+    if (this.$cookies.get("token")) {
+      this.$router.push("/");
+    }
   },
   methods: {
     login() {
@@ -81,11 +95,15 @@ export default {
           "Content-Type": "application/json",
         },
       })
-        .then((res) => {
-          res.json();
-        })
+        .then((res) => res.json())
         .then((result) => {
-          console.log(result);
+          if (result.error === 1) {
+            this.error = true;
+          } else {
+            this.error = false;
+            this.$router.push("/");
+            this.$cookies.set("token", result.message);
+          }
         });
     },
   },
@@ -184,5 +202,13 @@ input:focus {
 .btnInicioSesion:hover {
   border: 1px solid #93d973;
   background: #93d973;
+}
+
+.error {
+  background-color: #ff8383;
+  padding: 1rem;
+  border-radius: 7px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #661e1e;
 }
 </style>
