@@ -8,11 +8,60 @@
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                     </svg>
                 </div>
-                <div class="bodyAddRoute">
+                <div class="bodyAddRoute" style="overflow:auto;max-height:100%;">
                     <div class="d-flex justify-content-center">
                         <input type="text" class="input-ubicacion" placeholder="Ubicación destino"/>
                         <p class="mx-3 d-flex align-items-center" style="margin:0;color:white;font-weight:bold;">-</p>
                         <input type="text" class="input-ubicacion" placeholder="Ubicación final"/>
+                    </div>
+                    <div class="my-4">
+                        <input ref="addImage" id="addImagen" style="visibility:hidden; position:absolute" type="file" accept="image/*" @change="onChange"/>
+                        <!-- <div v-if="img !== null" style="height:400px;margin:0;">
+                            <imagen 
+                                v-model="myCroppa" 
+                                :width="400" 
+                                :height="400" 
+                                placeholder=""
+                                :quality="1"
+                                :zoom-speed="8"
+                                :disable-click-to-choose="true"
+                                :disable-rotation="true"
+                                :prevent-white-space="true"
+                                remove-button-color="green"
+                                :remove-button-size="45"
+                                :show-loading="true"
+                                :replace-drop="true"
+                                :auto-sizing="true"
+                                :show-remove-button="false"
+                                :video-enabled="true"
+                                :initial-image="img"
+                                :placeholder-font-size="30" >
+                                <img @click="onClick" slot="placeholder" :src="img" />
+                            </imagen>
+                        </div> -->
+                        <img v-if="img === null" src="../assets/sube_una_foto.jpg" style="width:50%;height:auto;" @click="onClick" />
+                        <div v-else class="d-flex justify-content-center align-items-center" style="height:400px;overflow:hidden;background:black;">
+                            <div class="d-flex justify-content-end" style="position:absolute;width:90%;height:400px;">
+                                <button @click="img = null; imgFile = null;" class="btnRemove" style="position:absolute;z-index:4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-end align-items-end" style="position:absolute;width:90%;height:400px;">
+                                <button class="btnRemove" style="position:absolute;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <img :src="img" style="width:100%;height:auto;"/>
+                        </div>
+                        <div class="my-4 d-flex justify-content-start">
+                            <button @click="uploadImg" class="btnUpload">
+                                Subir ruta
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -21,7 +70,14 @@
 </template>
 <script>
     export default {
-        name : 'AddRoute'
+        name : 'AddRoute',
+        data(){
+            return {
+                myCroppa : null,
+                img : null,
+                imgFile : null
+            }
+        },
     }
 </script>
 <style scoped>
@@ -37,6 +93,7 @@
         border:1px solid #3f3f3f;
         border-radius:5px;
         height:100%;
+        overflow:hidden;
         padding:0 !important;
     }
     .headerAddRouteContainer {
@@ -57,6 +114,23 @@
     }
     .input-ubicacion:focus {
         outline:none;
+    }
+
+    .btnUpload {
+        background: #37f185;
+        border:none;
+        border-radius:15px;
+        color:white;
+        padding:1rem;
+    }
+
+    .btnRemove {
+        background: #3f3f3f;
+        border:none;
+        border-radius: 50%;
+        color:white;
+        margin:.5rem;
+        padding:.5rem;
     }
 
     @media (max-width: 575px){
