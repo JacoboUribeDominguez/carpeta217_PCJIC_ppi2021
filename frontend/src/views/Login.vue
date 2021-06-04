@@ -1,6 +1,9 @@
 <template>
   <div class="contenedorPrincipal justify-content-center align-items-center">
-    <form class="d-flex flex-column justify-content-center align-items-center">
+    <form
+      class="d-flex flex-column justify-content-center align-items-center"
+      @submit.prevent="login"
+    >
       <div
         class="contenedorContenidoForm d-flex flex-column justify-content-center align-items-center"
       >
@@ -15,8 +18,8 @@
           class="user"
           type="text"
           placeholder="Usuario o Correo Electronico"
-          v-on:keyup="typing"
           autocomplete="off"
+          v-model="username"
           required
         />
         <br />
@@ -24,8 +27,8 @@
           class="password"
           type="password"
           placeholder="Contraseña"
-          v-on:keyup="typing"
           autocomplete="off"
+          v-model="password"
           required
         />
         <br />
@@ -44,11 +47,46 @@ import "../styles/login.css";
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+      username: "",
+      password: "",
+    };
   },
   methods: {
-    typing(event) {
-      console.log(event.target.value);
+    login() {
+      let obj = {
+        id_usuario: "",
+        nombre: "",
+        usuario: "",
+        correo: "",
+        contraseña: "",
+      };
+      if (this.username.includes("@")) {
+        obj = {
+          ...obj,
+          correo: this.username,
+          contraseña: this.password,
+        };
+      } else {
+        obj = {
+          ...obj,
+          usuario: this.username,
+          contraseña: this.password,
+        };
+      }
+      fetch("http://localhost:8081/login", {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          res.json();
+        })
+        .then((result) => {
+          console.log(result);
+        });
     },
   },
 };
