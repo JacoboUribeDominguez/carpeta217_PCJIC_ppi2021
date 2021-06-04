@@ -10,7 +10,9 @@ export default new Vuex.Store({
     rutas : [],
     results : null,
     showImgs : false,
-    searchedWord : ''
+    searchedWord : '',
+    img : null,
+    imgFile : null
   },
   mutations: {
     mountRutas(state, rutas){
@@ -28,6 +30,27 @@ export default new Vuex.Store({
       } else {
         state.searchedWord = ""
       }
+    },
+    changeImg(state, img) {
+      if(img){
+        state.imgFile = img
+        state.img = URL.createObjectURL(img)
+      } else {
+        state.img = null
+        state.imgFile = null
+      }
+    },
+    uploadImg(state, id){
+      let name = id + state.imgFile.name
+      const refImg = refStorage.child('imagenes/' + name)
+      const metaData = { contentType: 'img/*'}
+      refImg.put(state.imgFile, metaData)
+      .then(() => {
+          refImg.getDownloadURL()
+          .then((url) => {
+              console.log(url)
+          })
+      })
     }
   },
   actions: {
@@ -97,6 +120,12 @@ export default new Vuex.Store({
     },
     changeSearchedWordAction( { commit } ) {
       commit('changeSearchedWord')
+    },
+    changeImgAction( { commit }, img) {
+      commit('changeImg', img)
+    },
+    uploadImgAction( { commit }, id ){
+      commit('uploadImg', id)
     }
   },
   modules: {},
