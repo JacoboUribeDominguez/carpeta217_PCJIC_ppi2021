@@ -1,7 +1,7 @@
 <template>
-  <div class="Login row justify-content-center" style="height: 100%">
+  <div class="Login row justify-content-center" >
     <div class="col-md-4 col-sm-6">
-      <img src="../assets/logo.png" alt="logo1 saferide" class="logoppal">
+      <img src="../assets/logo.png" alt="logo1 saferide" class="logoppal" @click="goToLogin">
       <h4>
         <span class="bienvenidos">¡Bienvenidos a SafeRide!</span> <br><br>
         Aquí te puedes registrar para ayudar a mantener la seguridad
@@ -30,8 +30,13 @@
 import "../styles/register.css";
 
 export default {
-  name: "Register"
-};
+  name: "Register",
+  methods: {
+    goToLogin(){
+      this.$router.push('Login')
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -39,6 +44,9 @@ export default {
 *{
   color:#FFFFFF;
   font-family: 'Raleway', sans-serif;
+}
+header{
+  background: black;
 }
 h1{
   margin-top: 15px;
@@ -51,6 +59,7 @@ h4{
   margin-top: 25px;
   margin-right: 15px;
   margin-left: 15px;
+  font-size: 22px;
 }
 .logosfrd{
   width:15rem;
@@ -93,10 +102,10 @@ button:hover{
 .logoppal{
   width:16rem;
   height:auto;
-  margin:0;
 }
 .bienvenidos{
   background: #25d66f;
   padding: 0.3rem;
 }
+
 </style>
