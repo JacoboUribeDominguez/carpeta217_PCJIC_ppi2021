@@ -10,9 +10,9 @@
           class="row justify-content-center"
           style="width: 100%; margin: 0px"
         >
-          <div class="col-md-6 col-sm-8" style="padding: 0">
+          <div class="col-md-5 col-sm-8" style="padding: 0">
             <div>
-              <h1>
+              <h1 style="font-family: 'Raleway', sans-serif;">
                 Reporta y ayuda 
                 <svg @click="alternateShowAddRoute" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus-circle iconAdd" viewBox="0 0 16 16">
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -20,8 +20,11 @@
                 </svg>
               </h1>
             </div>
-            <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index">
-              <div class="publicacionDestacada" v-if="index < 3">
+            <div class="m-4 d-flex justify-content-center align-items-center" v-if="rutas.length === 0" style="height:250px;">
+              <h1 class="text-muted" style="font-size:20px;">Algo esta mal, intentenlo mas tarde</h1>
+            </div>
+            <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index" v-else>
+              <div class="publicacionDestacada" v-if="index < 3" @click="$router.push(`/ruta/${(index+1)}`)">
                 <p class="autor d-flex align-items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -40,11 +43,19 @@
                   {{ruta.id_usuario}}
                 </p>
                 <p class="descripcion">{{ruta.ubicacion}}</p>
-                <img
-                  class="imagenes"
-                  :src="ruta.multimedia"
-                  alt="800x800"
-                />
+                <div class="d-flex align-items-center justify-content-center" style="background:black;min-height:auto;max-height:500px;overflow:hidden;width:100%;">
+                  <div class="my-5" v-if="!showImgs">
+                    <div class="spinner-border text-success" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <img
+                    class="imagenes"
+                    :src="ruta.multimedia"
+                    alt="800x800"
+                    v-else
+                  />
+                </div>
                 <p class="descripcionMeGusta">{{ruta.me_gusta}}</p>
                 <div class="ml-2 d-flex">
                   <button class="meGusta">
@@ -55,7 +66,7 @@
                   </button>
                 </div>
               </div>
-              <div class="publicacion" v-else>
+              <div class="publicacion" @click="$router.push(`/ruta/${(index+1)}`)" v-else>
                 <p class="autor d-flex align-items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -73,13 +84,21 @@
                   </svg>
                   {{ruta.id_usuario}}
                 </p>
-                <p class="descripcion">Descripción</p>
-                <img
-                  class="imagenes"
-                  src="../assets/img800x800.jpg"
-                  alt="800x800"
-                />
-                <p class="descripcionMeGusta">Cantidad de me gustas</p>
+                <p class="descripcion">{{ruta.ubicacion}}</p>
+                <div class="d-flex align-items-center justify-content-center" style="background:black;min-height:auto;max-height:500px;overflow:hidden;width:100%;">
+                  <div class="my-5" v-if="!showImgs">
+                    <div class="spinner-border text-success" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <img
+                    class="imagenes"
+                    :src="ruta.multimedia"
+                    alt="800x800"
+                    v-else
+                  />
+                </div>
+                <p class="descripcionMeGusta">{{ruta.id_usuario}}</p>
                 <div class="ml-2 d-flex">
                   <button class="meGusta">
                     <font-awesome-icon
@@ -130,17 +149,22 @@ export default {
     },
   },
   mounted(){
+    if(this.showImgs){
+      this.$store.dispatch('changeShowImgsAction')
+    }
     this.$store.dispatch('mountRutasAction', { refStorage })
   },
   computed : {
     ...mapState({
-      rutas : 'rutas'
+      rutas : 'rutas',
+      showImgs : 'showImgs'
     })
   }
 };
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
 
 #Peatones {
   background-color: #212121;
@@ -168,9 +192,16 @@ img {
   margin: 4rem 0px;
 }
 
+.publicacionDestacada:hover, .publicacion:hover {
+  border:1px solid #575151;
+  cursor:pointer;
+  transform: scale(1.1);
+}
+
 .autor {
+  border-bottom:2px solid #535353;
   text-align: start;
-  padding: 10px 10px 0px;
+  padding: 10px;
   color: white;
 }
 

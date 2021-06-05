@@ -41,7 +41,7 @@
                     <img v-if="img === null" src="../assets/sube_una_foto.jpg" style="width:80%;height:auto;" @click="onClick" />
                     <div v-else class="d-flex justify-content-center align-items-center" style="height:400px;overflow:hidden;background:black;">
                         <div class="d-flex justify-content-end" style="position:absolute;width:90%;height:400px;">
-                            <button @click="img = null; imgFile = null;" class="btnRemove" style="position:absolute;z-index:4">
+                            <button @click="$store.dispatch('changeImgAction')" class="btnRemove" style="position:absolute;z-index:4">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                     <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
                                 </svg>
@@ -69,16 +69,13 @@
 
 <script>
 
-    import { storage } from '../utils/firebase'
-    const refStorage = storage.ref()
+    import { mapState } from 'vuex'
 
     export default {
         name : 'AddRouteResponsive',
         data(){
             return {
-                myCroppa : null,
-                img : null,
-                imgFile : null
+                myCroppa : null
             }
         },
         methods : {
@@ -86,8 +83,7 @@
                 const files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
                     return;
-                this.img = URL.createObjectURL(files[0]);
-                this.imgFile = files[0];
+                this.$store.dispatch('changeImgAction', files[0])
             },
             onClick(){
                 this.$refs.addImage.click()
@@ -96,18 +92,13 @@
                 this.$emit('alternateShowAddRoute')
             },
             uploadImg(){
-                let name = '20210518190923320' + this.imgFile.name
-                const refImg = refStorage.child('imagenes/' + name)
-                const metaData = { contentType: 'img/*'}
-                refImg.put(this.imgFile, metaData)
-                .then(() => {
-                    refImg.getDownloadURL()
-                    .then((url) => {
-                        console.log(url)
-                    })
-                })
-                
+                this.$store.dispatch('uploadImgAction', this.$cookies.get('token'))
             }
+        },
+        computed : {
+            ...mapState({
+                img : 'img'
+            })
         }
     }
 </script>
