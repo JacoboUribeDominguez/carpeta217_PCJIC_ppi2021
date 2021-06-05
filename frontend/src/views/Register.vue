@@ -12,13 +12,13 @@
       <form class="mr-3 ml-3">
         <img src="/img/textLogoWhite.8b2a4daa.png" alt="logo2 saferide" class="logosfrd">
         <h1>¡Registrate!</h1>
-        <input class="name" type="text" placeholder="Nombre" v-on:keyup="typing" autocomplete="off" required>
+        <input class="name" type="text" placeholder="Nombre" autocomplete="off" v-model="nombre" required>
         <br>
-        <input class="user" type="text" placeholder="Nombre usuario" v-on:keyup="typing" autocomplete="off" required>
+        <input class="user" type="text" placeholder="Nombre usuario" autocomplete="off" v-model="usuario" required>
         <br>
-        <input class="email" type="email" placeholder="Correo electrónico" v-on:keyup="typing" autocomplete="off" required>
+        <input class="email" type="email" placeholder="Correo electrónico" autocomplete="off" v-model="correo" required>
         <br>
-        <input class="password" type="password" placeholder="Contraseña" v-on:keyup="typing" autocomplete="off" required>
+        <input class="password" type="password" placeholder="Contraseña" autocomplete="off" v-model="contraseña" required>
         <br>
         <button type="submit">Registrarse</button>
       </form>
@@ -31,6 +31,14 @@ import "../styles/register.css";
 
 export default {
   name: "Register",
+  data(){
+    return{
+      nombre:"",
+      usuario: "",
+      correo: "",
+      contraseña: "",
+    }
+  },
   methods: {
     goToLogin(){
       this.$router.push('Login')
