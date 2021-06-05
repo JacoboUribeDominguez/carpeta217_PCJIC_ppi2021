@@ -1,15 +1,18 @@
 <template>
   <div class="Login row justify-content-center" >
     <div class="col-md-4 col-sm-6">
-      <img src="../assets/logo.png" alt="logo1 saferide" class="logoppal" @click="goToLogin">
+      <img src="../assets/logo.png" alt="logo1 saferide" class="logoppal">
       <h4>
         <span class="bienvenidos">¡Bienvenidos a SafeRide!</span> <br><br>
         Aquí te puedes registrar para ayudar a mantener la seguridad
         vial en las calles y así formar parte de los buenos ciudadanos de Medellín.
       </h4>
+      <div class="p-3 mt-4" style="background: #F7BBBB; border: 1px solid #C45656; border-radius: 7px" v-if="error">
+        <p style="color: #731919; margin: 0;">Error, usuario ya registrado</p>
+      </div>
     </div>
     <div class="col-md-6 col-sm-6">
-      <form class="mr-3 ml-3">
+      <form @submit.prevent="register" class="mr-3 ml-3">
         <img src="/img/textLogoWhite.8b2a4daa.png" alt="logo2 saferide" class="logosfrd">
         <h1>¡Registrate!</h1>
         <input class="name" type="text" placeholder="Nombre" autocomplete="off" v-model="nombre" required>
@@ -37,11 +40,44 @@ export default {
       usuario: "",
       correo: "",
       contraseña: "",
+      error: false,
     }
   },
   methods: {
-    goToLogin(){
-      this.$router.push('Login')
+    register(){
+      const {
+        nombre,
+        usuario,
+        correo,
+        contraseña
+      } = this
+      fetch("http://localhost:8081/saveUser", {
+        method: "POST",
+        body: JSON.stringify({
+          nombre,
+          usuario,
+          correo,
+          contraseña
+        }),
+        headers: {
+          "Content-Type":"application/json"
+        }
+      })
+      .then(res => res.json()
+      )
+      .then(result => {
+        if (result.error === 1){
+          this.error = true
+        } else {
+          this.$cookies.set("token", result.message)
+          this.$router.push("/")
+        }
+      })
+    }
+  },
+  mounted(){
+    if (this.$cookies.get("token")){
+      this.$router.push("/")
     }
   }
 }

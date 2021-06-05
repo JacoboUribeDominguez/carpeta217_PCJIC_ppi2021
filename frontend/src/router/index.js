@@ -7,7 +7,7 @@ import Peatones from "../views/Peatones";
 import Login from "../views/Login";
 import Metricas from "../views/Metricas";
 import Hurtos from "../views/Hurtos"
-import Ruta from "../views/ruta.vue"
+import Ruta from "../views/Ruta.vue"
 import Results from "../views/Results"
 
 Vue.use(VueRouter);

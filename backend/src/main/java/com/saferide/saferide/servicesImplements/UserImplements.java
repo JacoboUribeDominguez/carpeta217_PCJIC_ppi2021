@@ -39,7 +39,7 @@ public class UserImplements implements UserService {
             Functions functions = new Functions();
             userLog.setId_usuario(functions.makeId());//Llamo la función para hacer la modificación de un usuario en especifico (agrega id)
             userRepository.save(userLog); //Guarda en la base de datos
-            return new Error("Usuario exitosamente creado", 0);
+            return new Error(userLog.getId_usuario(), 0);
         } else {
             return new Error("Usuario ya registrado", 1);
         }
