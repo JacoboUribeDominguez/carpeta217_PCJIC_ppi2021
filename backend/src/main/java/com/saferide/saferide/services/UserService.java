@@ -10,6 +10,6 @@ public interface UserService {
     //List<UserModel>getUsers(); //no se utilizará esta función.
 
     Error login(UserModel user);
-    void saveUsers(UserModel userLog);//Se define la función vacia para trabajarla desde la implementación
+    Error saveUsers(UserModel userLog);//Se define la función vacia para trabajarla desde la implementación
 }
 
