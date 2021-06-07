@@ -1,9 +1,18 @@
 @media (max-width: 430px) {
 
-
     .elementsHeader.buttons {
         width: 36vw;
         padding-right: 130px;
+    }
+
+    .elementsHeader.buttons.logged {
+        padding-right:0;
+        width:15vw;
+    }
+
+    .elementsHeader.buttons.logged.menu {
+        padding-right:0;
+        width:85vw;
     }
 
     .elementsHeader .button {
