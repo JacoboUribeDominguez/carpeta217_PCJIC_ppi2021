@@ -98,7 +98,7 @@
                     v-else
                   />
                 </div>
-                <p class="descripcionMeGusta">{{ruta.id_usuario}}</p>
+                <p class="descripcionMeGusta">{{ruta.me_gusta}}</p>
                 <div class="ml-2 d-flex">
                   <button class="meGusta">
                     <font-awesome-icon

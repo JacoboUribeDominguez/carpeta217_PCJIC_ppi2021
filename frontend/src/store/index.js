@@ -40,17 +40,37 @@ export default new Vuex.Store({
         state.imgFile = null
       }
     },
-    uploadImg(state, id){
+    uploadImg(state, { id, ubication }){
+      //here we upload the image to firebase's storage
       let name = id + state.imgFile.name
-      const refImg = refStorage.child('imagenes/' + name)
+      name = 'imagenes/' + name
+      const refImg = refStorage.child(name)
       const metaData = { contentType: 'img/*'}
       refImg.put(state.imgFile, metaData)
       .then(() => {
           refImg.getDownloadURL()
-          .then((url) => {
-              console.log(url)
-          })
       })
+      //Here we upload the rute to the backend.
+      fetch('http://localhost:8081/rutas', {
+        method:'POST',
+        body:JSON.stringify({
+          id_ruta : '',
+          multimedia : name,
+          id_usuario : '' + id,
+          me_gusta : 0,
+          ubicacion : ubication
+        }),
+        headers: {
+          'Content-Type' : 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(result => {
+        this.$store.dispatch('addRoute', result)
+      })
+    },
+    addRoute(state, ruta){
+      state.rutas.push(ruta)
     }
   },
   actions: {
@@ -124,8 +144,11 @@ export default new Vuex.Store({
     changeImgAction( { commit }, img) {
       commit('changeImg', img)
     },
-    uploadImgAction( { commit }, id ){
-      commit('uploadImg', id)
+    uploadImgAction( { commit }, payload ){
+      commit('uploadImg', payload)
+    },
+    addRouteAction( { commit }, ruta ){
+      commit('addRoute', ruta)
     }
   },
   modules: {},

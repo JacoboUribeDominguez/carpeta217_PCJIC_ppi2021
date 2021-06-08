@@ -4,15 +4,15 @@
             <div class="AddRouteContainer col-xl-5 col-md-6 col-sm-8 col-11">
                 <div class="headerAddRouteContainer d-flex justify-content-between align-items-center">
                     <h4 class="d-flex align-items-center ml-3 my-3" style="margin:0;color:white;">Publicar ruta</h4>
-                    <svg @click="$emit('alternateShowAddRoute')" style="color:white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill my-2 mr-3" viewBox="0 0 16 16">
+                    <svg @click="$emit('alternateShowAddRoute')" style="color:white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill my-2 mr-3 btnClose" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                     </svg>
                 </div>
                 <div class="bodyAddRoute" style="overflow:auto;height:63vh">
                     <div class="d-flex justify-content-center">
-                        <input type="text" class="input-ubicacion" placeholder="Ubicación destino"/>
+                        <input type="text" class="input-ubicacion" v-model="firstUbication" placeholder="Ubicación iniial"/>
                         <p class="mx-3 d-flex align-items-center" style="margin:0;color:white;font-weight:bold;">-</p>
-                        <input type="text" class="input-ubicacion" placeholder="Ubicación final"/>
+                        <input type="text" class="input-ubicacion" v-model="lastUbication" placeholder="Ubicación final"/>
                     </div>
                     <div class="my-4 d-flex flex-column align-items-center">
                         <input ref="addImage" id="addImagen" style="visibility:hidden; position:absolute" type="file" accept="image/*" @change="onChange"/>
@@ -57,7 +57,7 @@
                             </div>
                             <img :src="img" style="width:100%;height:auto;"/>
                         </div>
-                        <div class="my-4 d-flex justify-content-start">
+                        <div class="my-4 d-flex justify-content-start" style="width:100%;">
                             <button @click="uploadImg" class="btnUpload">
                                 Subir ruta
                             </button>
@@ -76,7 +76,9 @@
         name : 'AddRoute',
         data(){
             return {
-                myCroppa : null
+                myCroppa : null,
+                firstUbication : '',
+                lastUbication : ''
             }
         },
         methods : {
@@ -93,7 +95,15 @@
                 this.$emit('alternateShowAddRoute')
             },
             uploadImg(){
-                this.$store.dispatch('uploadImgAction', this.$cookies.get('token'))
+                let ubication = this.firstUbication + ' - ' + this.lastUbication;
+                this.$store.dispatch('uploadImgAction', { 
+                    id : this.$cookies.get('token'),
+                    ubication
+                })
+                this.firstUbication = ""
+                this.lastUbication = ""
+                this.$store.dispatch('changeImgAction')
+                this.$emit('alternateShowAddRoute')
             }
         },
         computed : {
@@ -127,6 +137,9 @@
         margin:5%;
         width:90%;
     }
+    .btnClose:hover {
+        cursor:pointer;
+    }
     .input-ubicacion {
         background: none;
         border:none;
@@ -145,6 +158,7 @@
         border-radius:15px;
         color:white;
         padding:.5rem 1rem;
+        width:100%;
     }
 
     .btnRemove {
