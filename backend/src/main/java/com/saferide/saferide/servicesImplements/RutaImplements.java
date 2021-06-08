@@ -1,6 +1,7 @@
 package com.saferide.saferide.servicesImplements;
 
 import com.saferide.saferide.functions.Functions;
+import com.saferide.saferide.helpers.Error;
 import com.saferide.saferide.models.RutaModel;
 import com.saferide.saferide.pilas.ListRutasPilas;
 import com.saferide.saferide.pilas.Nodo;
@@ -56,13 +57,23 @@ public class RutaImplements implements RutaService {
     }
 
     @Override
-    public void updateRuta(RutaModel ruta){
-        rutaRepository.save(ruta);
+    public Error updateRuta(RutaModel ruta){
+        try {
+            rutaRepository.save(ruta);
+            return new Error("Actualización exitosa", 0);
+        } catch (Exception e) {
+            return new Error("Hubo un error", 1);
+        }
     }
 
     @Override
-    public void deleteRuta(String id_ruta){
-        rutaRepository.deleteById(id_ruta);
+    public Error deleteRuta(String id_ruta){
+        try{
+            rutaRepository.deleteById(id_ruta);
+            return new Error("Eliminación exitosa", 0);
+        }catch(Exception e){
+            return new Error("Hubo un error", 1);
+        }
     }
 
 }
