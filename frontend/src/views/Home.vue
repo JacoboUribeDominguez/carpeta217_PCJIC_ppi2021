@@ -24,7 +24,7 @@
               <h1 class="text-muted" style="font-size:20px;">Algo esta mal, intentenlo mas tarde</h1>
             </div>
             <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index" v-else>
-              <div class="publicacionDestacada" v-if="index < 3" @click="$router.push(`/ruta/${(index+1)}`)">
+              <div class="publicacionDestacada" v-if="index < 3">
                 <p class="autor d-flex align-items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -50,6 +50,7 @@
                     </div>
                   </div>
                   <img
+                    @click="$router.push(`/ruta/${(index+1)}`)"
                     class="imagenes"
                     :src="ruta.multimedia"
                     alt="800x800"
@@ -58,8 +59,16 @@
                 </div>
                 <p class="descripcionMeGusta">{{ruta.me_gusta}}</p>
                 <div class="ml-2 d-flex">
-                  <button class="meGusta">
+                  <button @click="like(ruta, index)" class="meGusta">
                     <font-awesome-icon
+                      v-if="ruta.liked"
+                      class="up"
+                      icon="thumbs-up"
+                      style="font-size: 1.5rem"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="down"
                       icon="thumbs-up"
                       style="font-size: 1.5rem"
                     />
@@ -100,8 +109,16 @@
                 </div>
                 <p class="descripcionMeGusta">{{ruta.me_gusta}}</p>
                 <div class="ml-2 d-flex">
-                  <button class="meGusta">
+                  <button @click="like(ruta, index)" class="meGusta">
                     <font-awesome-icon
+                      v-if="ruta.liked"
+                      class="up"
+                      icon="thumbs-up"
+                      style="font-size: 1.5rem"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="down"
                       icon="thumbs-up"
                       style="font-size: 1.5rem"
                     />
@@ -147,12 +164,75 @@ export default {
     alternateShowAddRoute(){
       this.showAddRoute = !this.showAddRoute;
     },
+    like(ruta, index){
+      if(!ruta.liked){
+        const { id_ruta } = ruta
+        fetch('http://localhost:8081/likes/ruta', {
+          method: 'POST',
+          data: JSON.stringify({
+            id_ruta,
+            id_usuario : this.$cookies.get('token')
+          }),
+          headers : {
+            'Content-Type' : 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(result => {
+          if(result.error === 0){
+            this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1
+            fetch('http://localhost:8081/rutas', {
+              method:'PUT',
+              body: JSON.stringify({
+                ...ruta,
+                me_gusta : ruta.me_gusta + 1
+              }),
+              headers : {
+                'Content-Type' : 'application/json'
+              }
+            })
+          }
+        })
+      } else {
+        const { id_ruta } = ruta
+        fetch('http://localhost:8081/likes/ruta', {
+          method: 'DELETE',
+          data: JSON.stringify({
+            id_ruta,
+            id_usuario : this.$cookies.get('token')
+          }),
+          headers : {
+            'Content-Type' : 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(result => {
+          if(result.error === 0){
+            this.rutas[index].me_gusta = this.rutas[index].me_gusta - 1
+            fetch('http://localhost:8081/rutas', {
+              method:'PUT',
+              body: JSON.stringify({
+                ...ruta,
+                me_gusta : ruta.me_gusta - 1
+              }),
+              headers : {
+                'Content-Type' : 'application/json'
+              }
+            })
+          }
+        })
+      }
+    }
   },
   mounted(){
     if(this.showImgs){
       this.$store.dispatch('changeShowImgsAction')
     }
-    this.$store.dispatch('mountRutasAction', { refStorage })
+    if(this.$cookies.get('token')){
+      this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
+    } else {
+      this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
+    }
   },
   computed : {
     ...mapState({
@@ -219,6 +299,10 @@ img {
   padding: 0.5rem 0.5rem;
   width: 20%;
   margin-bottom: 1rem;
+}
+
+.meGusta .down {
+  transform : rotate(180deg)
 }
 
 .descripcionMeGusta {

@@ -74,8 +74,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    mountRutasAction( { commit }, { refStorage } ){
-      fetch('http://localhost:8081/rutas')
+    mountRutasAction( { commit }, { refStorage, id } ){
+      fetch(`http://localhost:8081/rutas?id=${id}`)
       .then(res => res.json())
       .then(result => {
         let array = []
