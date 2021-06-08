@@ -33,7 +33,12 @@ public class LikesImplements implements LikesService {
 
     @Override
     public Error dislikeRuta(LikeRutaModel ruta) {
-        return new Error("", 0);
+        try {
+            likeRutaRepository.deleteRuta(ruta.getId_ruta(), ruta.getId_usuario());
+            return new Error("Eliminación exitosa", 0);
+        } catch (Exception e) {
+            return new Error("Hubo un error", 1);
+        }
     }
 
     @Override
@@ -48,7 +53,12 @@ public class LikesImplements implements LikesService {
 
     @Override
     public Error dislikeSendero(LikeSenderoModel sendero) {
-        return new Error("", 0);
+        try {
+            likeSenderoRepository.deleteSendero(sendero.getId_sendero(), sendero.getId_usuario());
+            return new Error("Eliminación exitosa", 0);
+        } catch (Exception e) {
+            return new Error("Hubo un error", 1);
+        }
     }
 
     @Override
@@ -63,6 +73,11 @@ public class LikesImplements implements LikesService {
 
     @Override
     public Error dislikeHurto(LikeHurtoModel hurto) {
-        return new Error("", 0);
+        try {
+            likeHurtoRepository.deleteHurto(hurto.getId_hurto(), hurto.getId_usuario());
+            return new Error("Eliminación exitosa", 0);
+        } catch (Exception e) {
+            return new Error("Hubo un error", 1);
+        }
     }
 }
