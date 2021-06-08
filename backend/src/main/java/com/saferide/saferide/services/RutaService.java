@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface RutaService {
-    void saveRuta(RutaModel ruta); //Create
+    RutaModel saveRuta(RutaModel ruta); //Create
     Nodo[] getRutas(); //Read
     List<RutaModel> getResults(String palabra); //Read
     void updateRuta(RutaModel ruta); //Update

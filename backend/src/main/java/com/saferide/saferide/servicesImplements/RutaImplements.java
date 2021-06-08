@@ -23,11 +23,12 @@ public class RutaImplements implements RutaService {
     private UserImplements userImplements;
 
     @Override
-    public void saveRuta(RutaModel ruta) {
+    public RutaModel saveRuta(RutaModel ruta) {
         Functions functions = new Functions();
         ruta.setId_ruta(functions.makeId());
         ruta.setMe_gusta(0);
         rutaRepository.save(ruta);
+        return ruta;
     }
 
     @Override

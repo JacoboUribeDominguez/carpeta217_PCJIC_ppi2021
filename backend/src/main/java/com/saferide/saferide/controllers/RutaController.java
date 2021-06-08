@@ -17,8 +17,8 @@ public class RutaController {
     private RutaService rutaService;
 
     @PostMapping
-    public void createRuta(@RequestBody RutaModel ruta){
-        rutaService.saveRuta(ruta);
+    public RutaModel createRuta(@RequestBody RutaModel ruta){
+        return rutaService.saveRuta(ruta);
     }
 
     @GetMapping
