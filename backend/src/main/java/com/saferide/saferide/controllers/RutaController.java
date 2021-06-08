@@ -28,8 +28,8 @@ public class RutaController {
     }
 
     @GetMapping("/results")
-    public List<RutaModel> getResults(@RequestParam String id_usuario) {
-        return rutaService.getResults(id_usuario); }
+    public List<RutaModel> getResults(@RequestParam String palabra) {
+        return rutaService.getResults(palabra); }
 
     @PutMapping
     public Error updateRuta(@RequestBody RutaModel ruta){

@@ -97,6 +97,7 @@ export default {
     logout(){
       this.$cookies.remove('token')
       this.showAccount = false;
+      this.$router.push('/Login')
     },
     handleClickOutside(event){
       if(this.showAccount && this.$refs.outside){
