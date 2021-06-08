@@ -165,7 +165,12 @@ export default {
       this.showAddRoute = !this.showAddRoute;
     },
     like(ruta, index){
+
+      const oldMe_gusta = this.rutas[index].me_gusta
+
       if(!ruta.liked){
+        this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1;
+        this.rutas[index].liked = !this.rutas[index].liked
         const { id_ruta } = ruta
         fetch('http://localhost:8081/likes/ruta', {
           method: 'POST',
@@ -184,16 +189,17 @@ export default {
               method:'PUT',
               body: JSON.stringify({
                 ...ruta,
-                me_gusta : ruta.me_gusta + 1
+                me_gusta : oldMe_gusta + 1
               }),
               headers : {
                 'Content-Type' : 'application/json'
               }
             })
-            this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1
           }
         })
       } else {
+        this.rutas[index].me_gusta = this.rutas[index].me_gusta - 1;
+        this.rutas[index].liked = !this.rutas[index].liked
         const { id_ruta } = ruta
         fetch('http://localhost:8081/likes/ruta', {
           method: 'DELETE',
@@ -214,13 +220,12 @@ export default {
               body: JSON.stringify({
                 ...ruta,
                 multimedia : '',
-                me_gusta : ruta.me_gusta - 1
+                me_gusta : oldMe_gusta - 1
               }),
               headers : {
                 'Content-Type' : 'application/json'
               }
             })
-            this.rutas[index].me_gusta = this.rutas[index].me_gusta - 1
           }
         })
       }
