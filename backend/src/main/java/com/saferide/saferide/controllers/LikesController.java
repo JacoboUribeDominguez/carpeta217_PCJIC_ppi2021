@@ -21,13 +21,26 @@ public class LikesController {
         return likesService.likeRuta(ruta);
     }
 
+    @DeleteMapping("/ruta")
+    public Error dislikeRuta(@RequestBody LikeRutaModel ruta) { return likesService.dislikeRuta(ruta); }
+
     @PostMapping("/sendero")
     public Error likeSendero(@RequestBody LikeSenderoModel sendero) {
         return likesService.likeSendero(sendero);
     }
 
+    @DeleteMapping("/sendero")
+    public Error dislikeSendero(@RequestBody LikeSenderoModel sendero) {
+        return likesService.dislikeSendero(sendero);
+    }
+
     @PostMapping("/hurto")
     public Error likeHurto(@RequestBody LikeHurtoModel hurto) {
         return likesService.likeHurto(hurto);
+    }
+
+    @DeleteMapping("/hurto")
+    public Error dislikeHurto(@RequestBody LikeHurtoModel hurto) {
+        return likesService.dislikeHurto(hurto);
     }
 }
