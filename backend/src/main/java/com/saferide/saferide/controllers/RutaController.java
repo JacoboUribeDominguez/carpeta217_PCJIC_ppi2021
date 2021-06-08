@@ -37,7 +37,7 @@ public class RutaController {
     }
 
     @DeleteMapping
-    public void deleteRuta(@RequestParam String id_usuario){
-        rutaService.deleteRuta(id_usuario);
+    public Error deleteRuta(@RequestParam String id_usuario){
+        return rutaService.deleteRuta(id_usuario);
     }
 }
