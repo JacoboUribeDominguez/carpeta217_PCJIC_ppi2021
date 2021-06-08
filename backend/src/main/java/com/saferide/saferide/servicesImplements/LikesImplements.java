@@ -32,6 +32,11 @@ public class LikesImplements implements LikesService {
     }
 
     @Override
+    public Error dislikeRuta(LikeRutaModel ruta) {
+        return new Error("", 0);
+    }
+
+    @Override
     public Error likeSendero(LikeSenderoModel sendero) {
         try {
             likeSenderoRepository.save(sendero);
@@ -42,6 +47,11 @@ public class LikesImplements implements LikesService {
     }
 
     @Override
+    public Error dislikeSendero(LikeSenderoModel sendero) {
+        return new Error("", 0);
+    }
+
+    @Override
     public Error likeHurto(LikeHurtoModel hurto) {
         try {
             likeHurtoRepository.save(hurto);
@@ -49,5 +59,10 @@ public class LikesImplements implements LikesService {
         } catch (Exception e) {
             return new Error("Hubo un error", 1);
         }
+    }
+
+    @Override
+    public Error dislikeHurto(LikeHurtoModel hurto) {
+        return new Error("", 0);
     }
 }
