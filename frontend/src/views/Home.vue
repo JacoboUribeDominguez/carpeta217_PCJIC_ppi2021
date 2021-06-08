@@ -182,7 +182,11 @@ export default {
     if(this.showImgs){
       this.$store.dispatch('changeShowImgsAction')
     }
-    this.$store.dispatch('mountRutasAction', { refStorage })
+    if(this.$cookies.get('token')){
+      this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
+    } else {
+      this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
+    }
   },
   computed : {
     ...mapState({
