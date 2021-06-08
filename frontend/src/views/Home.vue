@@ -61,6 +61,14 @@
                 <div class="ml-2 d-flex">
                   <button @click="like(ruta, index)" class="meGusta">
                     <font-awesome-icon
+                      v-if="ruta.liked"
+                      class="up"
+                      icon="thumbs-up"
+                      style="font-size: 1.5rem"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="down"
                       icon="thumbs-up"
                       style="font-size: 1.5rem"
                     />
@@ -103,6 +111,14 @@
                 <div class="ml-2 d-flex">
                   <button @click="like(ruta, index)" class="meGusta">
                     <font-awesome-icon
+                      v-if="ruta.liked"
+                      class="up"
+                      icon="thumbs-up"
+                      style="font-size: 1.5rem"
+                    />
+                    <font-awesome-icon
+                      v-else
+                      class="down"
                       icon="thumbs-up"
                       style="font-size: 1.5rem"
                     />
@@ -149,33 +165,63 @@ export default {
       this.showAddRoute = !this.showAddRoute;
     },
     like(ruta, index){
-      const { id_ruta } = ruta
-      fetch('http://localhost:8081/likes/ruta', {
-        method: 'POST',
-        data: JSON.stringify({
-          id_ruta,
-          id_usuario : this.$cookies.get('token')
-        }),
-        headers : {
-          'Content-Type' : 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .then(result => {
-        if(result.error === 0){
-          this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1
-          fetch('http://localhost:8081/rutas', {
-            method:'PUT',
-            body: JSON.stringify({
-              ...ruta,
-              me_gusta : ruta.me_gusta + 1
-            }),
-            headers : {
-              'Content-Type' : 'application/json'
-            }
-          })
-        }
-      })
+      if(!ruta.liked){
+        const { id_ruta } = ruta
+        fetch('http://localhost:8081/likes/ruta', {
+          method: 'POST',
+          data: JSON.stringify({
+            id_ruta,
+            id_usuario : this.$cookies.get('token')
+          }),
+          headers : {
+            'Content-Type' : 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(result => {
+          if(result.error === 0){
+            this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1
+            fetch('http://localhost:8081/rutas', {
+              method:'PUT',
+              body: JSON.stringify({
+                ...ruta,
+                me_gusta : ruta.me_gusta + 1
+              }),
+              headers : {
+                'Content-Type' : 'application/json'
+              }
+            })
+          }
+        })
+      } else {
+        const { id_ruta } = ruta
+        fetch('http://localhost:8081/likes/ruta', {
+          method: 'DELETE',
+          data: JSON.stringify({
+            id_ruta,
+            id_usuario : this.$cookies.get('token')
+          }),
+          headers : {
+            'Content-Type' : 'application/json'
+          }
+        })
+        .then(res => res.json())
+        .then(result => {
+          if(result.error === 0){
+            this.rutas[index].me_gusta = this.rutas[index].me_gusta - 1
+            fetch('http://localhost:8081/rutas', {
+              method:'PUT',
+              body: JSON.stringify({
+                ...ruta,
+                me_gusta : ruta.me_gusta - 1
+              }),
+              headers : {
+                'Content-Type' : 'application/json'
+              }
+            })
+          }
+        })
+      }
     }
   },
   mounted(){
@@ -253,6 +299,10 @@ img {
   padding: 0.5rem 0.5rem;
   width: 20%;
   margin-bottom: 1rem;
+}
+
+.meGusta .down {
+  transform : rotate(180deg)
 }
 
 .descripcionMeGusta {
