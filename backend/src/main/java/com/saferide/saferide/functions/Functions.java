@@ -24,4 +24,6 @@ public class Functions {
         id = id.replace(".", "");
         return id;//Se retorna el id
     }
+
+
 }

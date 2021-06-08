@@ -200,6 +200,10 @@ public class ListRutasPilas {
         );
     }
 
+    public void checkLike(String id){
+
+    }
+
     public int size(){
         int size = 0;
         Nodo temp = this.first;

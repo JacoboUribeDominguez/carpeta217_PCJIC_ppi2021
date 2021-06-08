@@ -8,6 +8,7 @@ public class Nodo {
     private String id_usuario;
     private int me_gusta;
     private String ubicacion;
+    private boolean isLiked;
     private Nodo next;
 
     //Constructor 1 nodo en cuerpo
@@ -89,5 +90,13 @@ public class Nodo {
 
     public void setNext(Nodo next) {
         this.next = next;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
     }
 }

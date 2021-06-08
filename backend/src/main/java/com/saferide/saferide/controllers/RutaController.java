@@ -23,13 +23,13 @@ public class RutaController {
     }
 
     @GetMapping
-    public Nodo[] getRutas(){
-        return rutaService.getRutas();
+    public Nodo[] getRutas(@RequestParam String id){
+        return rutaService.getRutas(id);
     }
 
     @GetMapping("/results")
-    public List<RutaModel> getResults(@RequestParam String palabra) {
-        return rutaService.getResults(palabra); }
+    public List<RutaModel> getResults(@RequestParam String id_usuario) {
+        return rutaService.getResults(id_usuario); }
 
     @PutMapping
     public Error updateRuta(@RequestBody RutaModel ruta){

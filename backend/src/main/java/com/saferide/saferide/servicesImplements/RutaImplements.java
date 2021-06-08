@@ -2,9 +2,11 @@ package com.saferide.saferide.servicesImplements;
 
 import com.saferide.saferide.functions.Functions;
 import com.saferide.saferide.helpers.Error;
+import com.saferide.saferide.models.LikeRutaModel;
 import com.saferide.saferide.models.RutaModel;
 import com.saferide.saferide.pilas.ListRutasPilas;
 import com.saferide.saferide.pilas.Nodo;
+import com.saferide.saferide.repositories.LikeRutaRepository;
 import com.saferide.saferide.repositories.RutaRepository;
 import com.saferide.saferide.services.RutaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,9 @@ public class RutaImplements implements RutaService {
     @Autowired
     private RutaRepository rutaRepository;
 
-    //usar makeId
+    //likes
     @Autowired
-    private UserImplements userImplements;
+    private LikeRutaRepository likeRutaRepository;
 
     @Override
     public RutaModel saveRuta(RutaModel ruta) {
@@ -33,7 +35,7 @@ public class RutaImplements implements RutaService {
     }
 
     @Override
-    public Nodo[] getRutas() {
+    public Nodo[] getRutas(String id) {
         ListRutasPilas rutas = new ListRutasPilas();
         //acá pasamos el resultado de la busqueda a una pila
         for(RutaModel ruta : rutaRepository.findAllRutes() ){
@@ -47,8 +49,26 @@ public class RutaImplements implements RutaService {
         pilaOrdenada.sortingBestScored();//ordenar pila ordenada
         pila.fillList(pilaRecientes, 10);//llenamos pila con pila recientes
         pila.fillList(pilaOrdenada, 3);//llenamos pila con pila ordenada
-//        pila.showList();//mostramos la pila
-        return pila.getPila(13);
+
+        Nodo pilaArray[] = pila.getPila(13); //array donde vamos a guardar
+        //vamos a recorrer el array en pila a entregar
+        if(!id.contains("notoken")){
+            for(Nodo nodo : pilaArray){ //recorremos el array
+                if(nodo == null){
+                    break;
+                }
+                if(((List<LikeRutaModel>) likeRutaRepository.existsRutes(nodo.getId_ruta(), id)).size() > 0){ //verificamos si existen las coincidencias
+                    nodo.setLiked(true); //establecemos si se le dio like el usuario
+                } else {
+                    nodo.setLiked(false); //establecemos si se le dio like el usuario
+                }
+            }
+        } else {
+            for(Nodo nodo : pilaArray){ //recorremos el array
+                nodo.setLiked(false);
+            }
+        }
+        return pilaArray;
     }
 
     @Override
