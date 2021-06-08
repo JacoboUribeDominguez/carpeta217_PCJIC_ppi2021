@@ -65,6 +65,9 @@ public class RutaImplements implements RutaService {
             }
         } else {
             for(Nodo nodo : pilaArray){ //recorremos el array
+                if(nodo == null){
+                    break;
+                }
                 nodo.setLiked(false);
             }
         }
