@@ -79,6 +79,9 @@ public class RutaImplements implements RutaService {
     @Override
     public Error updateRuta(RutaModel ruta){
         try {
+            RutaModel oldRute = rutaRepository.findById(ruta.getId_ruta()).get();
+            ruta.setMultimedia(oldRute.getMultimedia());
+            ruta.setId_usuario(oldRute.getId_usuario());
             rutaRepository.save(ruta);
             return new Error("Actualización exitosa", 0);
         } catch (Exception e) {

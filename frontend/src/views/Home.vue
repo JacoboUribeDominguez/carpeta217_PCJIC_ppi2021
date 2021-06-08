@@ -61,7 +61,7 @@
                 <div class="ml-2 d-flex">
                   <button @click="like(ruta, index)" class="meGusta">
                     <font-awesome-icon
-                      v-if="ruta.liked"
+                      v-if="!ruta.liked"
                       class="up"
                       icon="thumbs-up"
                       style="font-size: 1.5rem"
@@ -111,7 +111,7 @@
                 <div class="ml-2 d-flex">
                   <button @click="like(ruta, index)" class="meGusta">
                     <font-awesome-icon
-                      v-if="ruta.liked"
+                      v-if="!ruta.liked"
                       class="up"
                       icon="thumbs-up"
                       style="font-size: 1.5rem"
@@ -169,7 +169,7 @@ export default {
         const { id_ruta } = ruta
         fetch('http://localhost:8081/likes/ruta', {
           method: 'POST',
-          data: JSON.stringify({
+          body: JSON.stringify({
             id_ruta,
             id_usuario : this.$cookies.get('token')
           }),
@@ -180,7 +180,6 @@ export default {
         .then(res => res.json())
         .then(result => {
           if(result.error === 0){
-            this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1
             fetch('http://localhost:8081/rutas', {
               method:'PUT',
               body: JSON.stringify({
@@ -191,14 +190,16 @@ export default {
                 'Content-Type' : 'application/json'
               }
             })
+            this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1
           }
         })
       } else {
         const { id_ruta } = ruta
         fetch('http://localhost:8081/likes/ruta', {
           method: 'DELETE',
-          data: JSON.stringify({
+          body: JSON.stringify({
             id_ruta,
+            multimedia : '',
             id_usuario : this.$cookies.get('token')
           }),
           headers : {
@@ -208,17 +209,18 @@ export default {
         .then(res => res.json())
         .then(result => {
           if(result.error === 0){
-            this.rutas[index].me_gusta = this.rutas[index].me_gusta - 1
             fetch('http://localhost:8081/rutas', {
               method:'PUT',
               body: JSON.stringify({
                 ...ruta,
+                multimedia : '',
                 me_gusta : ruta.me_gusta - 1
               }),
               headers : {
                 'Content-Type' : 'application/json'
               }
             })
+            this.rutas[index].me_gusta = this.rutas[index].me_gusta - 1
           }
         })
       }

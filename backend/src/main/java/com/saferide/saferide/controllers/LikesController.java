@@ -22,7 +22,8 @@ public class LikesController {
     }
 
     @DeleteMapping("/ruta")
-    public Error dislikeRuta(@RequestBody LikeRutaModel ruta) { return likesService.dislikeRuta(ruta); }
+    public Error dislikeRuta(@RequestBody LikeRutaModel ruta) {
+        return likesService.dislikeRuta(ruta); }
 
     @PostMapping("/sendero")
     public Error likeSendero(@RequestBody LikeSenderoModel sendero) {

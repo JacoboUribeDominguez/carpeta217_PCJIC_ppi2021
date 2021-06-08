@@ -10,6 +10,7 @@ import com.saferide.saferide.repositories.LikeSenderoRepository;
 import com.saferide.saferide.services.LikesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LikesImplements implements LikesService {
@@ -32,11 +33,13 @@ public class LikesImplements implements LikesService {
     }
 
     @Override
+    @Transactional
     public Error dislikeRuta(LikeRutaModel ruta) {
         try {
             likeRutaRepository.deleteRuta(ruta.getId_ruta(), ruta.getId_usuario());
             return new Error("Eliminación exitosa", 0);
         } catch (Exception e) {
+            System.out.println(e);
             return new Error("Hubo un error", 1);
         }
     }
