@@ -15,7 +15,8 @@ export default new Vuex.Store({
     imgFile : null,
     addMetrica : {
       show : false
-    }
+    },
+    metricas : null
   },
   mutations: {
     changeAddMetrica(state, metrica){

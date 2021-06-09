@@ -41,14 +41,21 @@
         </div>
       </div>
     </header>
-    <MetricaCard />
-    <MetricaCard />
-    <MetricaCard />
+    <div v-if="metricas">
+      <MetricaCard />
+      <MetricaCard />
+      <MetricaCard />
+    </div>
+    <div class="mt-4" v-else>
+      <h3>Hubo algun problema, intentalo más tarde</h3>
+      <a href="/" class="stretched-link">Click para volver</a>
+    </div>
   </div>
 </template>
 
 <script>
 import MetricaCard from "../components/MetricaCard";
+import { mapState } from 'vuex'
 
 export default {
   name: "Metricas",
@@ -57,6 +64,11 @@ export default {
     return {
       showAccount : false
     }
+  },
+  computed : {
+    ...mapState({
+      metricas : 'metricas'
+    })
   },
   mounted(){
     document.addEventListener('mousedown', this.handleClickOutside)
