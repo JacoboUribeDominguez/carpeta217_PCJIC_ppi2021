@@ -12,9 +12,24 @@ export default new Vuex.Store({
     showImgs : false,
     searchedWord : '',
     img : null,
-    imgFile : null
+    imgFile : null,
+    addMetrica : {
+      show : false
+    }
   },
   mutations: {
+    changeAddMetrica(state, metrica){
+      if(metrica){
+        state.addMetrica = {
+          show : true,
+          ruta : metrica
+        }
+      } else {
+        state.addMetrica = {
+          show : false
+        }
+      }
+    },
     mountRutas(state, rutas){
       state.rutas = rutas
     },
@@ -149,6 +164,13 @@ export default new Vuex.Store({
     },
     addRouteAction( { commit }, ruta ){
       commit('addRoute', ruta)
+    },
+    changeAddMetricaAction( { commit }, addMetrica ) {
+      if(addMetrica){
+        commit('changeAddMetrica', addMetrica)
+      } else {
+        commit('changeAddMetrica')
+      }
     }
   },
   modules: {},

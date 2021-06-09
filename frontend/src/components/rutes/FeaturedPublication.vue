@@ -3,6 +3,7 @@
         <ButtonsRute 
             v-if="showBotonsRute" 
             ref="outside"
+            :ruta="ruta"
             :showBotonsRute="showBotonsRute"
             @showBottonMenu="showBottonMenu"
             @goToPublication="goToPublication"

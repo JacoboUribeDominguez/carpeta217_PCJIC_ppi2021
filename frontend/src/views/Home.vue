@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <AddMetrica 
+      v-if="addMetrica.show" 
+    />
     <!--Abajo de aquí va todo el código de la página principal-->
     <AddRoute 
       @alternateShowAddRoute="alternateShowAddRoute" 
@@ -60,6 +63,7 @@ import "../styles/home.css";
 import FeaturedPublication from "../components/rutes/FeaturedPublication.vue"
 import Publication from "../components/rutes/Publication.vue"
 import Navbar from "../components/Navbar.vue";
+import AddMetrica from "../components/rutes/addMetrica.vue"
 import AddRoute from "../components/AddRoute.vue";
 import AddRouteResponsive from "../components/AddRouteResponsive.vue";
 
@@ -77,7 +81,8 @@ export default {
     AddRoute,
     AddRouteResponsive,
     FeaturedPublication,
-    Publication
+    Publication,
+    AddMetrica
     // Publicacion
   },
   data() {
@@ -173,7 +178,8 @@ export default {
   computed : {
     ...mapState({
       rutas : 'rutas',
-      showImgs : 'showImgs'
+      showImgs : 'showImgs',
+      addMetrica : 'addMetrica'
     })
   }
 };

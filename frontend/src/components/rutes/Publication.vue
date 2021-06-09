@@ -2,6 +2,7 @@
     <div class="publicacion" >
         <ButtonsRute 
             v-if="showBotonsRute" 
+            :ruta="ruta"
             @showBottonMenu="showBottonMenu"
             @goToPublication="goToPublication"
         />
