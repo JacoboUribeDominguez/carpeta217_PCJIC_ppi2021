@@ -92,16 +92,13 @@ export default {
             searchedWord : 'searchedWord'
         })
     },
-    destroyed(){
-        this.$store.dispatch('changeShowImgsAction')
-        this.$store.dispatch('changeSearchedWordAction')
-    },
     mounted(){
-      if(!this.results){
-        setTimeout(()=> {
+      this.$store.dispatch('changeShowImgsAction')
+      setTimeout(()=> {
+        if(!this.results){
           this.$router.push('/')
-        }, 3000)
-      }
+        }
+      }, 7000)
     }
 }
 
