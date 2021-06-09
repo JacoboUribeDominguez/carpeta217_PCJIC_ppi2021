@@ -1,8 +1,12 @@
 <template>
   <div class="home">
     <!--Abajo de aquí va todo el código de la página principal-->
-    <AddRoute @alternateShowAddRoute="alternateShowAddRoute" v-if="showAddRoute" />
-    <AddRouteResponsive @alternateShowAddRoute="alternateShowAddRoute" v-if="showAddRoute"/>
+    <AddRoute 
+      @alternateShowAddRoute="alternateShowAddRoute" 
+      v-if="showAddRoute" />
+    <AddRouteResponsive 
+      @alternateShowAddRoute="alternateShowAddRoute" 
+      v-if="showAddRoute"/>
     <Navbar />
     <div id="Peatones">
       <div class="">
@@ -24,10 +28,19 @@
               <h1 class="text-muted" style="font-size:20px;">Algo esta mal, intentenlo mas tarde</h1>
             </div>
             <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index" v-else>
-              <Rute 
-                :index="index" 
+              <FeaturedPublication 
+                v-if="index < 3"
                 :ruta="ruta"
-                :showImgs="showImgs"
+                :index="index"
+                @like="like"
+                :showImgs="showImgs" 
+              />
+              <Publication 
+                v-else
+                :index="index"
+                @like="like"
+                :ruta="ruta"
+                :showImgs="showImgs" 
               />
             </div>
           </div>
@@ -44,10 +57,11 @@
 import "../styles/home.css";
 
 //components
+import FeaturedPublication from "../components/rutes/FeaturedPublication.vue"
+import Publication from "../components/rutes/Publication.vue"
 import Navbar from "../components/Navbar.vue";
 import AddRoute from "../components/AddRoute.vue";
 import AddRouteResponsive from "../components/AddRouteResponsive.vue";
-import Rute from "../components/rutes/Rute.vue"
 
 //librerias
 import { storage } from '../utils/firebase'
@@ -62,13 +76,24 @@ export default {
     Navbar,
     AddRoute,
     AddRouteResponsive,
-    Rute
+    FeaturedPublication,
+    Publication
     // Publicacion
   },
   data() {
     return {
       showAddRoute: false,
     };
+  },
+  mounted(){
+    if(this.showImgs){
+      this.$store.dispatch('changeShowImgsAction')
+    }
+    if(this.$cookies.get('token')){
+      this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
+    } else {
+      this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
+    }
   },
   methods: {
 
@@ -143,16 +168,6 @@ export default {
           }
         })
       }
-    }
-  },
-  mounted(){
-    if(this.showImgs){
-      this.$store.dispatch('changeShowImgsAction')
-    }
-    if(this.$cookies.get('token')){
-      this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
-    } else {
-      this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
     }
   },
   computed : {
