@@ -1,5 +1,7 @@
 package com.saferide.saferide.colas;
 
+import com.saferide.saferide.models.MetricaModel;
+
 public class ListMetricasColas {
 
     private Nodo first;
@@ -20,6 +22,10 @@ public class ListMetricasColas {
         }
     }
 
+    public void addElement(MetricaModel metrica){
+        this.addElement(new Nodo(metrica.getId_ruta().getUbicacion(), metrica.getId_usuario().getUsuario(), metrica.getId_ruta().getMe_gusta(), metrica.getId_ruta().getMultimedia()));
+    }
+
     public void removeElement(){
         Nodo temp = this.first;
         while(temp != null){
@@ -35,7 +41,7 @@ public class ListMetricasColas {
     public void show(){
         Nodo temp = this.first;
         while(temp != null){
-            System.out.print("["+temp.getMe_gusta()+"]");
+            System.out.print("["+temp.getUsuario()+"]");
             temp = temp.getNext();
         }
     }
