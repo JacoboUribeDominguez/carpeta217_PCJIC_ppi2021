@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex align-items-center" style="position:fixed;width:100vw;z-index:2;">
+    <div class="d-flex align-items-center justify-content-center" style="height:100vh;position:fixed;width:100vw;z-index:2;">
         <div class="addMetricaContainer">
             <div class="title-warning">
                 ¿Estas seguro que deseas agregar esta ruta a tus metricas?
@@ -18,16 +18,67 @@
     </div>
 </template>
 <script>
+
+import { mapState } from "vuex"
+
 export default {
     name : 'AddMetrica',
+    computed : {
+        ...mapState({
+            addMetrica : 'addMetrica'
+        })
+    },
     methods : {
         subir(){
-            console.log('subiendo')
+            const { id_ruta } = this.addMetrica.ruta
+            fetch('http://localhost:8081/metricas/exists', {
+                method: 'GET',
+                body : JSON.stringify({
+                    id_usuario : {
+                        id_usuario : this.$cookies.get('token')
+                    },
+                    id_ruta : {
+                        id_ruta
+                    }
+                }),
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (!result){
+                    fetch('http://localhost:8081/metricas', {
+                        method:'POST',
+                        body : JSON.stringify({
+                            id_usuario : {
+                                id_usuario : this.$cookies.get('token')
+                            },
+                            id_ruta
+                        }),
+                        headers:{
+                            "Content-Type" : 'application/json'
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(result => {
+                        if(result.error === 1){
+                            console.log('hubo un error')
+                        } else {
+                            console.log('no hubo un error')
+                        }
+                    })
+                } else {
+                    console.log('ya hay una ruta')
+                    //acciones si ya existe
+                }
+            })
+            console.log(id_ruta)
         },
         cerrar(){
             this.$store.dispatch('changeAddMetricaAction')
         }
-    }
+    },
 }
 </script>
 
@@ -40,8 +91,7 @@ export default {
     color:white;
     margin:5vh 5vw;
     padding:2rem;
-    position:fixed;
-    width:90vw;
+    width:40vw;
 }
 
 .title-warning {
@@ -69,6 +119,13 @@ export default {
     border:white;
     background: white;
     color: rgb(74, 163, 74);
+}
+
+@media(max-width:750px){
+    .addMetricaContainer {
+        width:60vw;
+        transition:550ms;
+    }
 }
 
 @media(max-width:480px){
