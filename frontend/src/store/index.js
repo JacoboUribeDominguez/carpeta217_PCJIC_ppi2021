@@ -19,6 +19,9 @@ export default new Vuex.Store({
     metricas : null
   },
   mutations: {
+    mountMetricas(state, metricas){
+      state.metricas = metricas
+    },
     changeAddMetrica(state, metrica){
       if(metrica){
         state.addMetrica = {
@@ -90,6 +93,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    mountMetricasAction({ commit }, id_usuario ){
+      fetch(`http://localhost:8081/metricas?id_usuario=${id_usuario}`)
+      .then(res => res.json())
+      .then(result => {
+        commit('mountMetricas', result)
+      })
+    },
     mountRutasAction( { commit }, { refStorage, id } ){
       fetch(`http://localhost:8081/rutas?id=${id}`)
       .then(res => res.json())

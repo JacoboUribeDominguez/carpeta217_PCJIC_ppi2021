@@ -41,14 +41,17 @@
         </div>
       </div>
     </header>
-    <div v-if="metricas">
+    <div class="mt-4" v-if="!metricas">
+      <h3>Hubo algun problema, intentalo más tarde</h3>
+      <a href="/" class="stretched-link">Click para volver</a>
+    </div>
+    <div v-else-if="metricas.length > 0">
       <MetricaCard />
       <MetricaCard />
       <MetricaCard />
     </div>
-    <div class="mt-4" v-else>
-      <h3>Hubo algun problema, intentalo más tarde</h3>
-      <a href="/" class="stretched-link">Click para volver</a>
+    <div v-else>
+      <h1>Hola</h1>
     </div>
   </div>
 </template>
