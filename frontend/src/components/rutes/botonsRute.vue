@@ -28,7 +28,11 @@ export default {
     },
     methods : {
         changeAddRoute(){
-            this.$store.dispatch('changeAddMetricaAction', this.ruta)
+            if(this.$cookies.get('token')){
+                this.$store.dispatch('changeAddMetricaAction', this.ruta)
+            } else {
+                this.$router.push('/Login')
+            }
         }
     }
 }
