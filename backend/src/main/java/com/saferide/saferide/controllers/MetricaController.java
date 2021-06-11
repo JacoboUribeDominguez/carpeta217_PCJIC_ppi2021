@@ -1,5 +1,6 @@
 package com.saferide.saferide.controllers;
 
+import com.saferide.saferide.colas.Nodo;
 import com.saferide.saferide.models.MetricaModel;
 import com.saferide.saferide.services.MetricaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class MetricaController {
     private MetricaService metricaService;
 
     @GetMapping
-    public void getMetricas(@RequestParam String id_usuario){
-        metricaService.getMetricas(id_usuario);
+    public Nodo[] getMetricas(@RequestParam String id_usuario){
+        return metricaService.getMetricas(id_usuario);
     }
 
     @PostMapping

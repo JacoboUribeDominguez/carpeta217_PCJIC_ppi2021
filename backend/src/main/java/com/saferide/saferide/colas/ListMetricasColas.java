@@ -41,9 +41,36 @@ public class ListMetricasColas {
     public void show(){
         Nodo temp = this.first;
         while(temp != null){
-            System.out.print("["+temp.getUsuario()+"]");
+            System.out.print("["+temp.getMe_gusta()+"]");
             temp = temp.getNext();
         }
+    }
+
+    public Nodo[] getList(){
+        Nodo temp = this.first;
+        Nodo nodoArray[] = new Nodo[this.size()];
+        int index = 0;
+        while(temp != null){
+            nodoArray[index] = temp;
+            index++;
+            temp = temp.getNext();
+        }
+
+        for (Nodo nodo : nodoArray){
+            nodo.setNext(null);
+        }
+
+        return nodoArray;
+    }
+
+    public int size(){
+        Nodo temp = this.first;
+        int size = 0;
+        while(temp != null){
+            size++;
+            temp = temp.getNext();
+        }
+        return size;
     }
 
     //GETTERS Y SETTERS

@@ -5,6 +5,6 @@ import com.saferide.saferide.models.MetricaModel;
 
 public interface MetricaService {
 //    Nodo[] getMetricas(String id_usuario);
-    void getMetricas(String id_usuario);
+    Nodo[] getMetricas(String id_usuario);
     void saveMetricas(MetricaModel metrica);
 }

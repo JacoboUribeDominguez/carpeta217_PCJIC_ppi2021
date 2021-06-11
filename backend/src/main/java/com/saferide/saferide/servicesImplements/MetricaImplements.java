@@ -18,12 +18,12 @@ public class MetricaImplements implements MetricaService {
     private MetricaRepository metricaRepository;
 
     @Override
-    public void getMetricas(String id_usuario){
+    public Nodo[] getMetricas(String id_usuario){
         ListMetricasColas list = new ListMetricasColas();
         for(MetricaModel metrica : metricaRepository.findMetricas(id_usuario)){
             list.addElement(metrica);
         }
-        list.show();
+        return list.getList();
     }
 
     @Override
