@@ -1,5 +1,10 @@
 <template>
   <div class="row containerMetrica">
+    <div class="d-flex align-items-center justify-content-center" style="background:none;height:100vh;position:absolute;top:0;width:100%;z-index:3;">
+        <div style="background:green;padding:1.5rem;">
+          joas
+        </div>
+    </div>
     <div class="col-md-2 col-sm-3 d-flex jusity-content-center align-items-center" style="padding: 0">
       <img
         src="../assets/imgPrueba1.jpg"
@@ -16,9 +21,16 @@
           <div class="tiempos d-flex align-items-center mb-4">
             <input
               class="inputMetricaAgregarTiempo"
-              placeholder="Agrega un tiempo"
+              type="number"
+              v-model="time"
+              placeholder="Digita minutos"
             />
-            <button class="ml-2 btnAgregarTiempo">Enviar</button>
+            <button 
+              @click="sendTime"
+              class="ml-2 btnAgregarTiempo"
+            >
+              Añadir
+            </button>
           </div>
         </div>
         <div
@@ -41,14 +53,56 @@ export default {
   props : {
     metrica : Object,
   },
-  mounted(){
-    console.log(this.metrica)
-  }
+  data(){
+    return {
+      time : 10,
+    }
+  },
+  methods : {
+    sendTime(){
+      fetch('http://localhost:8081/times', {
+        method : 'POST',
+        body : JSON.stringify({
+          id_metrica : this.metrica.id_metrica,
+          tiempo : this.time,
+        }),
+        headers : {
+          'Content-Type' : 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(result => {
+        if(result.error === 0){
+          if(result.msj === "Mayor"){
+            console.log("Esta por encima del promedio")
+          } else if(result.msj === "Menor") {
+            console.log("Esta por debajo del promedio")
+          } else {
+            console.log("Es el primer tiempo que se agrega")
+          }
+          console.log('No hay error')
+        }
+      })
+    },
+  },
 };
 import "../styles/metricard.css";
 </script>
 
 <style scoped>
+
+.msjContainer {
+
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { -moz-appearance:textfield; }
+
 .containerMetrica {
   max-width: 100vw;
   margin: 0;
@@ -66,7 +120,7 @@ import "../styles/metricard.css";
   color: rgb(168, 168, 168);
   height: 100%;
   padding: 0.5rem;
-  width: 10rem;
+  width: 8rem;
 }
 
 .inputMetricaAgregarTiempo:focus {
@@ -85,10 +139,11 @@ import "../styles/metricard.css";
   color: white;
   height: 100%;
   padding: 0.5rem;
-  width: 5rem;
+  width: 10rem;
 }
 
 .tituloCard {
   text-align: left;
 }
+
 </style>
