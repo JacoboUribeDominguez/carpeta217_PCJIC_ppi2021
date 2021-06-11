@@ -1,6 +1,6 @@
 <template>
   <div class="row containerMetrica">
-    <div class="col-md-2 col-sm-3" style="padding: 0">
+    <div class="col-md-2 col-sm-3 d-flex jusity-content-center align-items-center" style="padding: 0">
       <img
         src="../assets/imgPrueba1.jpg"
         class="imgMetrica"
@@ -12,7 +12,7 @@
         <div
           class="col-sm-6 col-12 d-flex flex-column justify-content-between containerLeftMetrica"
         >
-          <h3 class="mt-3 tituloCard"><strong>Poblado</strong></h3>
+          <h3 class="mt-3 tituloCard"><strong>{{metrica.ubicacion}}</strong></h3>
           <div class="tiempos d-flex align-items-center mb-4">
             <input
               class="inputMetricaAgregarTiempo"
@@ -26,8 +26,8 @@
           style="padding: 0"
         >
           <div class="mt-4 mb-2 col-12">
-            <h4 class="elementsRight">Jacobo Uribe Domínguez</h4>
-            <h5 class="elementsRight">50 Likes</h5>
+            <h4 class="elementsRight">{{metrica.usuario}}</h4>
+            <h5 class="elementsRight">{{metrica.me_gusta}} Likes</h5>
           </div>
         </div>
       </div>
@@ -37,7 +37,10 @@
 
 <script>
 export default {
-  name: "MetricaCard"
+  name: "MetricaCard",
+  props : {
+    metrica : Object,
+  }
 };
 import "../styles/metricard.css";
 </script>

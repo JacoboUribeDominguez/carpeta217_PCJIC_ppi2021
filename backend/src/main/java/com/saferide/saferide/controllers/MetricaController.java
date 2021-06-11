@@ -25,7 +25,7 @@ public class MetricaController {
         return metricaService.saveMetricas(metrica);
     }
 
-    @GetMapping("/exists")
+    @PostMapping("/exists")
     public boolean metricaExists (@RequestBody MetricaModel metrica){
         return metricaService.exists(metrica.getId_ruta().getId_ruta(), metrica.getId_usuario().getId_usuario());
     }

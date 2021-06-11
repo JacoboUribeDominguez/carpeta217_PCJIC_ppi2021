@@ -46,9 +46,7 @@
       <a href="/" class="stretched-link">Click para volver</a>
     </div>
     <div v-else-if="metricas.length > 0">
-      <MetricaCard />
-      <MetricaCard />
-      <MetricaCard />
+      <MetricaCard v-for="(metrica, index) in metricas" :key="index" :metrica="metrica"/>
     </div>
     <div v-else>
       <h1>Hola</h1>
@@ -74,8 +72,11 @@ export default {
     })
   },
   mounted(){
-    if(!this.$cookies.get('token')){
+    const token = this.$cookies.get('token');
+    if(!token){
       this.$router.push('/Login')
+    } else {
+      this.$store.dispatch('mountMetricasAction', token)
     }
     document.addEventListener('mousedown', this.handleClickOutside)
   },

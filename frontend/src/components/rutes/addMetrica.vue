@@ -32,7 +32,7 @@ export default {
         subir(){
             const { id_ruta } = this.addMetrica.ruta
             fetch('http://localhost:8081/metricas/exists', {
-                method: 'GET',
+                method: 'POST',
                 body : JSON.stringify({
                     id_usuario : {
                         id_usuario : this.$cookies.get('token')
@@ -47,14 +47,17 @@ export default {
             })
             .then(res => res.json())
             .then(result => {
-                if (!result){
+                console.log(result)
+                if (!result || result === "false"){
                     fetch('http://localhost:8081/metricas', {
                         method:'POST',
                         body : JSON.stringify({
                             id_usuario : {
                                 id_usuario : this.$cookies.get('token')
                             },
-                            id_ruta
+                            id_ruta : {
+                                id_ruta
+                            }
                         }),
                         headers:{
                             "Content-Type" : 'application/json'
@@ -65,7 +68,7 @@ export default {
                         if(result.error === 1){
                             console.log('hubo un error')
                         } else {
-                            console.log('no hubo un error')
+                            this.$router.push('/metricas')
                         }
                     })
                 } else {
