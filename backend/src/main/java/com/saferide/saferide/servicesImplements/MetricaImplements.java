@@ -36,4 +36,18 @@ public class MetricaImplements implements MetricaService {
             return new Error("Hubo un problema", 1);
         }
     }
+
+    @Override
+    public boolean exists(String id_ruta, String id_usuario){
+        int index = 0;
+        for(MetricaModel metrica : metricaRepository.exists(id_ruta, id_usuario)){
+            index++;
+            break;
+        }
+        if(index > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
