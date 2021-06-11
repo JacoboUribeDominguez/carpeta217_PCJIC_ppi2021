@@ -1,8 +1,15 @@
 <template>
   <div class="row containerMetrica">
-    <div class="d-flex align-items-center justify-content-center" style="background:none;height:100vh;position:absolute;top:0;width:100%;z-index:3;">
-        <div style="background:green;padding:1.5rem;">
-          joas
+    <div class="d-flex align-items-center justify-content-center" style="background:none;height:100vh;position:absolute;top:0;width:100%;z-index:3;" v-if="msj !== ''">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="background:white;border:1px solid #37f185;border-radius:7px;color:#37f185;height:8rem;padding:1.5rem;width:60vw;">
+          <div class="mb-2">
+            {{msj}}
+          </div>
+          <div>
+            <button @click="msj=''" style="background:#37f185;color:white;border:none;border-radius:15px;padding:.5rem 1.5rem;">
+              Cerrar
+            </button>
+          </div>
         </div>
     </div>
     <div class="col-md-2 col-sm-3 d-flex jusity-content-center align-items-center" style="padding: 0">
@@ -56,6 +63,7 @@ export default {
   data(){
     return {
       time : 10,
+      msj : ''
     }
   },
   methods : {
@@ -74,11 +82,11 @@ export default {
       .then(result => {
         if(result.error === 0){
           if(result.msj === "Mayor"){
-            console.log("Esta por encima del promedio")
+            this.msj = "¡Felicitaciones! Lo has hecho por encima de tu promedio"
           } else if(result.msj === "Menor") {
-            console.log("Esta por debajo del promedio")
+            this.msj = "Lo lamento, no has logrado alcanzar tu promedio"
           } else {
-            console.log("Es el primer tiempo que se agrega")
+            this.msj = "Es tu primer tiempo agregado 😊"
           }
           console.log('No hay error')
         }
