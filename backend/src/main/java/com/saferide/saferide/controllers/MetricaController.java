@@ -5,6 +5,7 @@ import com.saferide.saferide.models.MetricaModel;
 import com.saferide.saferide.services.MetricaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.saferide.saferide.helpers.Error;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -20,8 +21,8 @@ public class MetricaController {
     }
 
     @PostMapping
-    public void saveMetrica(@RequestBody MetricaModel metrica){
-        metricaService.saveMetricas(metrica);
+    public Error saveMetrica(@RequestBody MetricaModel metrica){
+        return metricaService.saveMetricas(metrica);
     }
 
 }
