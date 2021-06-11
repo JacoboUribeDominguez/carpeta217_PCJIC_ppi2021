@@ -71,6 +71,9 @@ export default {
     })
   },
   mounted(){
+    if(!this.$cookies.get('token')){
+      this.$router.push('/Login')
+    }
     document.addEventListener('mousedown', this.handleClickOutside)
   },
   methods : {

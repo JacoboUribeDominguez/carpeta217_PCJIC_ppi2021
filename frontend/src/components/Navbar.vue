@@ -90,6 +90,14 @@ export default {
     document.addEventListener('mousedown', this.handleClickOutside)
   },
   methods : {
+    goToMetricas(){
+      this.showAccount = false; 
+      if(this.$cookies.get('token')){
+        this.$router.push('/metricas');
+      } else {
+        this.$router.push('/Login');
+      }
+    },
     search(){
       this.$store.dispatch('searchResultAction', this.searchPlace)
       this.$router.push("/results")
