@@ -40,6 +40,9 @@ export default {
   name: "MetricaCard",
   props : {
     metrica : Object,
+  },
+  mounted(){
+    console.log(this.metrica)
   }
 };
 import "../styles/metricard.css";

@@ -23,7 +23,7 @@ public class ListMetricasColas {
     }
 
     public void addElement(MetricaModel metrica){
-        this.addElement(new Nodo(metrica.getId_ruta().getUbicacion(), metrica.getId_usuario().getUsuario(), metrica.getId_ruta().getMe_gusta(), metrica.getId_ruta().getMultimedia()));
+        this.addElement(new Nodo(metrica.getId_metrica(), metrica.getId_ruta().getUbicacion(), metrica.getId_usuario().getUsuario(), metrica.getId_ruta().getMe_gusta(), metrica.getId_ruta().getMultimedia()));
     }
 
     public void removeElement(){
