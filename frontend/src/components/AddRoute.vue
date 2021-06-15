@@ -16,6 +16,7 @@
                     </div>
                     <div class="my-4 d-flex flex-column align-items-center">
                         <input ref="addImage" id="addImagen" style="visibility:hidden; position:absolute" type="file" accept="image/*" @change="onChange"/>
+                        <input style="visibility:hidden; position:absolute" type="file" accept="video/*"/>
                         <!-- <div v-if="img !== null" style="height:400px;margin:0;">
                             <imagen 
                                 v-model="myCroppa" 

@@ -81,14 +81,13 @@ export default {
       .then(res => res.json())
       .then(result => {
         if(result.error === 0){
-          if(result.msj === "Mayor"){
+          if(result.message === "Mayor"){
             this.msj = "¡Felicitaciones! Lo has hecho por encima de tu promedio"
-          } else if(result.msj === "Menor") {
+          } else if(result.message === "Menor") {
             this.msj = "Lo lamento, no has logrado alcanzar tu promedio"
           } else {
             this.msj = "Es tu primer tiempo agregado 😊"
           }
-          console.log('No hay error')
         }
       })
     },
