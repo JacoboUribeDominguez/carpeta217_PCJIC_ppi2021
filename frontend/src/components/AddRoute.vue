@@ -16,7 +16,6 @@
                     </div>
                     <div class="my-4 d-flex flex-column align-items-center">
                         <input ref="addImage" id="addImagen" style="visibility:hidden; position:absolute" type="file" accept="image/*" @change="onChange"/>
-                        <input style="visibility:hidden; position:absolute" type="file" accept="video/*"/>
                         <!-- <div v-if="img !== null" style="height:400px;margin:0;">
                             <imagen 
                                 v-model="myCroppa" 
@@ -40,18 +39,7 @@
                                 <img @click="onClick" slot="placeholder" :src="img" />
                             </imagen>
                         </div> -->
-                        <div v-if="!img" class="d-flex justify-content-start" style="width:100%;">
-                            <div class="contenedor_options">
-                                <svg @click="onClick" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-card-image mx-2 btnImages" viewBox="0 0 16 16">
-                                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                    <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-camera-video-fill mx-2 btnImages" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <!--<img v-if="img === null" src="../assets/sube_una_foto.jpg" style="width:auto;height:38vh;" @click="onClick" />-->
+                        <img v-if="img === null" src="../assets/sube_una_foto.jpg" style="width:auto;height:38vh;" @click="onClick" />
                         <div v-else class="d-flex justify-content-center align-items-center" style="width:38vh;height:38vh;overflow:hidden;background:black;margin:0;">
                             <div class="d-flex justify-content-end" style="position:absolute;width:38vh;height:38vh">
                                 <button @click="$store.dispatch('changeImgAction')" class="btnRemove" style="position:absolute;z-index:4">
@@ -183,21 +171,6 @@
         color:white;
         margin:.5rem;
         padding:.5rem;
-    }
-
-    .contenedor_options {
-        background: #494949;
-        border-radius:15px;
-        padding: .5rem 1rem;
-    }
-
-    .btnImages{
-        color:white;
-    }
-
-    .btnImages:hover {
-        color:#37f185;
-        cursor:pointer;
     }
 
     @media (max-width: 575px){
