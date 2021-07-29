@@ -18,6 +18,7 @@ public class LikesController {
 
     @PostMapping("/ruta")
     public Error likeRuta(@RequestBody LikeRutaModel ruta) {
+        System.out.println("entre");
         return likesService.likeRuta(ruta);
     }
 

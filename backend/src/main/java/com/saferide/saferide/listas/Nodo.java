@@ -1,12 +1,15 @@
 package com.saferide.saferide.listas;
 
 
+import com.saferide.saferide.models.UserModel;
+import org.apache.catalina.User;
+
 public class Nodo {
 
     //atributos
     private String id_ruta;
     private String multimedia;
-    private String id_usuario;
+    private UserModel id_usuario;
     private int me_gusta;
     private String ubicacion;
     private Nodo next;
@@ -16,7 +19,7 @@ public class Nodo {
     public Nodo(
             String id_ruta,
             String multimedia,
-            String id_usuario,
+            UserModel id_usuario,
             int me_gusta,
             String ubicacion,
             Nodo next,
@@ -35,7 +38,7 @@ public class Nodo {
     public Nodo(
             String id_ruta,
             String multimedia,
-            String id_usuario,
+            UserModel id_usuario,
             int me_gusta,
             String ubicacion,
             Nodo next)
@@ -53,7 +56,7 @@ public class Nodo {
     public Nodo(
             String id_ruta,
             String multimedia,
-            String id_usuario,
+            UserModel id_usuario,
             int me_gusta,
             String ubicacion)
     {
@@ -82,11 +85,11 @@ public class Nodo {
         this.multimedia = multimedia;
     }
 
-    public String getId_usuario() {
+    public UserModel getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_usuario(UserModel id_usuario) {
         this.id_usuario = id_usuario;
     }
 

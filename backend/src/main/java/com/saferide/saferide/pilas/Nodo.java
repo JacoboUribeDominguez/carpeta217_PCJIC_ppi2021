@@ -6,6 +6,7 @@ public class Nodo {
     private String id_ruta;
     private String multimedia;
     private String id_usuario;
+    private String usuario;
     private int me_gusta;
     private String ubicacion;
     private boolean isLiked;
@@ -16,6 +17,7 @@ public class Nodo {
             String id_ruta,
             String multimedia,
             String id_usuario,
+            String usuario,
             int me_gusta,
             String ubicacion,
             Nodo next)
@@ -23,6 +25,7 @@ public class Nodo {
         this.id_ruta = id_ruta;
         this.multimedia = multimedia;
         this.id_usuario = id_usuario;
+        this.usuario = usuario;
         this.me_gusta = me_gusta;
         this.ubicacion = ubicacion;
         this.next = next;
@@ -33,12 +36,14 @@ public class Nodo {
             String id_ruta,
             String multimedia,
             String id_usuario,
+            String usuario,
             int me_gusta,
             String ubicacion)
     {
         this.id_ruta = id_ruta;
         this.multimedia = multimedia;
         this.id_usuario = id_usuario;
+        this.usuario = usuario;
         this.me_gusta = me_gusta;
         this.ubicacion = ubicacion;
         this.next = null;
@@ -98,5 +103,13 @@ public class Nodo {
 
     public void setLiked(boolean liked) {
         isLiked = liked;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 }

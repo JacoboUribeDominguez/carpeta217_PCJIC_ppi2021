@@ -28,7 +28,7 @@ public class RutaController {
     }
 
     @GetMapping("/results")
-    public List<RutaModel> getResults(@RequestParam String palabra) {
+    public Nodo[] getResults(@RequestParam String palabra) {
         return rutaService.getResults(palabra); }
 
     @PutMapping

@@ -11,8 +11,11 @@ public class RutaModel {
     private String id_ruta;
     @Column
     private String multimedia;
-    @Column
-    private String id_usuario;
+
+    @ManyToOne
+    @JoinColumn(name="id_usuario")
+    private UserModel id_usuario;
+
     @Column
     private int me_gusta;
     @Column
@@ -34,11 +37,11 @@ public class RutaModel {
         this.multimedia = multimedia;
     }
 
-    public String getId_usuario() {
+    public UserModel getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_usuario(UserModel id_usuario) {
         this.id_usuario = id_usuario;
     }
 

@@ -110,6 +110,11 @@ export default {
     //Dar like ***********************************************************************
     like(ruta, index){
 
+      if(!this.$cookies.get('token')){
+        this.$router.push('/login')
+        return
+      }
+
       const oldMe_gusta = this.rutas[index].me_gusta
 
       if(!ruta.liked){
@@ -132,7 +137,12 @@ export default {
             fetch('http://localhost:8081/rutas', {
               method:'PUT',
               body: JSON.stringify({
-                ...ruta,
+                id_ruta : ruta.id_ruta,
+                multimedia : ruta.multimedia,
+                id_usuario : {
+                  id_usuario : ruta.id_usuario
+                },
+                ubicacion : ruta.ubicacion,
                 me_gusta : oldMe_gusta + 1
               }),
               headers : {
@@ -162,8 +172,12 @@ export default {
             fetch('http://localhost:8081/rutas', {
               method:'PUT',
               body: JSON.stringify({
-                ...ruta,
-                multimedia : '',
+                id_ruta : ruta.id_ruta,
+                multimedia : ruta.multimedia,
+                id_usuario : {
+                  id_usuario : ruta.id_usuario
+                },
+                ubicacion : ruta.ubicacion,
                 me_gusta : oldMe_gusta - 1
               }),
               headers : {

@@ -75,7 +75,9 @@ export default new Vuex.Store({
         body:JSON.stringify({
           id_ruta : '',
           multimedia : name,
-          id_usuario : '' + id,
+          id_usuario : {
+            id_usuario:'' + id,
+          },
           me_gusta : 0,
           ubicacion : ubication
         }),
@@ -86,6 +88,9 @@ export default new Vuex.Store({
       .then(res => res.json())
       .then(result => {
         this.$store.dispatch('addRoute', result)
+        state.addMetrica = {
+          show : false
+        }
       })
     },
     addRoute(state, ruta){

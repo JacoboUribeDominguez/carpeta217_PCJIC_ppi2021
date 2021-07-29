@@ -10,7 +10,7 @@ import java.util.List;
 public interface RutaService {
     RutaModel saveRuta(RutaModel ruta); //Create
     Nodo[] getRutas(String id); //Read
-    List<RutaModel> getResults(String palabra); //Read
+    Nodo[] getResults(String palabra); //Read
     Error updateRuta(RutaModel ruta); //Update
     Error deleteRuta(String id_ruta); //Delete
 }
