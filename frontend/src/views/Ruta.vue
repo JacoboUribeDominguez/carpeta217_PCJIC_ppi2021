@@ -44,12 +44,14 @@
             <div class="d-flex justify-content-start ml-3">
                 <div class="giveLike" style="color:white;">
                     <font-awesome-icon
+                        @click="like(rutas[id], id)"
                         v-if="!rutas[id].liked"
                         class="up"
                         icon="thumbs-up"
                         style="font-size: 1rem"
                     />
                     <font-awesome-icon
+                        @click="like(rutas[id], id)"
                         v-else
                         class="down"
                         icon="thumbs-up"
@@ -104,6 +106,85 @@ export default {
                         this.$refs.imgRef.classList="widthIqualHeight";
                     }
                 }
+            }
+        },
+        like(ruta, index){
+            if(!this.$cookies.get('token')){
+                this.$router.push('/login')
+                return
+            }
+
+            const oldMe_gusta = this.rutas[index].me_gusta
+
+            if(!ruta.liked){
+                this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1;
+                this.rutas[index].liked = !this.rutas[index].liked
+                const { id_ruta } = ruta
+                fetch('http://localhost:8081/likes/ruta', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id_ruta,
+                    id_usuario : this.$cookies.get('token')
+                }),
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+                })
+                .then(res => res.json())
+                .then(result => {
+                if(result.error === 0){
+                    fetch('http://localhost:8081/rutas', {
+                    method:'PUT',
+                    body: JSON.stringify({
+                        id_ruta : ruta.id_ruta,
+                        multimedia : ruta.multimedia,
+                        id_usuario : {
+                        id_usuario : ruta.id_usuario
+                        },
+                        ubicacion : ruta.ubicacion,
+                        me_gusta : oldMe_gusta + 1
+                    }),
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                    })
+                }
+                })
+            } else {
+                this.rutas[index].me_gusta = this.rutas[index].me_gusta - 1;
+                this.rutas[index].liked = !this.rutas[index].liked
+                const { id_ruta } = ruta
+                fetch('http://localhost:8081/likes/ruta', {
+                method: 'DELETE',
+                body: JSON.stringify({
+                    id_ruta,
+                    multimedia : '',
+                    id_usuario : this.$cookies.get('token')
+                }),
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+                })
+                .then(res => res.json())
+                .then(result => {
+                if(result.error === 0){
+                    fetch('http://localhost:8081/rutas', {
+                    method:'PUT',
+                    body: JSON.stringify({
+                        id_ruta : ruta.id_ruta,
+                        multimedia : ruta.multimedia,
+                        id_usuario : {
+                        id_usuario : ruta.id_usuario
+                        },
+                        ubicacion : ruta.ubicacion,
+                        me_gusta : oldMe_gusta - 1
+                    }),
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                    })
+                }
+                })
             }
         }
     },
