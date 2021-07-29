@@ -2,7 +2,7 @@
   <div>
     <header class="header">
       <div class="m-3 imgContainer">
-        <img src="../assets/textLogoWhite.png" class="logo-saferide" alt="logo saferide" />
+        <img src="../assets/textLogoWhite.png" @click="$router.push('/')" class="logo-saferide" alt="logo saferide" />
       </div>
       <div class="m-3 btns" v-if="!$cookies.get('token')">
         <button class="btn iniciar mx-2">Ingresa</button>
@@ -113,6 +113,10 @@ export default {
 .logo-saferide {
   width: 10rem;
   height: auto;
+}
+
+.logo-saferide:hover {
+  cursor:pointer;
 }
 
 .btns {

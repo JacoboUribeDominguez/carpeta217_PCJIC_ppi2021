@@ -47,7 +47,6 @@ export default {
             })
             .then(res => res.json())
             .then(result => {
-                console.log(result)
                 if (!result || result === "false"){
                     fetch('http://localhost:8081/metricas', {
                         method:'POST',
@@ -72,11 +71,9 @@ export default {
                         }
                     })
                 } else {
-                    console.log('ya hay una ruta')
-                    //acciones si ya existe
+                    this.$router.push('/metricas')
                 }
             })
-            console.log(id_ruta)
         },
         cerrar(){
             this.$store.dispatch('changeAddMetricaAction')

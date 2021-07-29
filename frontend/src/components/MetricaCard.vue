@@ -26,6 +26,9 @@
         >
           <h3 class="mt-3 tituloCard"><strong>{{metrica.ubicacion}}</strong></h3>
           <div class="tiempos d-flex align-items-center mb-4">
+            <div class="alert-noTime" v-if="noTime">
+              Digita un tiempo
+            </div>
             <input
               class="inputMetricaAgregarTiempo"
               type="number"
@@ -62,34 +65,42 @@ export default {
   },
   data(){
     return {
-      time : 10,
-      msj : ''
+      time : null,
+      msj : '',
+      noTime : false
     }
   },
   methods : {
     sendTime(){
-      fetch('http://localhost:8081/times', {
-        method : 'POST',
-        body : JSON.stringify({
-          id_metrica : this.metrica.id_metrica,
-          tiempo : this.time,
-        }),
-        headers : {
-          'Content-Type' : 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .then(result => {
-        if(result.error === 0){
-          if(result.message === "Mayor"){
-            this.msj = "¡Felicitaciones! Lo has hecho por encima de tu promedio"
-          } else if(result.message === "Menor") {
-            this.msj = "Lo lamento, no has logrado alcanzar tu promedio"
-          } else {
-            this.msj = "Es tu primer tiempo agregado 😊"
+      if(this.tiempo){
+        fetch('http://localhost:8081/times', {
+          method : 'POST',
+          body : JSON.stringify({
+            id_metrica : this.metrica.id_metrica,
+            tiempo : this.time,
+          }),
+          headers : {
+            'Content-Type' : 'application/json'
           }
-        }
-      })
+        })
+        .then(res => res.json())
+        .then(result => {
+          if(result.error === 0){
+            if(result.message === "Mayor"){
+              this.msj = "¡Felicitaciones! Lo has hecho por encima de tu promedio"
+            } else if(result.message === "Menor") {
+              this.msj = "Lo lamento, no has logrado alcanzar tu promedio"
+            } else {
+              this.msj = "Es tu primer tiempo agregado 😊"
+            }
+          }
+        })
+      } else {
+        this.noTime = true;
+        setTimeout(() => {
+          this.noTime = false;
+        },3000)
+      }
     },
   },
 };
@@ -151,6 +162,14 @@ input[type=number] { -moz-appearance:textfield; }
 
 .tituloCard {
   text-align: left;
+}
+
+.alert-noTime {
+  background: red;
+  border-radius:15px;
+  color:white;
+  padding:.5rem 1rem;
+  position:absolute;
 }
 
 </style>
