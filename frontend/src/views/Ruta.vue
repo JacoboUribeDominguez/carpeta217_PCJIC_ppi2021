@@ -293,9 +293,16 @@ export default {
         border-bottom-right-radius: 50%;
         padding: .5rem 1rem;
     }
+    
+    .giveLike:hover {
+        transition:450ms;
+        background: #3a3a3a;
+        cursor:pointer;
+    }
 
     .down {
         transform : rotate(180deg)
     }
+
 
 </style>
