@@ -27,7 +27,7 @@
                 </svg>
               </h1>
             </div>
-            <div class="m-4 d-flex justify-content-center align-items-center" v-if="rutas.length === 0" style="height:250px;">
+            <div class="m-4 d-flex justify-content-center align-items-center errorNoPublications" v-if="rutas.length === 0" style="height:250px;">
               <h1 class="text-muted" style="font-size:20px;">Algo esta mal, intentenlo mas tarde</h1>
             </div>
             <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index" v-else>
@@ -56,8 +56,6 @@
 
 <script>
 // @ is an alias to /src
-// Aquí esta el css
-import "../styles/home.css";
 
 //components
 import FeaturedPublication from "../components/rutes/FeaturedPublication.vue"
@@ -241,6 +239,10 @@ img {
 .iconAdd:hover {
   cursor:pointer;
   color:rgb(27, 141, 74);
+}
+
+.errorNoPublications {
+  min-height: 42.7vh;
 }
 
 </style>
