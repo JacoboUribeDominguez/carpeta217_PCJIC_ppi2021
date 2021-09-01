@@ -1,5 +1,6 @@
 package com.saferide.saferide.controllers;
 
+import com.saferide.saferide.helpers.Error;
 import com.saferide.saferide.models.RutaModel;
 import com.saferide.saferide.pilas.Nodo;
 import com.saferide.saferide.services.RutaService;
@@ -22,21 +23,21 @@ public class RutaController {
     }
 
     @GetMapping
-    public Nodo[] getRutas(){
-        return rutaService.getRutas();
+    public Nodo[] getRutas(@RequestParam String id){
+        return rutaService.getRutas(id);
     }
 
     @GetMapping("/results")
-    public List<RutaModel> getResults(@RequestParam String palabra) {
+    public Nodo[] getResults(@RequestParam String palabra) {
         return rutaService.getResults(palabra); }
 
     @PutMapping
-    public void updateRuta(@RequestBody RutaModel ruta){
-        rutaService.updateRuta(ruta);
+    public Error updateRuta(@RequestBody RutaModel ruta){
+        return rutaService.updateRuta(ruta);
     }
 
     @DeleteMapping
-    public void deleteRuta(@RequestParam String id_usuario){
-        rutaService.deleteRuta(id_usuario);
+    public Error deleteRuta(@RequestParam String id_usuario){
+        return rutaService.deleteRuta(id_usuario);
     }
 }

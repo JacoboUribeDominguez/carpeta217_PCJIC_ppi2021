@@ -1,0 +1,62 @@
+/* PUBLICACION DESTACADA */
+.publicacionDestacada {
+    background-color: #312e2e;
+    box-shadow: 0px 0px 25px 1px rgb(253, 194, 0);
+    margin: 4rem 0px;
+  }
+  
+  .publicacionDestacada:hover {
+    cursor:pointer;
+    box-shadow: 0px 0px 25px 1px #89ffba;
+  }
+  
+  .autor {
+    border-bottom:2px solid #535353;
+    text-align: start;
+    padding: 10px;
+    color: white;
+  }
+  
+  .descripcion {
+    text-align: start;
+    color: white;
+    padding: 0px 10px 0px;
+  }
+  
+  .descripcionMeGusta {
+    padding: 10px 10px 10px;
+    margin: 0px 0px;
+    text-align: start;
+    color: white;
+  }
+  
+  .meGusta {
+    background: dodgerblue;
+    border-color: dodgerblue;
+    color: white;
+    border-radius: 10px;
+    padding: 0.5rem 0.5rem;
+    width: 20%;
+    margin-bottom: 1rem;
+  }
+  
+  .meGusta .down {
+    transform : rotate(180deg)
+  }
+  
+  /* PUBLICACIÓN */
+  .publicacion {
+    background: #312e2e;
+    border-radius: 10px;
+    margin: 1rem 0px;
+  }
+  
+  .publicacion:hover {
+    cursor:pointer;
+    box-shadow: 0px 0px 25px 1px white;
+  }
+
+  .imagenes {
+    height:auto;
+    width:100%;
+  }

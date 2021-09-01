@@ -87,7 +87,7 @@ public class ListRutasPilas {
 
         //Agregar a la pila
     public void addElement(RutaModel ruta){
-        this.addElement(new Nodo(ruta.getId_ruta(), ruta.getMultimedia(), ruta.getId_usuario(), ruta.getMe_gusta(), ruta.getUbicacion()));
+        this.addElement(new Nodo(ruta.getId_ruta(), ruta.getMultimedia(), ruta.getId_usuario().getId_usuario(), ruta.getId_usuario().getUsuario(), ruta.getMe_gusta(), ruta.getUbicacion()));
     }
 
     public void addElement(Nodo nodo){
@@ -184,7 +184,8 @@ public class ListRutasPilas {
         return new Nodo(
                 temp.getId_ruta(),
                 temp.getMultimedia(),
-                temp.getId_usuario(),
+                temp.getId_usuario().getId_usuario(),
+                temp.getId_usuario().getUsuario(),
                 temp.getMe_gusta(),
                 temp.getUbicacion()
         );
@@ -195,9 +196,14 @@ public class ListRutasPilas {
                 temp.getId_ruta(),
                 temp.getMultimedia(),
                 temp.getId_usuario(),
+                temp.getUsuario(),
                 temp.getMe_gusta(),
                 temp.getUbicacion()
         );
+    }
+
+    public void checkLike(String id){
+
     }
 
     public int size(){

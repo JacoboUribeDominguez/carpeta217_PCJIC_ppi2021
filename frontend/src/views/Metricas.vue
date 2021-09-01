@@ -2,7 +2,7 @@
   <div>
     <header class="header">
       <div class="m-3 imgContainer">
-        <img src="../assets/textLogoWhite.png" class="logo-saferide" alt="logo saferide" />
+        <img src="../assets/textLogoWhite.png" @click="$router.push('/')" class="logo-saferide" alt="logo saferide" />
       </div>
       <div class="m-3 btns" v-if="!$cookies.get('token')">
         <button class="btn iniciar mx-2">Ingresa</button>
@@ -41,14 +41,22 @@
         </div>
       </div>
     </header>
-    <MetricaCard />
-    <MetricaCard />
-    <MetricaCard />
+    <div class="mt-4" v-if="!metricas">
+      <h3>Hubo algun problema, intentalo más tarde</h3>
+      <a href="/" class="stretched-link">Click para volver</a>
+    </div>
+    <div v-else-if="metricas.length > 0">
+      <MetricaCard v-for="(metrica, index) in metricas" :key="index" :metrica="metrica"/>
+    </div>
+    <div v-else>
+      <h1>Hola</h1>
+    </div>
   </div>
 </template>
 
 <script>
 import MetricaCard from "../components/MetricaCard";
+import { mapState } from 'vuex'
 
 export default {
   name: "Metricas",
@@ -58,7 +66,18 @@ export default {
       showAccount : false
     }
   },
+  computed : {
+    ...mapState({
+      metricas : 'metricas'
+    })
+  },
   mounted(){
+    const token = this.$cookies.get('token');
+    if(!token){
+      this.$router.push('/Login')
+    } else {
+      this.$store.dispatch('mountMetricasAction', token)
+    }
     document.addEventListener('mousedown', this.handleClickOutside)
   },
   methods : {
@@ -94,6 +113,10 @@ export default {
 .logo-saferide {
   width: 10rem;
   height: auto;
+}
+
+.logo-saferide:hover {
+  cursor:pointer;
 }
 
 .btns {

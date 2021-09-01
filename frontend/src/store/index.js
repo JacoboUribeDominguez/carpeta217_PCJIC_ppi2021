@@ -12,9 +12,28 @@ export default new Vuex.Store({
     showImgs : false,
     searchedWord : '',
     img : null,
-    imgFile : null
+    imgFile : null,
+    addMetrica : {
+      show : false
+    },
+    metricas : null
   },
   mutations: {
+    mountMetricas(state, metricas){
+      state.metricas = metricas
+    },
+    changeAddMetrica(state, metrica){
+      if(metrica){
+        state.addMetrica = {
+          show : true,
+          ruta : metrica
+        }
+      } else {
+        state.addMetrica = {
+          show : false
+        }
+      }
+    },
     mountRutas(state, rutas){
       state.rutas = rutas
     },
@@ -56,7 +75,9 @@ export default new Vuex.Store({
         body:JSON.stringify({
           id_ruta : '',
           multimedia : name,
-          id_usuario : '' + id,
+          id_usuario : {
+            id_usuario:'' + id,
+          },
           me_gusta : 0,
           ubicacion : ubication
         }),
@@ -67,6 +88,9 @@ export default new Vuex.Store({
       .then(res => res.json())
       .then(result => {
         this.$store.dispatch('addRoute', result)
+        state.addMetrica = {
+          show : false
+        }
       })
     },
     addRoute(state, ruta){
@@ -74,8 +98,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    mountRutasAction( { commit }, { refStorage } ){
-      fetch('http://localhost:8081/rutas')
+    mountMetricasAction({ commit }, id_usuario ){
+      fetch(`http://localhost:8081/metricas?id_usuario=${id_usuario}`)
+      .then(res => res.json())
+      .then(result => {
+        commit('mountMetricas', result)
+      })
+    },
+    mountRutasAction( { commit }, { refStorage, id } ){
+      fetch(`http://localhost:8081/rutas?id=${id}`)
       .then(res => res.json())
       .then(result => {
         let array = []
@@ -149,6 +180,13 @@ export default new Vuex.Store({
     },
     addRouteAction( { commit }, ruta ){
       commit('addRoute', ruta)
+    },
+    changeAddMetricaAction( { commit }, addMetrica ) {
+      if(addMetrica){
+        commit('changeAddMetrica', addMetrica)
+      } else {
+        commit('changeAddMetrica')
+      }
     }
   },
   modules: {},
