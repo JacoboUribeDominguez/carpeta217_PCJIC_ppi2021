@@ -12,8 +12,7 @@
 
 <style lang="scss">
 body {
-  margin:0;
-
+  margin: 0;
 }
 
 #app {
@@ -26,24 +25,23 @@ body {
 
 #nav {
   background: #4ac8f7;
-  width:100%;
-  display:flex;
+  width: 100%;
+  display: flex;
   justify-content: center;
-  padding:1rem;
+  padding: 1rem;
   a {
-    padding:1.4rem 1.5rem;
-    color:white;
-    border-radius:50%;
+    padding: 1.4rem 1.5rem;
+    color: white;
+    border-radius: 50%;
     text-decoration: none;
     background: #11a6de;
-    display:flex;
+    display: flex;
     justify-content: center;
   }
 
   .logoNavbar {
     width: 9rem;
-    height:auto;
+    height: auto;
   }
 }
-
 </style>

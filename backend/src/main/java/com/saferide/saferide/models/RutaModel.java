@@ -1,19 +1,27 @@
 package com.saferide.saferide.models;
 
 import javax.persistence.*;
-
+/**
+ * Clase que determina el modelo y apunta a los campos en la base de datos.
+ */
 @Entity
 @Table(name = "ruta")
 public class RutaModel {
-
+    /**
+     * Se definen las variables apuntando a cada una de las columnas de las bases de datos,
+     * tomando en cuenta llaves primarias y foraneas
+     */
     @Id
     @Column(unique = true, nullable = false)
     private String id_ruta;
     @Column
     private String multimedia;
-
+    /**
+     * Se define la variable id_usuario apuntando a la clase "UserModel" para mantener la
+     * misma relación tanto en Springboot como en SQL
+     */
     @ManyToOne
-    @JoinColumn(name="id_usuario")
+    @JoinColumn(name = "id_usuario")
     private UserModel id_usuario;
 
     @Column

@@ -1,15 +1,15 @@
 <template>
   <div class="home">
-    <AddMetrica 
-      v-if="addMetrica.show" 
-    />
+    <AddMetrica v-if="addMetrica.show" />
     <!--Abajo de aquí va todo el código de la página principal-->
-    <AddRoute 
-      @alternateShowAddRoute="alternateShowAddRoute" 
-      v-if="showAddRoute" />
-    <AddRouteResponsive 
-      @alternateShowAddRoute="alternateShowAddRoute" 
-      v-if="showAddRoute"/>
+    <AddRoute
+      @alternateShowAddRoute="alternateShowAddRoute"
+      v-if="showAddRoute"
+    />
+    <AddRouteResponsive
+      @alternateShowAddRoute="alternateShowAddRoute"
+      v-if="showAddRoute"
+    />
     <Navbar />
     <div id="Peatones">
       <div class="">
@@ -19,31 +19,55 @@
         >
           <div class="col-md-5 col-sm-8" style="padding: 0">
             <div>
-              <h1 style="font-family: 'Raleway', sans-serif;">
-                Reporta y ayuda 
-                <svg v-if="$cookies.get('token')" @click="alternateShowAddRoute" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus-circle iconAdd" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              <h1 style="font-family: 'Raleway', sans-serif">
+                Reporta y ayuda
+                <svg
+                  v-if="$cookies.get('token')"
+                  @click="alternateShowAddRoute"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  fill="currentColor"
+                  class="bi bi-plus-circle iconAdd"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                  />
+                  <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                  />
                 </svg>
               </h1>
             </div>
-            <div class="m-4 d-flex justify-content-center align-items-center errorNoPublications" v-if="rutas.length === 0" style="height:250px;">
-              <h1 class="text-muted" style="font-size:20px;">Algo esta mal, intentenlo mas tarde</h1>
+            <div
+              class="m-4 d-flex justify-content-center align-items-center errorNoPublications"
+              v-if="rutas.length === 0"
+              style="height: 250px"
+            >
+              <h1 class="text-muted" style="font-size: 20px">
+                Algo esta mal, intentenlo mas tarde
+              </h1>
             </div>
-            <div class="publicaciones" v-for="(ruta, index) in rutas" :key="index" v-else>
-              <FeaturedPublication 
+            <div
+              class="publicaciones"
+              v-for="(ruta, index) in rutas"
+              :key="index"
+              v-else
+            >
+              <FeaturedPublication
                 v-if="index < 3"
                 :ruta="ruta"
                 :index="index"
                 @like="like"
-                :showImgs="showImgs" 
+                :showImgs="showImgs"
               />
-              <Publication 
+              <Publication
                 v-else
                 :index="index"
                 @like="like"
                 :ruta="ruta"
-                :showImgs="showImgs" 
+                :showImgs="showImgs"
               />
             </div>
           </div>
@@ -57,24 +81,32 @@
 <script>
 // @ is an alias to /src
 
-//components
-import FeaturedPublication from "../components/rutes/FeaturedPublication.vue"
-import Publication from "../components/rutes/Publication.vue"
+//Components
+import FeaturedPublication from "../components/rutes/FeaturedPublication.vue";
+import Publication from "../components/rutes/Publication.vue";
 import Navbar from "../components/Navbar.vue";
-import AddMetrica from "../components/rutes/addMetrica.vue"
+import AddMetrica from "../components/rutes/addMetrica.vue";
 import AddRoute from "../components/AddRoute.vue";
 import AddRouteResponsive from "../components/AddRouteResponsive.vue";
 
-//librerias
-import { storage } from '../utils/firebase'
-const refStorage = storage.ref()
+//Librerias
+import { storage } from "../utils/firebase";
+
+const refStorage = storage.ref();
 // import Publicacion from "../components/Publicacion"
 
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
+/**
+ * Funcion para el uso de componentes, data y condicionales en el proyecto
+ * Observación: Se hace uso de fetch para hacer una promesa, además de condicionales
+ * para que en el home se pueda dar me gusta, quitarlo, y acceder a las opciones de cada una,
+ * esto incluye comentar y colocar en favoritos. Que despliega un menu interactuable para confirmar
+ * la acción. A parte de revisar si el usuario inicio sesión para permitirle o no agregar una nueva ruta.
+ */
 export default {
   name: "Home",
-  components: { 
+  components: {
     Navbar,
     AddRoute,
     AddRouteResponsive,
@@ -83,122 +115,127 @@ export default {
     AddMetrica
     // Publicacion
   },
+  /**
+   * Donde se almacena la data.
+   * @returns {{showAddRoute: boolean}}
+   */
   data() {
     return {
-      showAddRoute: false,
+      showAddRoute: false
     };
   },
-  mounted(){
-    if(this.showImgs){
-      this.$store.dispatch('changeShowImgsAction')
+  mounted() {
+    if (this.showImgs) {
+      this.$store.dispatch("changeShowImgsAction");
     }
-    if(this.$cookies.get('token')){
-      this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
+    if (this.$cookies.get("token")) {
+      this.$store.dispatch("mountRutasAction", {
+        refStorage,
+        id: this.$cookies.get("token")
+      });
     } else {
-      this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
+      this.$store.dispatch("mountRutasAction", { refStorage, id: "notoken" });
     }
   },
   methods: {
-
     //Alternar rutas *****************************************************************
-    alternateShowAddRoute(){
+    alternateShowAddRoute() {
       this.showAddRoute = !this.showAddRoute;
     },
 
     //Dar like ***********************************************************************
-    like(ruta, index){
-
-      if(!this.$cookies.get('token')){
-        this.$router.push('/login')
-        return
+    like(ruta, index) {
+      if (!this.$cookies.get("token")) {
+        this.$router.push("/login");
+        return;
       }
 
-      const oldMe_gusta = this.rutas[index].me_gusta
+      const oldMe_gusta = this.rutas[index].me_gusta;
 
-      if(!ruta.liked){
+      if (!ruta.liked) {
         this.rutas[index].me_gusta = this.rutas[index].me_gusta + 1;
-        this.rutas[index].liked = !this.rutas[index].liked
-        const { id_ruta } = ruta
-        fetch('http://localhost:8081/likes/ruta', {
-          method: 'POST',
+        this.rutas[index].liked = !this.rutas[index].liked;
+        const { id_ruta } = ruta;
+        fetch("http://localhost:8081/likes/ruta", {
+          method: "POST",
           body: JSON.stringify({
             id_ruta,
-            id_usuario : this.$cookies.get('token')
+            id_usuario: this.$cookies.get("token")
           }),
-          headers : {
-            'Content-Type' : 'application/json'
+          headers: {
+            "Content-Type": "application/json"
           }
         })
-        .then(res => res.json())
-        .then(result => {
-          if(result.error === 0){
-            fetch('http://localhost:8081/rutas', {
-              method:'PUT',
-              body: JSON.stringify({
-                id_ruta : ruta.id_ruta,
-                multimedia : ruta.multimedia,
-                id_usuario : {
-                  id_usuario : ruta.id_usuario
-                },
-                ubicacion : ruta.ubicacion,
-                me_gusta : oldMe_gusta + 1
-              }),
-              headers : {
-                'Content-Type' : 'application/json'
-              }
-            })
-          }
-        })
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.error === 0) {
+              fetch("http://localhost:8081/rutas", {
+                method: "PUT",
+                body: JSON.stringify({
+                  id_ruta: ruta.id_ruta,
+                  multimedia: ruta.multimedia,
+                  id_usuario: {
+                    id_usuario: ruta.id_usuario
+                  },
+                  ubicacion: ruta.ubicacion,
+                  me_gusta: oldMe_gusta + 1
+                }),
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              });
+            }
+          });
       } else {
         this.rutas[index].me_gusta = this.rutas[index].me_gusta - 1;
-        this.rutas[index].liked = !this.rutas[index].liked
-        const { id_ruta } = ruta
-        fetch('http://localhost:8081/likes/ruta', {
-          method: 'DELETE',
+        this.rutas[index].liked = !this.rutas[index].liked;
+        const { id_ruta } = ruta;
+        fetch("http://localhost:8081/likes/ruta", {
+          method: "DELETE",
           body: JSON.stringify({
             id_ruta,
-            multimedia : '',
-            id_usuario : this.$cookies.get('token')
+            multimedia: "",
+            id_usuario: this.$cookies.get("token")
           }),
-          headers : {
-            'Content-Type' : 'application/json'
+          headers: {
+            "Content-Type": "application/json"
           }
         })
-        .then(res => res.json())
-        .then(result => {
-          if(result.error === 0){
-            fetch('http://localhost:8081/rutas', {
-              method:'PUT',
-              body: JSON.stringify({
-                id_ruta : ruta.id_ruta,
-                multimedia : ruta.multimedia,
-                id_usuario : {
-                  id_usuario : ruta.id_usuario
-                },
-                ubicacion : ruta.ubicacion,
-                me_gusta : oldMe_gusta - 1
-              }),
-              headers : {
-                'Content-Type' : 'application/json'
-              }
-            })
-          }
-        })
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.error === 0) {
+              fetch("http://localhost:8081/rutas", {
+                method: "PUT",
+                body: JSON.stringify({
+                  id_ruta: ruta.id_ruta,
+                  multimedia: ruta.multimedia,
+                  id_usuario: {
+                    id_usuario: ruta.id_usuario
+                  },
+                  ubicacion: ruta.ubicacion,
+                  me_gusta: oldMe_gusta - 1
+                }),
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              });
+            }
+          });
       }
     }
   },
-  computed : {
+  computed: {
     ...mapState({
-      rutas : 'rutas',
-      showImgs : 'showImgs',
-      addMetrica : 'addMetrica'
+      rutas: "rutas",
+      showImgs: "showImgs",
+      addMetrica: "addMetrica"
     })
   }
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap");
 
 #Peatones {
   background-color: #212121;
@@ -233,16 +270,15 @@ img {
 }
 
 .iconAdd {
-  color:#37f185;
+  color: #37f185;
 }
 
 .iconAdd:hover {
-  cursor:pointer;
-  color:rgb(27, 141, 74);
+  cursor: pointer;
+  color: rgb(27, 141, 74);
 }
 
 .errorNoPublications {
   min-height: 42.7vh;
 }
-
 </style>

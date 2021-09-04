@@ -17,14 +17,26 @@ import java.util.List;
 @Service
 public class RutaImplements implements RutaService {
 
-    //repositorio
+    /**
+     * Accede al repositorio
+     */
     @Autowired
     private RutaRepository rutaRepository;
 
-    //likes
+    /**
+     * Accede a los likes
+     */
     @Autowired
     private LikeRutaRepository likeRutaRepository;
 
+    /**
+     * Función para salvar una ruta.
+     * Define una ruta gracias a setId_Ruta, setMe_gusta y
+     * la salva con la funcion save del repositorio de rutas.
+     *
+     * @param ruta
+     * @return
+     */
     @Override
     public RutaModel saveRuta(RutaModel ruta) {
         Functions functions = new Functions();
@@ -38,7 +50,7 @@ public class RutaImplements implements RutaService {
     public Nodo[] getRutas(String id) {
         ListRutasPilas rutas = new ListRutasPilas();
         //acá pasamos el resultado de la busqueda a una pila
-        for(RutaModel ruta : rutaRepository.findAll() ){
+        for (RutaModel ruta : rutaRepository.findAll()) {
             rutas.addElement(ruta);
         }
         ListRutasPilas pila = new ListRutasPilas();//instanciamos pila contenedora
@@ -52,20 +64,20 @@ public class RutaImplements implements RutaService {
 
         Nodo pilaArray[] = pila.getPila(13); //array donde vamos a guardar
         //vamos a recorrer el array en pila a entregar
-        if(!id.contains("notoken")){
-            for(Nodo nodo : pilaArray){ //recorremos el array
-                if(nodo == null){
+        if (!id.contains("notoken")) {
+            for (Nodo nodo : pilaArray) { //recorremos el array
+                if (nodo == null) {
                     break;
                 }
-                if(((List<LikeRutaModel>) likeRutaRepository.existsRutes(nodo.getId_ruta(), id)).size() > 0){ //verificamos si existen las coincidencias
+                if (((List<LikeRutaModel>) likeRutaRepository.existsRutes(nodo.getId_ruta(), id)).size() > 0) { //verificamos si existen las coincidencias
                     nodo.setLiked(true); //establecemos si se le dio like el usuario
                 } else {
                     nodo.setLiked(false); //establecemos si se le dio like el usuario
                 }
             }
         } else {
-            for(Nodo nodo : pilaArray){ //recorremos el array
-                if(nodo == null){
+            for (Nodo nodo : pilaArray) { //recorremos el array
+                if (nodo == null) {
                     break;
                 }
                 nodo.setLiked(false);
@@ -75,17 +87,17 @@ public class RutaImplements implements RutaService {
     }
 
     @Override
-    public Nodo[] getResults( String palabra ){
+    public Nodo[] getResults(String palabra) {
         ListRutasPilas rutas = new ListRutasPilas();
         //acá pasamos el resultado de la busqueda a una pila
-        for(RutaModel ruta : rutaRepository.findResults(palabra)){
+        for (RutaModel ruta : rutaRepository.findResults(palabra)) {
             rutas.addElement(ruta);
         }
         return rutas.getPila(13);
     }
 
     @Override
-    public Error updateRuta(RutaModel ruta){
+    public Error updateRuta(RutaModel ruta) {
         try {
             RutaModel oldRute = rutaRepository.findById(ruta.getId_ruta()).get();
             ruta.setMultimedia(oldRute.getMultimedia());
@@ -98,11 +110,11 @@ public class RutaImplements implements RutaService {
     }
 
     @Override
-    public Error deleteRuta(String id_ruta){
-        try{
+    public Error deleteRuta(String id_ruta) {
+        try {
             rutaRepository.deleteById(id_ruta);
             return new Error("Eliminación exitosa", 0);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new Error("Hubo un error", 1);
         }
     }

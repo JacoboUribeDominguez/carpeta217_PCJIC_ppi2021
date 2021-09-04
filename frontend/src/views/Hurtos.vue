@@ -108,7 +108,10 @@
         <div class="d-flex justify-content-end mt-3">
           <div style="width: 85%">
             <button
-              class="btn-hurtos btn-reportar d-flex align-items-center optionSelected"
+              v-on:click="darClickHurto"
+              :class="
+                'btn-hurtos btn-reportar d-flex align-items-center ' + classN1
+              "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +132,12 @@
               </svg>
               <h4 class="ml-3">Hurtos</h4>
             </button>
-            <button class="btn-hurtos btn-reportar d-flex align-items-center">
+            <button
+              v-on:click="darClickReporta"
+              :class="
+                'btn-hurtos btn-reportar d-flex align-items-center ' + classN2
+              "
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -159,7 +167,14 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center" style="margin: 0; width: 100vw">
+    <div
+      v-if="!interfaz"
+      class="row justify-content-center"
+      style="margin: 0; width: 100vw"
+    >
+      <div class="llenarFormulario">
+
+      </div>
       <div class="col-md-4 col-sm-8" style="padding: 0; width: 100vw">
         <HurtoCard
           v-for="(hurto, index) in dataHurtos"
@@ -185,29 +200,42 @@ export default {
   data() {
     return {
       showAccount: false,
+      interfaz: false,
+      classN1: "optionSelected",
+      classN2: "",
       dataHurtos: [
         {
           titulo: "Poblado - Patio Bonito",
           modalidad: "Robo con arma blanca",
-          imagen: "http://localhost:8080/img/imgPrueba1.894b6dbe.jpg",
+          imagen: "http://localhost:8080/img/imgPrueba1.894b6dbe.jpg"
         },
         {
           titulo: "Poblado - Lleras",
           modalidad: "Robo con arma de fuego",
-          imagen: "http://localhost:8080/img/imgPrueba1.894b6dbe.jpg",
+          imagen: "http://localhost:8080/img/imgPrueba1.894b6dbe.jpg"
         },
         {
           titulo: "Belen - Rincon",
           modalidad: "Robo con arma falsa",
-          imagen: "http://localhost:8080/img/imgPrueba1.894b6dbe.jpg",
-        },
-      ],
+          imagen: "http://localhost:8080/img/imgPrueba1.894b6dbe.jpg"
+        }
+      ]
     };
   },
   mounted() {
     document.addEventListener("mousedown", this.handleClickOutside);
   },
   methods: {
+    darClickHurto() {
+      this.interfaz = false;
+      this.classN1 = "optionSelected";
+      this.classN2 = "";
+    },
+    darClickReporta() {
+      this.interfaz = true;
+      this.classN1 = "";
+      this.classN2 = "optionSelected";
+    },
     logout() {
       this.$cookies.remove("token");
       this.showAccount = false;
@@ -224,8 +252,8 @@ export default {
           }
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
