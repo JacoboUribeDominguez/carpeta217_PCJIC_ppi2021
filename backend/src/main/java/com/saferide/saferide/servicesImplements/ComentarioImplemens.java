@@ -29,8 +29,8 @@ public class ComentarioImplemens implements ComentarioService {
     }
 
     @Override
-    public List<ComentarioModel> readComments() {
-        return (List<ComentarioModel>) comentarioRepository.findAll();
+    public List<ComentarioModel> readComments(String id_ruta) {
+        return (List<ComentarioModel>) comentarioRepository.findAllById(id_ruta);
     }
 
     @Override

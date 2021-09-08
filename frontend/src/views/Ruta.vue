@@ -113,7 +113,7 @@ export default {
     },
     methods : {
         sendComment(){
-            if(this.comment > 0){
+            if(this.comment.length > 0){
                 if(this.$cookies.get('token')){
                     console.log('entre')
                     fetch('http://localhost:8081/comentarios', {
@@ -126,13 +126,22 @@ export default {
                         headers : {
                             'Content-Type' : 'application/json'
                         }
+                    }).then(() => {
+                        fetch(`http://localhost:8081/comentarios?id_ruta=${this.rutas[this.id].id_ruta}`)
+                        .then(result => result.json())
+                        .then(res => {
+                            this.comments = res
+                        })
                     })
+                    this.comment = ""
                 } else {
                     this.$router.push("/login")
                 } 
             }
         },
         goTo(id){
+            this.comments = [];
+            this.commentsLoading = false;
             this.id = id
         },
         change(){
@@ -240,17 +249,29 @@ export default {
         if(this.rutas.length === 0){
             this.$store.dispatch('mountRutasAction', { refStorage })
         } else {
+            fetch(`http://localhost:8081/comentarios?id_ruta=${this.rutas[this.id].id_ruta}`)
+            .then(result => result.json())
+            .then(res => {
+                this.comments = res
+            })
+            this.commentsLoading = true;
             this.change()
         }
     },
     updated(){
         this.change()
         if(this.comments.length === 0 && !this.commentsLoading){
-            console.log('updating...')
-            console.log(this.rutas)
-            console.log(this.id)
+            fetch(`http://localhost:8081/comentarios?id_ruta=${this.rutas[this.id].id_ruta}`)
+            .then(result => result.json())
+            .then(res => {
+                this.comments = res
+            })
             this.commentsLoading = true;
         }
+    },
+    beforeDestroy(){
+        this.comments = [];
+        this.commentsLoading = false;
     }
 }
 </script>
