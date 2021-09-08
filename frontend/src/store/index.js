@@ -76,7 +76,7 @@ export default new Vuex.Store({
           id_ruta : '',
           multimedia : name,
           id_usuario : {
-            id_usuario:'' + id,
+            id_usuario:'' + id
           },
           me_gusta : 0,
           ubicacion : ubication

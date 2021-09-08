@@ -50,4 +50,14 @@ public class MetricaImplements implements MetricaService {
             return false;
         }
     }
+
+    @Override
+    public Error removeMetricas(String id_ruta){
+        try{
+            metricaRepository.removeAllByIdRuta(id_ruta);
+            return new Error("No hubo ningun problema", 0);
+        }catch(Exception e){
+            return new Error("Hubo ningun problema", 1);
+        }
+    }
 }

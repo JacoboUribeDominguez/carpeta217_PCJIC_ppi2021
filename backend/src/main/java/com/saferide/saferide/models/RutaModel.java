@@ -1,6 +1,9 @@
 package com.saferide.saferide.models;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "ruta")
@@ -9,6 +12,7 @@ public class RutaModel {
     @Id
     @Column(unique = true, nullable = false)
     private String id_ruta;
+
     @Column
     private String multimedia;
 
@@ -20,6 +24,9 @@ public class RutaModel {
     private int me_gusta;
     @Column
     private String ubicacion;
+
+    @OneToMany(mappedBy = "id_ruta", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<MetricaModel> metricaList;
 
     public String getId_ruta() {
         return id_ruta;

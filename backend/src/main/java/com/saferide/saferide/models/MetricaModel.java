@@ -1,5 +1,8 @@
 package com.saferide.saferide.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,13 +14,14 @@ public class MetricaModel {
     private String id_metrica;
 
     //@Column(name = "id_usuario")
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.ALL })
     @JoinColumn(name="id_usuario")
     private UserModel id_usuario;
 
     //@Column(name = "id_ruta")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL )
     @JoinColumn(name="id_ruta")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private RutaModel id_ruta;
 
     public String getId_metrica() {

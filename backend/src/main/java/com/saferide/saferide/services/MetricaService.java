@@ -9,4 +9,5 @@ public interface MetricaService {
     Nodo[] getMetricas(String id_usuario);
     Error saveMetricas(MetricaModel metrica);
     boolean exists(String id_ruta, String id_usuario);
+    Error removeMetricas(String id_ruta);
 }

@@ -10,4 +10,5 @@ public interface ComentarioService {
     List<ComentarioModel> readComments(String id_ruta);//Read
 
     void deleteComment(String id_comment);//Delete
+
 }

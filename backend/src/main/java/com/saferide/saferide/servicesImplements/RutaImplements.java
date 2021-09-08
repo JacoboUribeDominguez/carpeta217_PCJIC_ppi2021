@@ -3,16 +3,19 @@ package com.saferide.saferide.servicesImplements;
 import com.saferide.saferide.functions.Functions;
 import com.saferide.saferide.helpers.Error;
 import com.saferide.saferide.models.LikeRutaModel;
+import com.saferide.saferide.models.MetricaModel;
 import com.saferide.saferide.models.RutaModel;
+import com.saferide.saferide.models.UserModel;
 import com.saferide.saferide.pilas.ListRutasPilas;
 import com.saferide.saferide.pilas.Nodo;
-import com.saferide.saferide.repositories.LikeRutaRepository;
-import com.saferide.saferide.repositories.RutaRepository;
+import com.saferide.saferide.repositories.*;
 import com.saferide.saferide.services.RutaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RutaImplements implements RutaService {
@@ -25,11 +28,28 @@ public class RutaImplements implements RutaService {
     @Autowired
     private LikeRutaRepository likeRutaRepository;
 
+    //métricas
+    @Autowired
+    private MetricaRepository metricaRepository;
+
+    //comentario
+    @Autowired
+    private ComentarioRepository comentarioRepository;
+
+    //times metrica
+    @Autowired
+    private TimesRepository timesRepository;
+
+    //user
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public RutaModel saveRuta(RutaModel ruta) {
         Functions functions = new Functions();
         ruta.setId_ruta(functions.makeId());
         ruta.setMe_gusta(0);
+        ruta.getId_usuario().setContraseña("321");
         rutaRepository.save(ruta);
         return ruta;
     }
@@ -99,10 +119,33 @@ public class RutaImplements implements RutaService {
 
     @Override
     public Error deleteRuta(String id_ruta){
+        System.out.println(id_ruta);
+        try{
+            for(MetricaModel metrica : metricaRepository.findAllByIdRuta(id_ruta)){
+                timesRepository.deleteByIdMetrica(metrica.getId_metrica());
+            }
+            metricaRepository.removeAllByIdRuta(id_ruta);
+        }catch(Exception e){
+            System.out.println("Métricas error");
+            return new Error("Hubo un error", 1);
+        }
+        try{
+            likeRutaRepository.deleteLikeByRuta(id_ruta);
+        }catch(Exception e){
+            System.out.println("Likes error");
+            return new Error("Hubo un error", 1);
+        }
+        try{
+            comentarioRepository.deleteCommentByIdRuta(id_ruta);
+        }catch(Exception e){
+            System.out.println("Comentarios error");
+            return new Error("Hubo un error", 1);
+        }
         try{
             rutaRepository.deleteById(id_ruta);
             return new Error("Eliminación exitosa", 0);
         }catch(Exception e){
+            System.out.println("Ruta error");
             return new Error("Hubo un error", 1);
         }
     }
