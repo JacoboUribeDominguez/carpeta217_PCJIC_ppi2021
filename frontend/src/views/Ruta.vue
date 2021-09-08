@@ -61,12 +61,23 @@
                         />
                     </div>
                 </div>
+                <div class="px-4 pt-3" v-for="(comment, index) in comments" :key="index">
+                    <div class="comment">
+                        {{comment.descripcion}}
+                    </div>
+                </div>
                 <div class="d-flex flex-column justify-content-center align-items-center p-4">
                     <div class="d-flex justify-content-center inputCommentContainer px-2">
                         <div class="mr-3" style="width:100%">
-                            <input class="inputComment" type="text" placeholder="Comenta algo..."/>
+                            <input 
+                                class="inputComment" 
+                                type="text" 
+                                placeholder="Comenta algo..."
+                                v-model="comment"
+                                @keyup.enter="sendComment"
+                                maxlength="250"/>
                         </div>
-                        <div class="d-flex align-items-center" style="color:#37f185;transform: rotate(-45deg);opacity:0.6">
+                        <div @click="sendComment" class="d-flex align-items-center btn-sendComment" style="transform: rotate(-45deg);">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
                                 <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
                             </svg>
@@ -94,10 +105,33 @@ export default {
     data(){
         return{   
             id : this.$route.params.id - 1,
-            cambiado : false
+            cambiado : false,
+            comment : "",
+            comments : [],
+            commentsLoading : false
         }
     },
     methods : {
+        sendComment(){
+            if(this.comment > 0){
+                if(this.$cookies.get('token')){
+                    console.log('entre')
+                    fetch('http://localhost:8081/comentarios', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            id_ruta: this.rutas[this.id].id_ruta,
+                            id_usuario : this.$cookies.get('token'),
+                            descripcion : this.comment
+                        }),
+                        headers : {
+                            'Content-Type' : 'application/json'
+                        }
+                    })
+                } else {
+                    this.$router.push("/login")
+                } 
+            }
+        },
         goTo(id){
             this.id = id
         },
@@ -211,6 +245,12 @@ export default {
     },
     updated(){
         this.change()
+        if(this.comments.length === 0 && !this.commentsLoading){
+            console.log('updating...')
+            console.log(this.rutas)
+            console.log(this.id)
+            this.commentsLoading = true;
+        }
     }
 }
 </script>
@@ -304,5 +344,25 @@ export default {
         transform : rotate(180deg)
     }
 
+    .btn-sendComment {
+        color:#37f185;
+        cursor:pointer;
+        opacity:0.6
+    }
+
+    .btn-sendComment:hover {
+        color:#00ff6a;
+        opacity:1
+    }
+
+    /* comments */
+
+    .comment {
+        background:#444444;
+        border-radius:15px;
+        color:#919191;
+        padding:.5rem;
+        text-align: start;
+    }
 
 </style>

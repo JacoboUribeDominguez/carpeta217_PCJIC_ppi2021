@@ -21,8 +21,8 @@ public class ComentarioController {
         comentarioService.saveComment(comment);
     }
 
-    @GetMapping
-    public List<ComentarioModel> readComments() {
+    @PostMapping("/")
+    public List<ComentarioModel> readComments(@RequestParam String id_ruta) {
         return comentarioService.readComments();
     }
 
