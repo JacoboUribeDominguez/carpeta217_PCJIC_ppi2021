@@ -70,6 +70,9 @@
 <script>
 
     import { mapState } from 'vuex'
+    //librerias
+    import { storage } from '../utils/firebase'
+    const refStorage = storage.ref()
 
     export default {
         name : 'AddRouteResponsive',
@@ -96,18 +99,28 @@
                     id : this.$cookies.get('token'),
                     ubication
                 })
-                this.close
+                this.close()
             },
             close(){
+                if(this.showImgs){
+                    this.$store.dispatch('changeShowImgsAction')
+                }
+                if(this.$cookies.get('token')){
+                    this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
+                } else {
+                    this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
+                }
                 this.firstUbication = ""
                 this.lastUbication = ""
                 this.$store.dispatch('changeImgAction')
                 this.$emit('alternateShowAddRoute')
+                
             }
         },
         computed : {
             ...mapState({
-                img : 'img'
+                img : 'img',
+                showImgs : 'showImgs',
             })
         }
     }

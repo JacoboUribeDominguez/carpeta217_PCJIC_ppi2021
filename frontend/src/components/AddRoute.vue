@@ -10,7 +10,7 @@
                 </div>
                 <div class="bodyAddRoute" style="overflow:auto;height:63vh">
                     <div class="d-flex justify-content-center">
-                        <input type="text" class="input-ubicacion" v-model="firstUbication" placeholder="Ubicación iniial"/>
+                        <input type="text" class="input-ubicacion" v-model="firstUbication" placeholder="Ubicación inicial"/>
                         <p class="mx-3 d-flex align-items-center" style="margin:0;color:white;font-weight:bold;">-</p>
                         <input type="text" class="input-ubicacion" v-model="lastUbication" placeholder="Ubicación final"/>
                     </div>
@@ -71,6 +71,9 @@
 <script>
 
     import { mapState } from 'vuex'
+    //librerias
+    import { storage } from '../utils/firebase'
+    const refStorage = storage.ref()
 
     export default {
         name : 'AddRoute',
@@ -100,9 +103,17 @@
                     id : this.$cookies.get('token'),
                     ubication
                 })
-                this.close
+                this.close()
             },
             close(){
+                if(this.showImgs){
+                    this.$store.dispatch('changeShowImgsAction')
+                }
+                if(this.$cookies.get('token')){
+                    this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
+                } else {
+                    this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
+                }
                 this.firstUbication = ""
                 this.lastUbication = ""
                 this.$store.dispatch('changeImgAction')
@@ -111,7 +122,8 @@
         },
         computed : {
             ...mapState({
-                img : 'img'
+                img : 'img',
+                showImgs : 'showImgs',
             })
         }
     }
