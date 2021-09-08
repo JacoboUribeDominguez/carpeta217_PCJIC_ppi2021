@@ -5,6 +5,7 @@
             :ruta="ruta"
             @showBottonMenu="showBottonMenu"
             @goToPublication="goToPublication"
+            @removeRute="removeRute"
         />
         <p class="autor d-flex align-items-center">
             <svg
@@ -84,7 +85,17 @@ export default {
         },
         goToPublication(){
             this.$router.push(`/ruta/${(this.index+1)}`)
-        }
+        },
+        removeRute(){
+            fetch(`http://localhost:8081/rutas?id_usuario=${this.ruta.id_ruta}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                this.showBotonsRute = !this.showBotonsRute;
+            })
+        },
     }
 }
 </script>
