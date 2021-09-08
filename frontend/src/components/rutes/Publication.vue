@@ -62,6 +62,9 @@
 <script>
 import ButtonsRute from "./botonsRute.vue"
 import "../../styles/publication.css"
+//librerias
+import { storage } from '../../utils/firebase'
+const refStorage = storage.ref()
 
 export default {
     name : 'Publication',
@@ -92,8 +95,17 @@ export default {
             })
             .then(res => res.json())
             .then(result => {
-                console.log(result);
-                this.showBotonsRute = !this.showBotonsRute;
+                if(result.error === 0){
+                    this.showBotonsRute = !this.showBotonsRute;
+                    if(this.showImgs){
+                        this.$store.dispatch('changeShowImgsAction')
+                    }
+                    if(this.$cookies.get('token')){
+                        this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
+                    } else {
+                        this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
+                    }
+                }
             })
         },
     }
