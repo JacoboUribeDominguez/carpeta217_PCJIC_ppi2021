@@ -15,4 +15,9 @@ public interface RutaRepository extends CrudRepository<RutaModel, String> {
     @Transactional
     @Query(value = "DELETE FROM ruta WHERE id_ruta = ?1", nativeQuery = true)
     void deleteById(String id_ruta);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE ruta SET me_gusta = ?1 WHERE id_ruta = ?2", nativeQuery = true)
+    void updateByLike(int me_gusta, String id_ruta);
 }
