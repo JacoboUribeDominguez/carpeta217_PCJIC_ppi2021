@@ -14,12 +14,14 @@ public class MetricaModel {
     private String id_metrica;
 
     //@Column(name = "id_usuario")
-    @ManyToOne(cascade = { CascadeType.ALL })
+    //@ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne
     @JoinColumn(name="id_usuario")
     private UserModel id_usuario;
 
     //@Column(name = "id_ruta")
-    @ManyToOne(cascade = CascadeType.ALL )
+    //@ManyToOne(cascade = CascadeType.ALL )
+    @ManyToOne
     @JoinColumn(name="id_ruta")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private RutaModel id_ruta;
