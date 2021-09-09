@@ -67,7 +67,8 @@ export default {
                         if(result.error === 1){
                             console.log('hubo un error')
                         } else {
-                            this.$router.push('/metricas')
+                            this.$router.push('/metricas');
+                            this.$store.dispatch('changeAddMetricaAction');
                         }
                     })
                 } else {

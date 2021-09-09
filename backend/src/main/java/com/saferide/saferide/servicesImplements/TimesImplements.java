@@ -31,9 +31,9 @@ public class TimesImplements implements TimesService {
             } else {
                 average = sum / size;
                 if(timesModel.getTiempo() >= average){
-                    return new Error("Mayor", 0);
-                } else {
                     return new Error("Menor", 0);
+                } else {
+                    return new Error("Mayor", 0);
                 }
             }
 

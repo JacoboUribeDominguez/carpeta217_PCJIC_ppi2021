@@ -72,7 +72,7 @@ export default {
   },
   methods : {
     sendTime(){
-      if(this.tiempo){
+      if(this.time > 0){
         fetch('http://localhost:8081/times', {
           method : 'POST',
           body : JSON.stringify({
@@ -87,9 +87,9 @@ export default {
         .then(result => {
           if(result.error === 0){
             if(result.message === "Mayor"){
-              this.msj = "¡Felicitaciones! Lo has hecho por encima de tu promedio"
+              this.msj = "¡Felicitaciones! Lo has hecho mejor que tu promedio"
             } else if(result.message === "Menor") {
-              this.msj = "Lo lamento, no has logrado alcanzar tu promedio"
+              this.msj = "Lo lamento, te ha ido peor que en tu promedio"
             } else {
               this.msj = "Es tu primer tiempo agregado 😊"
             }

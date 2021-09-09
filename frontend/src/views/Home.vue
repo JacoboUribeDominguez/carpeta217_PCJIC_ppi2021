@@ -19,6 +19,7 @@
         >
           <div class="col-md-5 col-sm-8" style="padding: 0">
             <div>
+<<<<<<< HEAD
               <h1 style="font-family: 'Raleway', sans-serif">
                 Reporta y ayuda
                 <svg
@@ -38,6 +39,19 @@
                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
                   />
                 </svg>
+=======
+              <h1 className="d-flex" style="font-family: 'Raleway', sans-serif;text-align:left" v-if="$cookies.get('token')">
+                <div class="d-flex justify-content-center">Agrega una ruta</div>
+                <div class="mt-3 p-3 containerIconAdd">
+                  <svg v-if="$cookies.get('token')" @click="alternateShowAddRoute" xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-plus-circle iconAdd" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg>
+                </div>
+              </h1>
+              <h1 style="font-family: 'Raleway', sans-serif;" v-else>
+                Rutas
+>>>>>>> 85b3a7af52393e9526085cb2d2cc93d0b920ac7f
               </h1>
             </div>
             <div
@@ -270,7 +284,12 @@ img {
 }
 
 .iconAdd {
+<<<<<<< HEAD
   color: #37f185;
+=======
+  /* color:#37f185; */
+  color:white;
+>>>>>>> 85b3a7af52393e9526085cb2d2cc93d0b920ac7f
 }
 
 .iconAdd:hover {
@@ -281,4 +300,16 @@ img {
 .errorNoPublications {
   min-height: 42.7vh;
 }
+<<<<<<< HEAD
+=======
+
+.containerIconAdd {
+  background:#37f185;
+  border-radius:15px;
+  display:flex;
+  justify-content: center;
+  margin: 0 20%;
+}
+
+>>>>>>> 85b3a7af52393e9526085cb2d2cc93d0b920ac7f
 </style>

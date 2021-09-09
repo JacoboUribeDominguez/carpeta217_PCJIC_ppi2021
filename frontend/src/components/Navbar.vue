@@ -59,17 +59,6 @@
                 <button class="btnBuscar" @click="search">Buscar</button>
               </div>
             </div>
-            <div class="navegation d-flex justify-content-between">
-              <button
-                class="navegationElement active"
-                style="width: 40%; height: 1rem"
-              ></button>
-              <button
-                @click="$router.push('/peatones')"
-                class="navegationElement"
-                style="width: 40%; height: 1rem"
-              ></button>
-            </div>
           </div>
         </div>
       </div>
