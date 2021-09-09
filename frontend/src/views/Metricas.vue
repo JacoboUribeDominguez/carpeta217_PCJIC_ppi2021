@@ -49,7 +49,7 @@
       <MetricaCard v-for="(metrica, index) in metricas" :key="index" :metrica="metrica"/>
     </div>
     <div v-else>
-      <h1>Hola</h1>
+      <h1>No hay métricas disponibles :(</h1>
     </div>
   </div>
 </template>
