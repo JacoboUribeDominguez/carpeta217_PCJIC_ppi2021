@@ -5,6 +5,7 @@
             :ruta="ruta"
             @showBottonMenu="showBottonMenu"
             @goToPublication="goToPublication"
+            @removeRute="removeRute"
         />
         <p class="autor d-flex align-items-center">
             <svg
@@ -61,6 +62,9 @@
 <script>
 import ButtonsRute from "./botonsRute.vue"
 import "../../styles/publication.css"
+//librerias
+import { storage } from '../../utils/firebase'
+const refStorage = storage.ref()
 
 export default {
     name : 'Publication',
@@ -84,7 +88,26 @@ export default {
         },
         goToPublication(){
             this.$router.push(`/ruta/${(this.index+1)}`)
-        }
+        },
+        removeRute(){
+            fetch(`http://localhost:8081/rutas?id_usuario=${this.ruta.id_ruta}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then(result => {
+                if(result.error === 0){
+                    this.showBotonsRute = !this.showBotonsRute;
+                    if(this.showImgs){
+                        this.$store.dispatch('changeShowImgsAction')
+                    }
+                    if(this.$cookies.get('token')){
+                        this.$store.dispatch('mountRutasAction', { refStorage, id : this.$cookies.get('token')})
+                    } else {
+                        this.$store.dispatch('mountRutasAction', { refStorage, id : "notoken"})
+                    }
+                }
+            })
+        },
     }
 }
 </script>

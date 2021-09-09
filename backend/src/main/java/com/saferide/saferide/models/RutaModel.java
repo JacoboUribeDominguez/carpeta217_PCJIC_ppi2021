@@ -1,9 +1,16 @@
 package com.saferide.saferide.models;
 
 import javax.persistence.*;
+<<<<<<< HEAD
 /**
  * Clase que determina el modelo y apunta a los campos en la base de datos.
  */
+=======
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+>>>>>>> 859e6670a89e03b82a5da9213d22bbf82f77bbf4
 @Entity
 @Table(name = "ruta")
 public class RutaModel {
@@ -14,6 +21,7 @@ public class RutaModel {
     @Id
     @Column(unique = true, nullable = false)
     private String id_ruta;
+
     @Column
     private String multimedia;
     /**
@@ -28,6 +36,9 @@ public class RutaModel {
     private int me_gusta;
     @Column
     private String ubicacion;
+
+    @OneToMany(mappedBy = "id_ruta", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<MetricaModel> metricaList;
 
     public String getId_ruta() {
         return id_ruta;
