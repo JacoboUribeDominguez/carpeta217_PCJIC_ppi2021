@@ -8,6 +8,7 @@ import com.saferide.saferide.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.time.*;
 
 @Service
@@ -18,9 +19,10 @@ public class UserImplements implements UserService {
     private UserRepository userRepository;
 
     //login service
+
     @Override
-    public Error login(UserModel user){
-        if (user.getCorreo().length() > 0 ){
+    public Error login(UserModel user) {
+        if (user.getCorreo().length() > 0) {
             //Si el usuario envía un correo y lo encuentra va a verificar la contraseña y le mandará un mensaje sobre la verficación de esta (Error)
             UserModel foundUser = userRepository.findByCorreo(user.getCorreo());
             return checkUser(foundUser, user);
@@ -32,6 +34,7 @@ public class UserImplements implements UserService {
     }
 
     //register service
+
     @Override
     public Error saveUsers(UserModel userLog) {
         //verificamos si el usuario ya esta registrado para evitar usuarios repetidos.
@@ -45,9 +48,9 @@ public class UserImplements implements UserService {
         }
     }
 
-    public Error checkUser(UserModel foundUser, UserModel user){
-        if(foundUser != null){
-            if (foundUser.getContraseña().equals(user.getContraseña())){
+    public Error checkUser(UserModel foundUser, UserModel user) {
+        if (foundUser != null) {
+            if (foundUser.getContraseña().equals(user.getContraseña())) {
                 return new Error(foundUser.getId_usuario(), 0);
             } else {
                 return new Error("Contraseña o correo/usuario inválido", 1);
