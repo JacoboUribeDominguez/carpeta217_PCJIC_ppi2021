@@ -1,7 +1,5 @@
 package com.saferide.saferide.controllers;
-
 //importamos diferentes anotaciones y funciones a usar
-
 import com.saferide.saferide.models.UserModel;
 import com.saferide.saferide.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,6 @@ public class UserController {
     UserService userService;
 
     /*
-
         ¿Cómo funciona las peticiones a la api rest?
         principalmente con las anotaciones mapping indicarémos que tipo de peticion es y la ruta que se debe seguir
         Anotaciones que usaremos: @GetMapping @PostMapping @PutMapping @DeleteMapping.
@@ -65,7 +62,9 @@ public class UserController {
 
     @PostMapping("/saveUser")
     public Error saveUsers(@RequestBody UserModel userLog) {
+
         return userService.saveUsers(userLog);
+
     }
 
 
